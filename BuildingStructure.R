@@ -75,36 +75,71 @@ heatinginfo_only_dormitories <-
 
 building_stock_2022 <- read_csv("data/building_stock_2022.csv") %>%
   mutate_if(is.character, as.factor) %>%
-  left_join(distinct(select(
+  inner_join(distinct(select(
     nuts3regioninfo, "NUTS1Name", "NUTS1Code"
   )),
   by = c("FederalState" = "NUTS1Name"))
 
+# Calculate the difference between zensus 2011 and 2022
 new_buildings_without_dormitories_by_state <-
   heatinginfo_without_dormitories %>%
-  left_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
   group_by(NUTS1Code) %>%
   summarise(BuildingCount = sum(BuildingCount),
             .groups = 'drop') %>%
-  left_join(select(building_stock_2022, c("BuildingsWithoutDormitoriesCount", "NUTS1Code")),
-            by = "NUTS1Code") %>%
+  inner_join(select(
+    building_stock_2022,
+    c("BuildingsWithoutDormitoriesCount", "NUTS1Code")
+  ),
+  by = "NUTS1Code") %>%
   mutate(NewBuildingsWithoutDormitoriesCount = BuildingsWithoutDormitoriesCount - BuildingCount) %>%
   select(c("NUTS1Code", "NewBuildingsWithoutDormitoriesCount"))
 
 new_dormitories_by_state <-
   heatinginfo_only_dormitories %>%
-  left_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
   group_by(NUTS1Code) %>%
   summarise(BuildingCount = sum(BuildingCount),
             .groups = 'drop') %>%
-  left_join(select(building_stock_2022, c("DormitoriesCount", "NUTS1Code")),
-            by = "NUTS1Code") %>%
+  inner_join(select(building_stock_2022, c("DormitoriesCount", "NUTS1Code")),
+             by = "NUTS1Code") %>%
   mutate(NewDormitoriesCount = DormitoriesCount - BuildingCount) %>%
   select(c("NUTS1Code", "NewDormitoriesCount"))
 
-
-
-summary(building_stock_2022)
+# Calculate the distributions of new buildings based on distribution from 2001 onwards on a federal-state level
+distribution_buildings_without_dormitories <-
+  heatinginfo_without_dormitories %>%
+  filter(YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")) %>%
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  group_by(NUTS1Code) %>%
+  summarise(BuildingsByStateCount = sum(BuildingCount),
+            .groups = 'drop') %>%
+  inner_join(mutate(
+    filter(
+      heatinginfo_without_dormitories,
+      YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")
+    ),
+    NUTS1Code = substr(NUTS3Code, 1, 3)
+  ), by = "NUTS1Code") %>%
+  select(-c("YearOfConstruction")) %>%
+  group_by(NUTS1Code,
+           BuildingsByStateCount,
+           BuildingTypeSize,
+           HeatingType,
+           NUTS3Code) %>% summarise(BuildingCount = sum(BuildingCount),
+                                    .groups = 'drop') %>%
+  mutate(Share = BuildingCount / BuildingsByStateCount) %>%
+  inner_join(new_buildings_without_dormitories_by_state, by = "NUTS1Code") %>%
+  mutate(NewBuildingsCount = Share * NewBuildingsWithoutDormitoriesCount) %>%
+  select(
+    -c(
+      "NUTS1Code",
+      "BuildingsByStateCount",
+      "BuildingCount",
+      "Share",
+      "NewBuildingsWithoutDormitoriesCount"
+    )
+  )
 
 
 
