@@ -10,6 +10,8 @@ heatinginfo <- read_csv("data/heatinginfo.csv")
 
 
 # Transform data
+
+# Reduce categories for the building size
 heatinginfo <- heatinginfo %>% select(-c(RegionKey, RegionName, RegionType))
 
 heatinginfo$BuildingTypeSize <- factor(heatinginfo$BuildingTypeSize)
@@ -29,7 +31,6 @@ heatinginfo <- heatinginfo %>%
     "Mehrfamilienhaus: 7 und mehr Wohnungen" ="Mehrfamilienhaus: 13 und mehr Wohnungen",
     "Anderer Gebäudetyp" = "Anderer Gebäudetyp"
                                        ))
-heatinginfo <- subset(heatinginfo, BuildingTypeSize != "Anderer Gebäudetyp")
 
 heatinginfo <- heatinginfo %>% group_by(
     BuildingTypeSize,
@@ -39,7 +40,18 @@ heatinginfo <- heatinginfo %>% group_by(
   ) %>% summarise(`Sum of BuildingCount` = sum(`Sum of BuildingCount`),
                   .groups = 'drop')
 
-nrow(heatinginfo)
+# Optional: check if numbers are consistent with building stock
+buildings_by_federal_state <- heatinginfo %>%
+inner_join(nuts3regioninfo, by = "NUTS-3-Code") %>%
+  group_by(`NUTS1-Name`) %>%
+  summarise(sum = sum(`Sum of BuildingCount`))
 
-# Write output to csv
-write_csv2(heatinginfo, "data/output.csv")
+# Optional: Remove later the building types without category
+heatinginfo <- subset(heatinginfo, BuildingTypeSize != "Anderer Gebäudetyp")
+
+# Calculate Building Stock for 2022
+
+
+
+#Write output to csv
+write_csv2(heatinginfo, "data/buildingstock2022.csv")
