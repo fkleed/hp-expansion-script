@@ -180,32 +180,170 @@ distribution_dormitories <-
   relocate(YearOfConstruction, .before = NewBuildingCount)
 
 # Get new heatinginfos until 2022
-heatinginfo_without_dormitories_2022 <- heatinginfo_without_dormitories %>%
-  mutate(
-    YearOfConstruction = fct_recode(
-      YearOfConstruction,
-      "2009 - 2011" = "2009 und später"
-  )) %>%
-  rbind(rename(
-    distribution_buildings_without_dormitories,
-    BuildingCount = NewBuildingCount
-    ))
+heatinginfo_without_dormitories_2022 <-
+  heatinginfo_without_dormitories %>%
+  mutate(YearOfConstruction = fct_recode(YearOfConstruction,
+                                         "2009 - 2011" = "2009 und später")) %>%
+  rbind(
+    rename(distribution_buildings_without_dormitories,
+           BuildingCount = NewBuildingCount)
+  )
 
-heatinginfo_only_dormitories_2022 <- heatinginfo_only_dormitories %>%
-  mutate(
-    YearOfConstruction = fct_recode(
-      YearOfConstruction,
-      "2009 - 2011" = "2009 und später"
-    )) %>%
-  rbind(rename(
-    distribution_dormitories,
-    BuildingCount = NewBuildingCount
-  ))
+heatinginfo_only_dormitories_2022 <-
+  heatinginfo_only_dormitories %>%
+  mutate(YearOfConstruction = fct_recode(YearOfConstruction,
+                                         "2009 - 2011" = "2009 und später")) %>%
+  rbind(rename(distribution_dormitories,
+               BuildingCount = NewBuildingCount))
+
+
+# Predict distribution of Building Stock for 2030
+# Assumption: The increase in building stock from 2023 - 2030 is assumed to be distributed as in 2012-2022
+# Assumption: Due to increasing surface sealing and rising construction costs, the overall building increase is only 60% compared to 2012 - 2022
+
+new_buildings_without_dormitories_by_state_2030 <-
+  new_buildings_without_dormitories_by_state %>%
+  mutate(NewBuildingsWithoutDormitoriesCount = NewBuildingsWithoutDormitoriesCount * 0.6)
+
+new_dormitories_by_state_2030 <- new_dormitories_by_state %>%
+  mutate(NewDormitoriesCount = NewDormitoriesCount * 0.6)
+
+distribution_buildings_without_dormitories_2030 <-
+  heatinginfo_without_dormitories %>%
+  filter(YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")) %>%
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  group_by(NUTS1Code) %>%
+  summarise(BuildingsByStateCount = sum(BuildingCount),
+            .groups = 'drop') %>%
+  inner_join(mutate(
+    filter(
+      heatinginfo_without_dormitories,
+      YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")
+    ),
+    NUTS1Code = substr(NUTS3Code, 1, 3)
+  ), by = "NUTS1Code") %>%
+  select(-c("YearOfConstruction")) %>%
+  group_by(NUTS1Code,
+           BuildingsByStateCount,
+           BuildingTypeSize,
+           HeatingType,
+           NUTS3Code) %>% summarise(BuildingCount = sum(BuildingCount),
+                                    .groups = 'drop') %>%
+  mutate(Share = BuildingCount / BuildingsByStateCount) %>%
+  inner_join(new_buildings_without_dormitories_by_state_2030, by = "NUTS1Code") %>%
+  mutate(NewBuildingCount = round(Share * NewBuildingsWithoutDormitoriesCount)) %>%
+  select(
+    -c(
+      "NUTS1Code",
+      "BuildingsByStateCount",
+      "BuildingCount",
+      "Share",
+      "NewBuildingsWithoutDormitoriesCount"
+    )
+  ) %>%
+  mutate(YearOfConstruction = "2023 - 2030") %>%
+  relocate(YearOfConstruction, .before = NewBuildingCount)
+
+distribution_dormitories_2030 <-
+  heatinginfo_only_dormitories %>%
+  filter(YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")) %>%
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  group_by(NUTS1Code) %>%
+  summarise(BuildingsByStateCount = sum(BuildingCount),
+            .groups = 'drop') %>%
+  inner_join(mutate(
+    filter(
+      heatinginfo_only_dormitories,
+      YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")
+    ),
+    NUTS1Code = substr(NUTS3Code, 1, 3)
+  ), by = "NUTS1Code") %>%
+  select(-c("YearOfConstruction")) %>%
+  group_by(NUTS1Code,
+           BuildingsByStateCount,
+           BuildingTypeSize,
+           HeatingType,
+           NUTS3Code) %>% summarise(BuildingCount = sum(BuildingCount),
+                                    .groups = 'drop') %>%
+  mutate(Share = BuildingCount / BuildingsByStateCount) %>%
+  inner_join(new_dormitories_by_state_2030, by = "NUTS1Code") %>%
+  mutate(NewBuildingCount = round(Share * NewDormitoriesCount)) %>%
+  select(
+    -c(
+      "NUTS1Code",
+      "BuildingsByStateCount",
+      "BuildingCount",
+      "Share",
+      "NewDormitoriesCount"
+    )
+  ) %>%
+  mutate(YearOfConstruction = "2023 - 2030") %>%
+  relocate(YearOfConstruction, .before = NewBuildingCount)
+
+# Get new heatinginfos until 2030
+
+heatinginfo_without_dormitories_2030 <-
+  heatinginfo_without_dormitories_2022 %>%
+  rbind(
+    rename(
+      distribution_buildings_without_dormitories_2030,
+      BuildingCount = NewBuildingCount
+    )
+  )
+
+heatinginfo_only_dormitories_2030 <-
+  heatinginfo_only_dormitories_2022 %>%
+  rbind(rename(distribution_dormitories_2030,
+               BuildingCount = NewBuildingCount))
+
+sum(heatinginfo_without_dormitories$BuildingCount) + sum(heatinginfo_only_dormitories$BuildingCount)
+sum(heatinginfo_without_dormitories_2022$BuildingCount) + sum(heatinginfo_only_dormitories_2022$BuildingCount)
+sum(heatinginfo_without_dormitories_2030$BuildingCount) + sum(heatinginfo_only_dormitories_2030$BuildingCount)
+
+
+# Calculate the whole summarized building stock
+summarized_building_stock <- heatinginfo_without_dormitories %>%
+  rbind(heatinginfo_only_dormitories) %>%
+  group_by(BuildingTypeSize,
+           HeatingType,
+           NUTS3Code,
+           YearOfConstruction) %>%
+  summarise(BuildingCount = sum(BuildingCount), .groups = 'drop')
+
+summarized_building_stock_2022 <-
+  heatinginfo_without_dormitories_2022 %>%
+  rbind(heatinginfo_only_dormitories_2022) %>%
+  group_by(BuildingTypeSize,
+           HeatingType,
+           NUTS3Code,
+           YearOfConstruction) %>%
+  summarise(BuildingCount = sum(BuildingCount), .groups = 'drop')
+
+summarized_building_stock_2030 <-
+  heatinginfo_without_dormitories_2030 %>%
+  rbind(heatinginfo_only_dormitories_2030) %>%
+  group_by(BuildingTypeSize,
+           HeatingType,
+           NUTS3Code,
+           YearOfConstruction) %>%
+  summarise(BuildingCount = sum(BuildingCount), .groups = 'drop')
+
+sum(summarized_building_stock$BuildingCount)
+sum(summarized_building_stock_2022$BuildingCount)
+sum(summarized_building_stock_2030$BuildingCount)
 
 
 # Write output to csv
-write_csv2(heatinginfo_without_dormitories_2022, "data/output/heatinginfo_without_dormitories_2022.csv")
-write_csv2(heatinginfo_only_dormitories_2022, "data/output/heatinginfo_only_dormitories_2022.csv")
+write_csv2(summarized_building_stock,
+           "data/output/summarized_building_stock.csv")
+write_csv2(
+  summarized_building_stock_2022,
+  "data/output/summarized_building_stock_2022.csv"
+)
+write_csv2(
+  summarized_building_stock_2030,
+  "data/output/summarized_building_stock_2030.csv"
+)
 
 
 # Optional: check if numbers are consistent with building stock
