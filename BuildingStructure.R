@@ -130,7 +130,7 @@ distribution_buildings_without_dormitories <-
                                     .groups = 'drop') %>%
   mutate(Share = BuildingCount / BuildingsByStateCount) %>%
   inner_join(new_buildings_without_dormitories_by_state, by = "NUTS1Code") %>%
-  mutate(NewBuildingsCount = round(Share * NewBuildingsWithoutDormitoriesCount)) %>%
+  mutate(NewBuildingCount = round(Share * NewBuildingsWithoutDormitoriesCount)) %>%
   select(
     -c(
       "NUTS1Code",
@@ -139,7 +139,9 @@ distribution_buildings_without_dormitories <-
       "Share",
       "NewBuildingsWithoutDormitoriesCount"
     )
-  )
+  ) %>%
+  mutate(YearOfConstruction = "2012 - 2022") %>%
+  relocate(YearOfConstruction, .before = NewBuildingCount)
 
 distribution_dormitories <-
   heatinginfo_only_dormitories %>%
@@ -164,7 +166,7 @@ distribution_dormitories <-
                                     .groups = 'drop') %>%
   mutate(Share = BuildingCount / BuildingsByStateCount) %>%
   inner_join(new_dormitories_by_state, by = "NUTS1Code") %>%
-  mutate(NewBuildingsCount = round(Share * NewDormitoriesCount)) %>%
+  mutate(NewBuildingCount = round(Share * NewDormitoriesCount)) %>%
   select(
     -c(
       "NUTS1Code",
@@ -173,11 +175,37 @@ distribution_dormitories <-
       "Share",
       "NewDormitoriesCount"
     )
-  )
+  ) %>%
+  mutate(YearOfConstruction = "2012 - 2022") %>%
+  relocate(YearOfConstruction, .before = NewBuildingCount)
+
+# Get new heatinginfos until 2022
+heatinginfo_without_dormitories_2022 <- heatinginfo_without_dormitories %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2009 - 2011" = "2009 und später"
+  )) %>%
+  rbind(rename(
+    distribution_buildings_without_dormitories,
+    BuildingCount = NewBuildingCount
+    ))
+
+heatinginfo_only_dormitories_2022 <- heatinginfo_only_dormitories %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2009 - 2011" = "2009 und später"
+    )) %>%
+  rbind(rename(
+    distribution_dormitories,
+    BuildingCount = NewBuildingCount
+  ))
 
 
 # Write output to csv
-write_csv2(heatinginfo, "data/output.csv")
+write_csv2(heatinginfo_without_dormitories_2022, "data/output/heatinginfo_without_dormitories_2022.csv")
+write_csv2(heatinginfo_only_dormitories_2022, "data/output/heatinginfo_only_dormitories_2022.csv")
 
 
 # Optional: check if numbers are consistent with building stock
