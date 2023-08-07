@@ -130,7 +130,7 @@ distribution_buildings_without_dormitories <-
                                     .groups = 'drop') %>%
   mutate(Share = BuildingCount / BuildingsByStateCount) %>%
   inner_join(new_buildings_without_dormitories_by_state, by = "NUTS1Code") %>%
-  mutate(NewBuildingsCount = Share * NewBuildingsWithoutDormitoriesCount) %>%
+  mutate(NewBuildingsCount = round(Share * NewBuildingsWithoutDormitoriesCount)) %>%
   select(
     -c(
       "NUTS1Code",
@@ -141,17 +141,39 @@ distribution_buildings_without_dormitories <-
     )
   )
 
-
-
-
-levels(heatinginfo_without_dormitories$YearOfConstruction)
-
-test <- heatinginfo_without_dormitories %>%
+distribution_dormitories <-
+  heatinginfo_only_dormitories %>%
   filter(YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")) %>%
-  group_by(BuildingTypeSize, HeatingType) %>%
-  summarise(BuildingCount = sum(BuildingCount),
+  inner_join(select(nuts3regioninfo, c("NUTS1Code", "NUTS3Code")), by = "NUTS3Code") %>%
+  group_by(NUTS1Code) %>%
+  summarise(BuildingsByStateCount = sum(BuildingCount),
             .groups = 'drop') %>%
-  mutate(Percentage = round(BuildingCount / sum(BuildingCount) * 100, 2))
+  inner_join(mutate(
+    filter(
+      heatinginfo_only_dormitories,
+      YearOfConstruction %in% c("2001 - 2004", "2005 - 2008", "2009 und später")
+    ),
+    NUTS1Code = substr(NUTS3Code, 1, 3)
+  ), by = "NUTS1Code") %>%
+  select(-c("YearOfConstruction")) %>%
+  group_by(NUTS1Code,
+           BuildingsByStateCount,
+           BuildingTypeSize,
+           HeatingType,
+           NUTS3Code) %>% summarise(BuildingCount = sum(BuildingCount),
+                                    .groups = 'drop') %>%
+  mutate(Share = BuildingCount / BuildingsByStateCount) %>%
+  inner_join(new_dormitories_by_state, by = "NUTS1Code") %>%
+  mutate(NewBuildingsCount = round(Share * NewDormitoriesCount)) %>%
+  select(
+    -c(
+      "NUTS1Code",
+      "BuildingsByStateCount",
+      "BuildingCount",
+      "Share",
+      "NewDormitoriesCount"
+    )
+  )
 
 
 # Write output to csv
