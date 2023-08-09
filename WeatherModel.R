@@ -296,24 +296,39 @@ summary(magdeburg)
 summary(trier_petrisberg)
 
 # Join the weather stations without missing data
-weather_data <- bremen %>%
-  inner_join(dresden_klotzsche, by = "MESS_DATUM") %>%
-  inner_join(erfurt_weimar, by = "MESS_DATUM") %>%
-  inner_join(frankfurt_main, by = "MESS_DATUM") %>%
-  inner_join(hamburg_fuhlsbuettel, by = "MESS_DATUM") %>%
-  inner_join(hannover, by = "MESS_DATUM") %>%
-  inner_join(koeln_bonn, by = "MESS_DATUM") %>%
-  inner_join(muenchen_flughafen, by = "MESS_DATUM") %>%
-  inner_join(potsdam, by = "MESS_DATUM") %>%
-  inner_join(stuttgart_echterdingen, by = "MESS_DATUM") %>%
-  inner_join(saarbruecken_ensheim, by = "MESS_DATUM") %>%
-  left_join(berlin_dahlem, by = "MESS_DATUM")
+list_weather_data <- list(bremen,
+                          dresden_klotzsche,
+                          erfurt_weimar,
+                          frankfurt_main,
+                          hamburg_fuhlsbuettel,
+                          hannover,
+                          koeln_bonn,
+                          muenchen_flughafen,
+                          potsdam,
+                          saarbruecken_ensheim,
+                          stuttgart_echterdingen
+                          )
 
 
-is.na(weather_data$403)
+weather_data_combined <- list_weather_data %>% reduce(inner_join, by = "MESS_DATUM")
 
 
-summary(bremen)
+# Join the weather stations with missing data
+weather_data_combined <- weather_data_combined %>%
+  left_join(berlin_dahlem, by = "MESS_DATUM") %>%
+  left_join(fehmarn, by = "MESS_DATUM") %>%
+  left_join(rostock_warnemuende, by = "MESS_DATUM") %>%
+  left_join(magdeburg, by = "MESS_DATUM") %>%
+  left_join(trier_petrisberg, by = "MESS_DATUM")
 
+# Get the amount of columns that are not NA for each row
+weather_data_combined <- weather_data_combined %>%
+  mutate(ValidValuesAmount = rowSums(!is.na(weather_data_combined[,2:17])))
 
-nrow(test)
+# Calculate the sum of all columns that are not NA for each row
+weather_data_combined <- weather_data_combined %>%
+  mutate(RowSumValidValues = rowSums(weather_data_combined[,2:17], na.rm = TRUE))
+
+# Calculate the mean temperature over all stations
+weather_data_combined <- weather_data_combined %>%
+  mutate(MeanTemperature = rowMeans(weather_data_combined[,2:17], na.rm = TRUE))
