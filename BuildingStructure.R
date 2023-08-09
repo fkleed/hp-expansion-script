@@ -5,13 +5,13 @@ library("dplyr")
 
 
 # Load heating and region info
-nuts3regioninfo <- read_excel("data/nuts3regioninfo.xlsx")
+nuts3regioninfo <- read_excel("data/buildingstructure/nuts3regioninfo.xlsx")
 
 heatinginfo_without_dormitories <-
-  read_csv("data/heatinginfo_without_dormitories.csv")
+  read_csv("data/buildingstructure/heatinginfo_without_dormitories.csv")
 
 heatinginfo_only_dormitories <-
-  read_csv("data/heatinginfo_only_dormitories.csv")
+  read_csv("data/buildingstructure/heatinginfo_only_dormitories.csv")
 
 nuts3regioninfo <-
   nuts3regioninfo %>% mutate_if(is.character, as.factor)
@@ -73,7 +73,7 @@ heatinginfo_only_dormitories <-
 # Predict distribution of Building Stock for 2022
 # Assumption: Buildings without dormitories are distributed on a federal-state basis like the distribution from 2001 onwards
 
-building_stock_2022 <- read_csv("data/building_stock_2022.csv") %>%
+building_stock_2022 <- read_csv("data/buildingstructure/building_stock_2022.csv") %>%
   mutate_if(is.character, as.factor) %>%
   inner_join(distinct(select(
     nuts3regioninfo, "NUTS1Name", "NUTS1Code"
@@ -335,14 +335,14 @@ sum(summarized_building_stock_2030$BuildingCount)
 
 # Write output to csv
 write_csv2(summarized_building_stock,
-           "data/output/summarized_building_stock.csv")
+           "data/buildingstructure/output/summarized_building_stock.csv")
 write_csv2(
   summarized_building_stock_2022,
-  "data/output/summarized_building_stock_2022.csv"
+  "data/buildingstructure/output/summarized_building_stock_2022.csv"
 )
 write_csv2(
   summarized_building_stock_2030,
-  "data/output/summarized_building_stock_2030.csv"
+  "data/buildingstructure/output/summarized_building_stock_2030.csv"
 )
 
 
