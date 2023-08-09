@@ -332,3 +332,24 @@ weather_data_combined <- weather_data_combined %>%
 # Calculate the mean temperature over all stations
 weather_data_combined <- weather_data_combined %>%
   mutate(MeanTemperature = rowMeans(weather_data_combined[,2:17], na.rm = TRUE))
+
+
+# Calculate an average year over the years 2010 - 2022
+weather_data_average_yer <- weather_data_combined %>%
+  select(c("MESS_DATUM", "MeanTemperature")) %>%
+  mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
+  select(-c(MESS_DATUM)) %>%
+  mutate_if(is.character, as.factor) %>%
+  group_by(Date) %>%
+  summarise(MeanTemperature = mean(MeanTemperature), .groups = 'drop')
+
+# Filter leap year and round mean temperature
+weather_data_average_yer <- weather_data_average_yer %>%
+  filter(substr(as.character(weather_data_average_yer$Date), 1, 4) != "0229") %>%
+  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
+
+# Write temperature values of average year to txt file
+writeLines(weather_data_average_yer$RoundedMeanTemperatureRounded,
+           "data/weatherstations/output/averageyear.txt",
+           sep = ",")
+
