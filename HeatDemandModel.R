@@ -1439,11 +1439,325 @@ mh_passivhaus_hot <-
     "HotWater_passivhaus_hot" = "Trinkwarmwasser (kW)"
   )
 
-# Combine nPro data for 1949 - 1979
 
+# Derive data single family homes
+# Derive data for 1949 - 1979
 eh_1949_1978_avg <-
   list(eh_1949_1957_avg, eh_1958_1968_avg, eh_1969_1978_avg) %>%
-  reduce(inner_join, by = "Zeit (TT-MM hh:mm)")
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1949_1978_avg = (
+      SpaceHeat_1949_1957_avg + SpaceHeat_1958_1968_avg + SpaceHeat_1969_1978_avg
+    ) / 3,
+    HotWater_1949_1978_avg = (
+      HotWater_1949_1957_avg + HotWater_1958_1968_avg + HotWater_1969_1978_avg
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1949_1957_avg",
+      "HotWater_1949_1957_avg",
+      "SpaceHeat_1958_1968_avg",
+      "HotWater_1958_1968_avg",
+      "SpaceHeat_1969_1978_avg",
+      "HotWater_1969_1978_avg"
+    )
+  )
+
+eh_1949_1978_cold <-
+  list(eh_1949_1957_cold, eh_1958_1968_cold, eh_1969_1978_cold) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1949_1978_cold = (
+      SpaceHeat_1949_1957_cold + SpaceHeat_1958_1968_cold + SpaceHeat_1969_1978_cold
+    ) / 3,
+    HotWater_1949_1978_cold = (
+      HotWater_1949_1957_cold + HotWater_1958_1968_cold + HotWater_1969_1978_cold
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1949_1957_cold",
+      "HotWater_1949_1957_cold",
+      "SpaceHeat_1958_1968_cold",
+      "HotWater_1958_1968_cold",
+      "SpaceHeat_1969_1978_cold",
+      "HotWater_1969_1978_cold"
+    )
+  )
+
+eh_1949_1978_hot <-
+  list(eh_1949_1957_hot, eh_1958_1968_hot, eh_1969_1978_hot) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1949_1978_hot = (
+      SpaceHeat_1949_1957_hot + SpaceHeat_1958_1968_hot + SpaceHeat_1969_1978_hot
+    ) / 3,
+    HotWater_1949_1978_hot = (
+      HotWater_1949_1957_hot + HotWater_1958_1968_hot + HotWater_1969_1978_hot
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1949_1957_hot",
+      "HotWater_1949_1957_hot",
+      "SpaceHeat_1958_1968_hot",
+      "HotWater_1958_1968_hot",
+      "SpaceHeat_1969_1978_hot",
+      "HotWater_1969_1978_hot"
+    )
+  )
 
 
-nrow(eh_1949_1978_avg)
+# Derive data for 1979 - 1986
+eh_1979_1986_avg <-
+  list(eh_1979_1983_avg, eh_1984_1994_avg) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1979_1986_avg = (SpaceHeat_1979_1983_avg * 5 / 8 + SpaceHeat_1984_1994_avg * 3 /
+                                 8),
+    HotWater_1979_1986_avg = (HotWater_1979_1983_avg * 5 / 8 + HotWater_1984_1994_avg * 3 /
+                                8)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1979_1983_avg",
+      "HotWater_1979_1983_avg",
+      "SpaceHeat_1984_1994_avg",
+      "HotWater_1984_1994_avg"
+    )
+  )
+
+eh_1979_1986_cold <-
+  list(eh_1979_1983_cold, eh_1984_1994_cold) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1979_1986_cold = (SpaceHeat_1979_1983_cold * 5 / 8 + SpaceHeat_1984_1994_cold * 3 /
+                                  8),
+    HotWater_1979_1986_cold = (HotWater_1979_1983_cold * 5 / 8 + HotWater_1984_1994_cold * 3 /
+                                 8)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1979_1983_cold",
+      "HotWater_1979_1983_cold",
+      "SpaceHeat_1984_1994_cold",
+      "HotWater_1984_1994_cold"
+    )
+  )
+
+eh_1979_1986_hot <-
+  list(eh_1979_1983_hot, eh_1984_1994_hot) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1979_1986_hot = (SpaceHeat_1979_1983_hot * 5 / 8 + SpaceHeat_1984_1994_hot * 3 /
+                                 8),
+    HotWater_1979_1986_hot = (HotWater_1979_1983_hot * 5 / 8 + HotWater_1984_1994_hot * 3 /
+                                8)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1979_1983_hot",
+      "HotWater_1979_1983_hot",
+      "SpaceHeat_1984_1994_hot",
+      "HotWater_1984_1994_hot"
+    )
+  )
+
+
+# Derive data for 1991 - 1995
+eh_1991_1995_avg <-
+  list(eh_1984_1994_avg, eh_1995_2001_avg) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1991_1995_avg = (SpaceHeat_1984_1994_avg * 4 / 5 + SpaceHeat_1995_2001_avg * 1 /
+                                 5),
+    HotWater_1991_1995_avg = (HotWater_1984_1994_avg * 4 / 5 + HotWater_1995_2001_avg * 1 /
+                                5)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1984_1994_avg",
+      "HotWater_1984_1994_avg",
+      "SpaceHeat_1995_2001_avg",
+      "HotWater_1995_2001_avg"
+    )
+  )
+
+eh_1991_1995_cold <-
+  list(eh_1984_1994_cold, eh_1995_2001_cold) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1991_1995_cold = (SpaceHeat_1984_1994_cold * 4 / 5 + SpaceHeat_1995_2001_cold * 1 /
+                                  5),
+    HotWater_1991_1995_cold = (HotWater_1984_1994_cold * 4 / 5 + HotWater_1995_2001_cold * 1 /
+                                 5)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1984_1994_cold",
+      "HotWater_1984_1994_cold",
+      "SpaceHeat_1995_2001_cold",
+      "HotWater_1995_2001_cold"
+    )
+  )
+
+eh_1991_1995_hot <-
+  list(eh_1984_1994_hot, eh_1995_2001_hot) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1991_1995_hot = (SpaceHeat_1984_1994_hot * 4 / 5 + SpaceHeat_1995_2001_hot * 1 /
+                                 5),
+    HotWater_1991_1995_hot = (HotWater_1984_1994_hot * 4 / 5 + HotWater_1995_2001_hot * 1 /
+                                5)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1984_1994_hot",
+      "HotWater_1984_1994_hot",
+      "SpaceHeat_1995_2001_hot",
+      "HotWater_1995_2001_hot"
+    )
+  )
+
+
+# Derive data for 2012 - 2022
+eh_2012_2022_avg <-
+  list(eh_kfw_85_avg, eh_kfw_70_avg, eh_kfw_55_avg, eh_kfw_40_avg) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2012_2022_avg = (
+      SpaceHeat_kfw_85_avg + SpaceHeat_kfw_70_avg + SpaceHeat_kfw_55_avg + SpaceHeat_kfw_40_avg
+    ) / 4,
+    HotWater_2012_2022_avg = (
+      HotWater_kfw_85_avg + HotWater_kfw_70_avg + HotWater_kfw_55_avg + HotWater_kfw_40_avg
+    ) / 4
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_85_avg",
+      "SpaceHeat_kfw_70_avg",
+      "SpaceHeat_kfw_55_avg",
+      "SpaceHeat_kfw_40_avg",
+      "HotWater_kfw_85_avg",
+      "HotWater_kfw_70_avg",
+      "HotWater_kfw_55_avg",
+      "HotWater_kfw_40_avg"
+    )
+  )
+
+
+eh_2012_2022_cold <-
+  list(eh_kfw_85_cold, eh_kfw_70_cold, eh_kfw_55_cold, eh_kfw_40_cold) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2012_2022_cold = (
+      SpaceHeat_kfw_85_cold + SpaceHeat_kfw_70_cold + SpaceHeat_kfw_55_cold + SpaceHeat_kfw_40_cold
+    ) / 4,
+    HotWater_2012_2022_cold = (
+      HotWater_kfw_85_cold + HotWater_kfw_70_cold + HotWater_kfw_55_cold + HotWater_kfw_40_cold
+    ) / 4
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_85_cold",
+      "SpaceHeat_kfw_70_cold",
+      "SpaceHeat_kfw_55_cold",
+      "SpaceHeat_kfw_40_cold",
+      "HotWater_kfw_85_cold",
+      "HotWater_kfw_70_cold",
+      "HotWater_kfw_55_cold",
+      "HotWater_kfw_40_cold"
+    )
+  )
+
+eh_2012_2022_hot <-
+  list(eh_kfw_85_hot, eh_kfw_70_hot, eh_kfw_55_hot, eh_kfw_40_hot) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2012_2022_hot = (
+      SpaceHeat_kfw_85_hot + SpaceHeat_kfw_70_hot + SpaceHeat_kfw_55_hot + SpaceHeat_kfw_40_hot
+    ) / 4,
+    HotWater_2012_2022_hot = (
+      HotWater_kfw_85_hot + HotWater_kfw_70_hot + HotWater_kfw_55_hot + HotWater_kfw_40_hot
+    ) / 4
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_85_hot",
+      "SpaceHeat_kfw_70_hot",
+      "SpaceHeat_kfw_55_hot",
+      "SpaceHeat_kfw_40_hot",
+      "HotWater_kfw_85_hot",
+      "HotWater_kfw_70_hot",
+      "HotWater_kfw_55_hot",
+      "HotWater_kfw_40_hot"
+    )
+  )
+
+# Derive data for 2023 - 2030
+eh_2023_2030_avg <-
+  list(eh_kfw_55_avg, eh_kfw_40_avg, eh_passivhaus_avg) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2023_2030_avg = (
+      SpaceHeat_kfw_55_avg + SpaceHeat_kfw_40_avg + SpaceHeat_passivhaus_avg
+    ) / 3,
+    HotWater_2023_2030_avg = (
+      HotWater_kfw_55_avg + HotWater_kfw_40_avg + HotWater_passivhaus_avg
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_55_avg",
+      "SpaceHeat_kfw_40_avg",
+      "SpaceHeat_passivhaus_avg",
+      "HotWater_kfw_55_avg",
+      "HotWater_kfw_40_avg",
+      "HotWater_passivhaus_avg"
+    )
+  )
+
+eh_2023_2030_cold <-
+  list(eh_kfw_55_cold, eh_kfw_40_cold, eh_passivhaus_cold) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2023_2030_cold = (
+      SpaceHeat_kfw_55_cold + SpaceHeat_kfw_40_cold + SpaceHeat_passivhaus_cold
+    ) / 3,
+    HotWater_2023_2030_cold = (
+      HotWater_kfw_55_cold + HotWater_kfw_40_cold + HotWater_passivhaus_cold
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_55_cold",
+      "SpaceHeat_kfw_40_cold",
+      "SpaceHeat_passivhaus_cold",
+      "HotWater_kfw_55_cold",
+      "HotWater_kfw_40_cold",
+      "HotWater_passivhaus_cold"
+    )
+  )
+
+eh_2023_2030_hot <-
+  list(eh_kfw_55_hot, eh_kfw_40_hot, eh_passivhaus_hot) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2023_2030_hot = (
+      SpaceHeat_kfw_55_hot + SpaceHeat_kfw_40_hot + SpaceHeat_passivhaus_hot
+    ) / 3,
+    HotWater_2023_2030_hot = (
+      HotWater_kfw_55_hot + HotWater_kfw_40_hot + HotWater_passivhaus_hot
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_55_hot",
+      "SpaceHeat_kfw_40_hot",
+      "SpaceHeat_passivhaus_hot",
+      "HotWater_kfw_55_hot",
+      "HotWater_kfw_40_hot",
+      "HotWater_passivhaus_hot"
+    )
+  )
