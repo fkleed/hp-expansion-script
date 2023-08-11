@@ -2092,7 +2092,7 @@ mh_2023_2030_hot <-
 
 
 # Combine data together
-eh_combined_heat_info_avg <-
+eh_combined_heat_demand_avg <-
   list(
     eh_beginn_1918_avg,
     eh_1919_1948_avg,
@@ -2139,7 +2139,7 @@ eh_combined_heat_info_avg <-
     HotWater_avg = HotWater_avg / 10000
   )
 
-eh_combined_heat_info_cold <-
+eh_combined_heat_demand_cold <-
   list(
     eh_beginn_1918_cold,
     eh_1919_1948_cold,
@@ -2186,7 +2186,7 @@ eh_combined_heat_info_cold <-
     HotWater_cold = HotWater_cold / 10000
   )
 
-eh_combined_heat_info_hot <-
+eh_combined_heat_demand_hot <-
   list(
     eh_beginn_1918_hot,
     eh_1919_1948_hot,
@@ -2234,7 +2234,7 @@ eh_combined_heat_info_hot <-
   )
 
 
-mh_combined_heat_info_avg <-
+mh_combined_heat_demand_avg <-
   list(
     mh_beginn_1918_avg,
     mh_1919_1948_avg,
@@ -2281,7 +2281,7 @@ mh_combined_heat_info_avg <-
     HotWater_avg = HotWater_avg / 10000
   )
 
-mh_combined_heat_info_cold <-
+mh_combined_heat_demand_cold <-
   list(
     mh_beginn_1918_cold,
     mh_1919_1948_cold,
@@ -2328,7 +2328,7 @@ mh_combined_heat_info_cold <-
     HotWater_cold = HotWater_cold / 10000
   )
 
-mh_combined_heat_info_hot <-
+mh_combined_heat_demand_hot <-
   list(
     mh_beginn_1918_hot,
     mh_1919_1948_hot,
@@ -2374,3 +2374,36 @@ mh_combined_heat_info_hot <-
     SpaceHeat_2023_2030_hot = SpaceHeat_2023_2030_hot / 10000,
     HotWater_hot = HotWater_hot / 10000
   )
+
+
+# Write output to csv
+write_csv2(
+  eh_combined_heat_demand_avg,
+  "data/heatdemand/output/eh_combined_heat_demand_avg.csv"
+)
+
+write_csv2(
+  eh_combined_heat_demand_cold,
+  "data/heatdemand/output/eh_combined_heat_demand_cold.csv"
+)
+
+write_csv2(
+  eh_combined_heat_demand_hot,
+  "data/heatdemand/output/eh_combined_heat_demand_hot.csv"
+)
+
+
+write_csv2(
+  mh_combined_heat_demand_avg,
+  "data/heatdemand/output/mh_combined_heat_demand_avg.csv"
+)
+
+write_csv2(
+  mh_combined_heat_demand_cold,
+  "data/heatdemand/output/mh_combined_heat_demand_cold.csv"
+)
+
+write_csv2(
+  mh_combined_heat_demand_hot,
+  "data/heatdemand/output/mh_combined_heat_demand_hot.csv"
+)
