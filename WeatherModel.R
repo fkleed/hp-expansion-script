@@ -346,12 +346,16 @@ weather_data_average_yer <- weather_data_combined %>%
 # Filter leap year and round mean temperature
 weather_data_average_yer <- weather_data_average_yer %>%
   filter(substr(as.character(weather_data_average_yer$Date), 1, 4) != "0229") %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
 # Write temperature values of average year to txt file
-writeLines(weather_data_average_yer$RoundedMeanTemperatureRounded,
+writeLines(weather_data_average_yer$RoundedMeanTemperature,
            "data/weatherstations/output/averageyear.txt",
            sep = ",")
+
+# Write temperature values of average year to csv file
+write_csv2(weather_data_average_yer,
+           "data/weatherstations/output/averageyear.csv")
 
 
 # Calculate temperature values for the cold year 2010
@@ -360,12 +364,16 @@ weather_data_2010 <- weather_data_combined %>%
   select(c("MESS_DATUM", "MeanTemperature")) %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
 # Write temperature values of year 2010 to txt file
-writeLines(weather_data_2010$RoundedMeanTemperatureRounded,
+writeLines(weather_data_2010$RoundedMeanTemperature,
            "data/weatherstations/output/year2010.txt",
            sep = ",")
+
+# Write temperature values of year 2010 to csv file
+write_csv2(weather_data_2010,
+           "data/weatherstations/output/year2010.csv")
 
 
 # Calculate temperature values for the hot year 2022
@@ -374,9 +382,13 @@ weather_data_2022 <- weather_data_combined %>%
   select(c("MESS_DATUM", "MeanTemperature")) %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
 # Write temperature values of year 2022 to txt file
-writeLines(weather_data_2022$RoundedMeanTemperatureRounded,
+writeLines(weather_data_2022$RoundedMeanTemperature,
            "data/weatherstations/output/year2022.txt",
            sep = ",")
+
+# Write temperature values of year 2022 to csv file
+write_csv2(weather_data_2022,
+           "data/weatherstations/output/year2022.csv")
