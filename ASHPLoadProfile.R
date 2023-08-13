@@ -145,3 +145,77 @@ weather_data_hot <- weather_data_hot %>%
     T72WeightedAverage
   )) %>%
   select(-c(RowNumber, T72WeightedAverage))
+
+
+# Calculate the flow temperature
+# Assumption: the slope of the heating curve for determining the flow temperature ranges between 0.3 (minimum) - 1.6 (maximum)
+# The degree of the slope per building is determined by the maximum space heating demand per m2
+# https://www.viessmann.de/de/wissen/anleitungen-und-tipps/heizkurve-einstellen.html
+# The level is zero and the target room temperature 293.15K
+# Calculation of flow temperatur based on:
+# https://www.viessmann-community.com/t5/Gas/Mathematische-Formel-fuer-Vorlauftemperatur-aus-den-vier/td-p/68843#:~:text=Zu%20dem%20Ansatz%20V%20%3D%20T,den%20Angaben%20der%20Anlage%20%C3%BCbereinstimmen.&text=Gel%C3%B6st!
+eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
+  mutate(
+    Max_SpaceHeat_beginn_1918_avg  = max(SpaceHeat_beginn_1918_avg),
+    Max_SpaceHeat_1919_1948_avg = max(SpaceHeat_1919_1948_avg),
+    Max_SpaceHeat_1949_1978_avg = max(SpaceHeat_1949_1978_avg),
+    Max_SpaceHeat_1979_1986_avg = max(SpaceHeat_1979_1986_avg),
+    Max_SpaceHeat_1987_1990_avg = max(SpaceHeat_1987_1990_avg),
+    Max_SpaceHeat_1991_1995_avg = max(SpaceHeat_1991_1995_avg),
+    Max_SpaceHeat_1996_2000_avg = max(SpaceHeat_1996_2000_avg),
+    Max_SpaceHeat_2001_2011_avg = max(SpaceHeat_2001_2011_avg),
+    Max_SpaceHeat_2012_2022_avg = max(SpaceHeat_2012_2022_avg),
+    Max_SpaceHeat_2023_2030_avg = max(SpaceHeat_2023_2030_avg)
+  )
+
+minSpaceHeatPerM2 <-
+  min(
+    eh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1949_1978_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1979_1986_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1987_1990_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1991_1995_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1996_2000_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2001_2011_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2012_2022_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
+  )
+
+maxSpaceHeatPerM2 <-
+  max(
+    eh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1949_1978_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1979_1986_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1987_1990_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1991_1995_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_1996_2000_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2001_2011_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2012_2022_avg,
+    eh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
+  )
+
+minSlope <- 0.3
+
+maxSlope <- 1.6
+
+slope_function <- function(x) {
+  return (0.3 + (x - minSpaceHeatPerM2) * ((maxSlope - minSlope) / (maxSpaceHeatPerM2 - minSpaceHeatPerM2)))
+}
+
+eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
+  mutate(
+    Slope_SpaceHeat_beginn_1918_avg = slope_function(Max_SpaceHeat_beginn_1918_avg),
+    Slope_SpaceHeat_1919_1948_avg = slope_function(Max_SpaceHeat_1919_1948_avg),
+    Slope_SpaceHeat_1949_1978_avg = slope_function(Max_SpaceHeat_1949_1978_avg),
+    Slope_SpaceHeat_1979_1986_avg = slope_function(Max_SpaceHeat_1979_1986_avg),
+    Slope_SpaceHeat_1987_1990_avg = slope_function(Max_SpaceHeat_1987_1990_avg),
+    Slope_SpaceHeat_1991_1995_avg = slope_function(Max_SpaceHeat_1991_1995_avg),
+    Slope_SpaceHeat_1996_2000_avg = slope_function(Max_SpaceHeat_1996_2000_avg),
+    Slope_SpaceHeat_2001_2011_avg = slope_function(Max_SpaceHeat_2001_2011_avg),
+    Slope_SpaceHeat_2012_2022_avg = slope_function(Max_SpaceHeat_2012_2022_avg),
+    Slope_SpaceHeat_2023_2030_avg = slope_function(Max_SpaceHeat_2023_2030_avg)
+  )
+
+
