@@ -74,7 +74,71 @@ weather_data_avg <- weather_data_avg %>%
 weather_data_avg <-
   rbind(weather_data_avg_until_71, weather_data_avg)
 
+rm(weather_data_avg_until_71)
+
 weather_data_avg <- weather_data_avg %>%
+  mutate(TMix = ifelse(
+    substr(Time, 7, 8) %in% c("10", "11", "12", "13", "14", "15", "16"),
+    TemperatureKelvin,
+    T72WeightedAverage
+  )) %>%
+  select(-c(RowNumber, T72WeightedAverage))
+
+
+weather_data_cold <-
+  tibble::rowid_to_column(weather_data_cold, "RowNumber")
+
+weather_data_cold  <-
+  weather_data_cold %>% mutate(T72WeightedAverage = round(rollmeanr(TemperatureKelvin,
+                                                                    72,
+                                                                    fill = NA), 2))
+
+weather_data_cold_until_71 <-
+  weather_data_cold %>% filter(RowNumber < 72) %>%
+  mutate(CumSumTemperatureKelvin = cumsum(TemperatureKelvin)) %>%
+  mutate(T72WeightedAverage = round(CumSumTemperatureKelvin / RowNumber, 2)) %>%
+  select(-c(CumSumTemperatureKelvin))
+
+weather_data_cold <- weather_data_cold %>%
+  filter(RowNumber >= 72)
+
+weather_data_cold <-
+  rbind(weather_data_cold_until_71, weather_data_cold)
+
+rm(weather_data_cold_until_71)
+
+weather_data_cold <- weather_data_cold %>%
+  mutate(TMix = ifelse(
+    substr(Time, 7, 8) %in% c("10", "11", "12", "13", "14", "15", "16"),
+    TemperatureKelvin,
+    T72WeightedAverage
+  )) %>%
+  select(-c(RowNumber, T72WeightedAverage))
+
+
+weather_data_hot <-
+  tibble::rowid_to_column(weather_data_hot, "RowNumber")
+
+weather_data_hot  <-
+  weather_data_hot %>% mutate(T72WeightedAverage = round(rollmeanr(TemperatureKelvin,
+                                                                   72,
+                                                                   fill = NA), 2))
+
+weather_data_hot_until_71 <-
+  weather_data_hot %>% filter(RowNumber < 72) %>%
+  mutate(CumSumTemperatureKelvin = cumsum(TemperatureKelvin)) %>%
+  mutate(T72WeightedAverage = round(CumSumTemperatureKelvin / RowNumber, 2)) %>%
+  select(-c(CumSumTemperatureKelvin))
+
+weather_data_hot <- weather_data_hot %>%
+  filter(RowNumber >= 72)
+
+weather_data_hot <-
+  rbind(weather_data_hot_until_71, weather_data_hot)
+
+rm(weather_data_hot_until_71)
+
+weather_data_hot <- weather_data_hot %>%
   mutate(TMix = ifelse(
     substr(Time, 7, 8) %in% c("10", "11", "12", "13", "14", "15", "16"),
     TemperatureKelvin,
