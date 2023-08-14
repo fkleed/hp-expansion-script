@@ -243,23 +243,66 @@ min_slope <- 0.3
 
 max_slope <- 1.6
 
-slope_function <- function(x, min_space_heat_per_m2, max_space_heat_per_m2) {
-  return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
-  ))
-}
+slope_function <-
+  function(x,
+           min_space_heat_per_m2,
+           max_space_heat_per_m2) {
+    return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
+    ))
+  }
 
 eh_combined_slopes <- eh_combined_heat_demand_avg %>%
   mutate(
-    Slope_SpaceHeat_beginn_1918 = slope_function(Max_SpaceHeat_beginn_1918_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1919_1948 = slope_function(Max_SpaceHeat_1919_1948_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1949_1978 = slope_function(Max_SpaceHeat_1949_1978_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1979_1986 = slope_function(Max_SpaceHeat_1979_1986_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1987_1990 = slope_function(Max_SpaceHeat_1987_1990_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1991_1995 = slope_function(Max_SpaceHeat_1991_1995_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1996_2000 = slope_function(Max_SpaceHeat_1996_2000_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2001_2011 = slope_function(Max_SpaceHeat_2001_2011_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2012_2022 = slope_function(Max_SpaceHeat_2012_2022_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2023_2030 = slope_function(Max_SpaceHeat_2023_2030_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2)
+    Slope_SpaceHeat_beginn_1918 = slope_function(
+      Max_SpaceHeat_beginn_1918_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1919_1948 = slope_function(
+      Max_SpaceHeat_1919_1948_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1949_1978 = slope_function(
+      Max_SpaceHeat_1949_1978_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1979_1986 = slope_function(
+      Max_SpaceHeat_1979_1986_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1987_1990 = slope_function(
+      Max_SpaceHeat_1987_1990_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1991_1995 = slope_function(
+      Max_SpaceHeat_1991_1995_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1996_2000 = slope_function(
+      Max_SpaceHeat_1996_2000_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2001_2011 = slope_function(
+      Max_SpaceHeat_2001_2011_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2012_2022 = slope_function(
+      Max_SpaceHeat_2012_2022_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2023_2030 = slope_function(
+      Max_SpaceHeat_2023_2030_avg,
+      eh_min_space_heat_per_m2,
+      eh_max_space_heat_per_m2
+    )
   ) %>%
   select(
     c(
@@ -295,16 +338,56 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
 
 mh_combined_slopes <- mh_combined_heat_demand_avg %>%
   mutate(
-    Slope_SpaceHeat_beginn_1918 = slope_function(Max_SpaceHeat_beginn_1918_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1919_1948 = slope_function(Max_SpaceHeat_1919_1948_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1949_1978 = slope_function(Max_SpaceHeat_1949_1978_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1979_1986 = slope_function(Max_SpaceHeat_1979_1986_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1987_1990 = slope_function(Max_SpaceHeat_1987_1990_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1991_1995 = slope_function(Max_SpaceHeat_1991_1995_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_1996_2000 = slope_function(Max_SpaceHeat_1996_2000_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2001_2011 = slope_function(Max_SpaceHeat_2001_2011_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2012_2022 = slope_function(Max_SpaceHeat_2012_2022_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
-    Slope_SpaceHeat_2023_2030 = slope_function(Max_SpaceHeat_2023_2030_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2)
+    Slope_SpaceHeat_beginn_1918 = slope_function(
+      Max_SpaceHeat_beginn_1918_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1919_1948 = slope_function(
+      Max_SpaceHeat_1919_1948_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1949_1978 = slope_function(
+      Max_SpaceHeat_1949_1978_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1979_1986 = slope_function(
+      Max_SpaceHeat_1979_1986_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1987_1990 = slope_function(
+      Max_SpaceHeat_1987_1990_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1991_1995 = slope_function(
+      Max_SpaceHeat_1991_1995_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_1996_2000 = slope_function(
+      Max_SpaceHeat_1996_2000_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2001_2011 = slope_function(
+      Max_SpaceHeat_2001_2011_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2012_2022 = slope_function(
+      Max_SpaceHeat_2012_2022_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    ),
+    Slope_SpaceHeat_2023_2030 = slope_function(
+      Max_SpaceHeat_2023_2030_avg,
+      mh_min_space_heat_per_m2,
+      mh_max_space_heat_per_m2
+    )
   ) %>%
   select(
     c(
@@ -781,17 +864,139 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
   )
 
 
-max(eh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
-max(eh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
-max(eh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
-min(eh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
-min(eh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
-min(eh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+# Determine the share of the heat pump and the share of the immersion heater
+# Assumption: For every building the heat pump covers 70% and the immersion heater 30% of the maximum thermal capacity
+eh_combined_max_capacity <- eh_combined_heat_demand_avg %>%
+  mutate(
+    MaxThermalCapacity_beginn_1918 = max(SpaceHeat_beginn_1918_avg + HotWater_avg),
+    MaxThermalCapacity_1919_1948 = max(SpaceHeat_1919_1948_avg + HotWater_avg),
+    MaxThermalCapacity_1949_1978 = max(SpaceHeat_1949_1978_avg + HotWater_avg),
+    MaxThermalCapacity_1979_1986 = max(SpaceHeat_1979_1986_avg + HotWater_avg),
+    MaxThermalCapacity_1987_1990 = max(SpaceHeat_1987_1990_avg + HotWater_avg),
+    MaxThermalCapacity_1991_1995 = max(SpaceHeat_1991_1995_avg + HotWater_avg),
+    MaxThermalCapacity_1996_2000 = max(SpaceHeat_1996_2000_avg + HotWater_avg),
+    MaxThermalCapacity_2001_2011 = max(SpaceHeat_2001_2011_avg + HotWater_avg),
+    MaxThermalCapacity_2012_2022 = max(SpaceHeat_2012_2022_avg + HotWater_avg),
+    MaxThermalCapacity_2023_2030 = max(SpaceHeat_2023_2030_avg + HotWater_avg)
+  ) %>%
+  select(
+    Time,
+    MaxThermalCapacity_beginn_1918,
+    MaxThermalCapacity_1919_1948,
+    MaxThermalCapacity_1949_1978,
+    MaxThermalCapacity_1979_1986,
+    MaxThermalCapacity_1987_1990,
+    MaxThermalCapacity_1991_1995,
+    MaxThermalCapacity_1996_2000,
+    MaxThermalCapacity_2001_2011,
+    MaxThermalCapacity_2012_2022,
+    MaxThermalCapacity_2023_2030
+  )
 
-max(mh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
-max(mh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
-max(mh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
-min(mh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
-min(mh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
-min(mh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+mh_combined_max_capacity <- mh_combined_heat_demand_avg %>%
+  mutate(
+    MaxThermalCapacity_beginn_1918 = max(SpaceHeat_beginn_1918_avg + HotWater_avg),
+    MaxThermalCapacity_1919_1948 = max(SpaceHeat_1919_1948_avg + HotWater_avg),
+    MaxThermalCapacity_1949_1978 = max(SpaceHeat_1949_1978_avg + HotWater_avg),
+    MaxThermalCapacity_1979_1986 = max(SpaceHeat_1979_1986_avg + HotWater_avg),
+    MaxThermalCapacity_1987_1990 = max(SpaceHeat_1987_1990_avg + HotWater_avg),
+    MaxThermalCapacity_1991_1995 = max(SpaceHeat_1991_1995_avg + HotWater_avg),
+    MaxThermalCapacity_1996_2000 = max(SpaceHeat_1996_2000_avg + HotWater_avg),
+    MaxThermalCapacity_2001_2011 = max(SpaceHeat_2001_2011_avg + HotWater_avg),
+    MaxThermalCapacity_2012_2022 = max(SpaceHeat_2012_2022_avg + HotWater_avg),
+    MaxThermalCapacity_2023_2030 = max(SpaceHeat_2023_2030_avg + HotWater_avg)
+  ) %>%
+  select(
+    Time,
+    MaxThermalCapacity_beginn_1918,
+    MaxThermalCapacity_1919_1948,
+    MaxThermalCapacity_1949_1978,
+    MaxThermalCapacity_1979_1986,
+    MaxThermalCapacity_1987_1990,
+    MaxThermalCapacity_1991_1995,
+    MaxThermalCapacity_1996_2000,
+    MaxThermalCapacity_2001_2011,
+    MaxThermalCapacity_2012_2022,
+    MaxThermalCapacity_2023_2030
+  )
 
+share_heatpump_function <-
+  function(space_heat,
+           hot_water,
+           max_thermal_capacity) {
+    ifelse((space_heat + hot_water) <= (0.7 * max_thermal_capacity),
+           1,
+           (0.7 * max_thermal_capacity) / (space_heat + hot_water)
+    )
+  }
+
+
+
+eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
+  left_join(eh_combined_max_capacity, by = "Time") %>%
+  mutate(
+    ShareHP_beginn_1918 = share_heatpump_function(
+      SpaceHeat_beginn_1918_avg,
+      HotWater_avg,
+      MaxThermalCapacity_beginn_1918
+    ),
+    ShareHP_1919_1948 = share_heatpump_function(
+      SpaceHeat_1919_1948_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1919_1948
+    ),
+    ShareHP_1949_1978 = share_heatpump_function(
+      SpaceHeat_1949_1978_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1949_1978
+    ),
+    ShareHP_1979_1986 = share_heatpump_function(
+      SpaceHeat_1979_1986_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1979_1986
+    ),
+    ShareHP_1987_1990 = share_heatpump_function(
+      SpaceHeat_1987_1990_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1987_1990
+    ),
+    ShareHP_1991_1995 = share_heatpump_function(
+      SpaceHeat_1991_1995_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1991_1995
+    ),
+    ShareHP_1996_2000 = share_heatpump_function(
+      SpaceHeat_1996_2000_avg,
+      HotWater_avg,
+      MaxThermalCapacity_1996_2000
+    ),
+    ShareHP_2001_2011 = share_heatpump_function(
+      SpaceHeat_2001_2011_avg,
+      HotWater_avg,
+      MaxThermalCapacity_2001_2011
+    ),
+    ShareHP_2012_2022 = share_heatpump_function(
+      SpaceHeat_2012_2022_avg,
+      HotWater_avg,
+      MaxThermalCapacity_2012_2022
+    ),
+    ShareHP_2023_2030 = share_heatpump_function(
+      SpaceHeat_2023_2030_avg,
+      HotWater_avg,
+      MaxThermalCapacity_2023_2030
+    )
+  ) %>%
+  select(
+    -c(
+      MaxThermalCapacity_beginn_1918,
+      MaxThermalCapacity_1919_1948,
+      MaxThermalCapacity_1949_1978,
+      MaxThermalCapacity_1979_1986,
+      MaxThermalCapacity_1987_1990,
+      MaxThermalCapacity_1991_1995,
+      MaxThermalCapacity_1996_2000,
+      MaxThermalCapacity_2001_2011,
+      MaxThermalCapacity_2012_2022,
+      MaxThermalCapacity_2023_2030
+    )
+  )
