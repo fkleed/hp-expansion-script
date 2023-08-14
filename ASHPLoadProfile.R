@@ -168,7 +168,7 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
     Max_SpaceHeat_2023_2030_avg = max(SpaceHeat_2023_2030_avg)
   )
 
-min_space_heat_per_m2 <-
+eh_min_space_heat_per_m2 <-
   min(
     eh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
     eh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
@@ -182,7 +182,7 @@ min_space_heat_per_m2 <-
     eh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
   )
 
-max_space_heat_per_m2 <-
+eh_max_space_heat_per_m2 <-
   max(
     eh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
     eh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
@@ -196,27 +196,70 @@ max_space_heat_per_m2 <-
     eh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
   )
 
+# Separate calculation for multi-family houses, since larger losses
+mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
+  mutate(
+    Max_SpaceHeat_beginn_1918_avg  = max(SpaceHeat_beginn_1918_avg),
+    Max_SpaceHeat_1919_1948_avg = max(SpaceHeat_1919_1948_avg),
+    Max_SpaceHeat_1949_1978_avg = max(SpaceHeat_1949_1978_avg),
+    Max_SpaceHeat_1979_1986_avg = max(SpaceHeat_1979_1986_avg),
+    Max_SpaceHeat_1987_1990_avg = max(SpaceHeat_1987_1990_avg),
+    Max_SpaceHeat_1991_1995_avg = max(SpaceHeat_1991_1995_avg),
+    Max_SpaceHeat_1996_2000_avg = max(SpaceHeat_1996_2000_avg),
+    Max_SpaceHeat_2001_2011_avg = max(SpaceHeat_2001_2011_avg),
+    Max_SpaceHeat_2012_2022_avg = max(SpaceHeat_2012_2022_avg),
+    Max_SpaceHeat_2023_2030_avg = max(SpaceHeat_2023_2030_avg)
+  )
+
+mh_min_space_heat_per_m2 <-
+  min(
+    mh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1949_1978_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1979_1986_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1987_1990_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1991_1995_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1996_2000_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2001_2011_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2012_2022_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
+  )
+
+mh_max_space_heat_per_m2 <-
+  max(
+    mh_combined_heat_demand_avg$Max_SpaceHeat_beginn_1918_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1919_1948_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1949_1978_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1979_1986_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1987_1990_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1991_1995_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_1996_2000_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2001_2011_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2012_2022_avg,
+    mh_combined_heat_demand_avg$Max_SpaceHeat_2023_2030_avg
+  )
+
 min_slope <- 0.3
 
 max_slope <- 1.6
 
-slope_function <- function(x) {
+slope_function <- function(x, min_space_heat_per_m2, max_space_heat_per_m2) {
   return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
   ))
 }
 
 eh_combined_slopes <- eh_combined_heat_demand_avg %>%
   mutate(
-    Slope_SpaceHeat_beginn_1918 = slope_function(Max_SpaceHeat_beginn_1918_avg),
-    Slope_SpaceHeat_1919_1948 = slope_function(Max_SpaceHeat_1919_1948_avg),
-    Slope_SpaceHeat_1949_1978 = slope_function(Max_SpaceHeat_1949_1978_avg),
-    Slope_SpaceHeat_1979_1986 = slope_function(Max_SpaceHeat_1979_1986_avg),
-    Slope_SpaceHeat_1987_1990 = slope_function(Max_SpaceHeat_1987_1990_avg),
-    Slope_SpaceHeat_1991_1995 = slope_function(Max_SpaceHeat_1991_1995_avg),
-    Slope_SpaceHeat_1996_2000 = slope_function(Max_SpaceHeat_1996_2000_avg),
-    Slope_SpaceHeat_2001_2011 = slope_function(Max_SpaceHeat_2001_2011_avg),
-    Slope_SpaceHeat_2012_2022 = slope_function(Max_SpaceHeat_2012_2022_avg),
-    Slope_SpaceHeat_2023_2030 = slope_function(Max_SpaceHeat_2023_2030_avg)
+    Slope_SpaceHeat_beginn_1918 = slope_function(Max_SpaceHeat_beginn_1918_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1919_1948 = slope_function(Max_SpaceHeat_1919_1948_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1949_1978 = slope_function(Max_SpaceHeat_1949_1978_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1979_1986 = slope_function(Max_SpaceHeat_1979_1986_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1987_1990 = slope_function(Max_SpaceHeat_1987_1990_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1991_1995 = slope_function(Max_SpaceHeat_1991_1995_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1996_2000 = slope_function(Max_SpaceHeat_1996_2000_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2001_2011 = slope_function(Max_SpaceHeat_2001_2011_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2012_2022 = slope_function(Max_SpaceHeat_2012_2022_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2023_2030 = slope_function(Max_SpaceHeat_2023_2030_avg, eh_min_space_heat_per_m2, eh_max_space_heat_per_m2)
   ) %>%
   select(
     c(
@@ -235,6 +278,51 @@ eh_combined_slopes <- eh_combined_heat_demand_avg %>%
   )
 
 eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
+  select(
+    -c(
+      Max_SpaceHeat_beginn_1918_avg,
+      Max_SpaceHeat_1919_1948_avg,
+      Max_SpaceHeat_1949_1978_avg,
+      Max_SpaceHeat_1979_1986_avg,
+      Max_SpaceHeat_1987_1990_avg,
+      Max_SpaceHeat_1991_1995_avg,
+      Max_SpaceHeat_1996_2000_avg,
+      Max_SpaceHeat_2001_2011_avg,
+      Max_SpaceHeat_2012_2022_avg,
+      Max_SpaceHeat_2023_2030_avg
+    )
+  )
+
+mh_combined_slopes <- mh_combined_heat_demand_avg %>%
+  mutate(
+    Slope_SpaceHeat_beginn_1918 = slope_function(Max_SpaceHeat_beginn_1918_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1919_1948 = slope_function(Max_SpaceHeat_1919_1948_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1949_1978 = slope_function(Max_SpaceHeat_1949_1978_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1979_1986 = slope_function(Max_SpaceHeat_1979_1986_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1987_1990 = slope_function(Max_SpaceHeat_1987_1990_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1991_1995 = slope_function(Max_SpaceHeat_1991_1995_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_1996_2000 = slope_function(Max_SpaceHeat_1996_2000_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2001_2011 = slope_function(Max_SpaceHeat_2001_2011_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2012_2022 = slope_function(Max_SpaceHeat_2012_2022_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2),
+    Slope_SpaceHeat_2023_2030 = slope_function(Max_SpaceHeat_2023_2030_avg, mh_min_space_heat_per_m2, mh_max_space_heat_per_m2)
+  ) %>%
+  select(
+    c(
+      Time,
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030
+    )
+  )
+
+mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
   select(
     -c(
       Max_SpaceHeat_beginn_1918_avg,
@@ -331,3 +419,379 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
       Dar
     )
   )
+
+eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
+  left_join(weather_data_cold, by = "Time") %>%
+  mutate(Dar = TMix - 293.15) %>%
+  left_join(eh_combined_slopes, by = "Time") %>%
+  mutate(
+    FlowTemp_SpaceHeat_beginn_1918_cold = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
+    FlowTemp_SpaceHeat_1919_1948_cold = flow_temperature_function(Slope_SpaceHeat_1919_1948, Dar),
+    FlowTemp_SpaceHeat_1949_1978_cold = flow_temperature_function(Slope_SpaceHeat_1949_1978, Dar),
+    FlowTemp_SpaceHeat_1979_1986_cold = flow_temperature_function(Slope_SpaceHeat_1979_1986, Dar),
+    FlowTemp_SpaceHeat_1987_1990_cold = flow_temperature_function(Slope_SpaceHeat_1987_1990, Dar),
+    FlowTemp_SpaceHeat_1991_1995_cold = flow_temperature_function(Slope_SpaceHeat_1991_1995, Dar),
+    FlowTemp_SpaceHeat_1996_2000_cold = flow_temperature_function(Slope_SpaceHeat_1996_2000, Dar),
+    FlowTemp_SpaceHeat_2001_2011_cold = flow_temperature_function(Slope_SpaceHeat_2001_2011, Dar),
+    FlowTemp_SpaceHeat_2012_2022_cold = flow_temperature_function(Slope_SpaceHeat_2012_2022, Dar),
+    FlowTemp_SpaceHeat_2023_2030_cold = flow_temperature_function(Slope_SpaceHeat_2023_2030, Dar),
+    Share_SpaceHeat_beginn_1918_cold = SpaceHeat_beginn_1918_cold / (SpaceHeat_beginn_1918_cold + HotWater_cold),
+    Share_SpaceHeat_1919_1948_cold = SpaceHeat_1919_1948_cold / (SpaceHeat_1919_1948_cold + HotWater_cold),
+    Share_SpaceHeat_1949_1978_cold = SpaceHeat_1949_1978_cold / (SpaceHeat_1949_1978_cold + HotWater_cold),
+    Share_SpaceHeat_1979_1986_cold = SpaceHeat_1979_1986_cold / (SpaceHeat_1979_1986_cold + HotWater_cold),
+    Share_SpaceHeat_1987_1990_cold = SpaceHeat_1987_1990_cold / (SpaceHeat_1987_1990_cold + HotWater_cold),
+    Share_SpaceHeat_1991_1995_cold = SpaceHeat_1991_1995_cold / (SpaceHeat_1991_1995_cold + HotWater_cold),
+    Share_SpaceHeat_1996_2000_cold = SpaceHeat_1996_2000_cold / (SpaceHeat_1996_2000_cold + HotWater_cold),
+    Share_SpaceHeat_2001_2011_cold = SpaceHeat_2001_2011_cold / (SpaceHeat_2001_2011_cold + HotWater_cold),
+    Share_SpaceHeat_2012_2022_cold = SpaceHeat_2012_2022_cold / (SpaceHeat_2012_2022_cold + HotWater_cold),
+    Share_SpaceHeat_2023_2030_cold = SpaceHeat_2023_2030_cold / (SpaceHeat_2023_2030_cold + HotWater_cold),
+    FlowTemp_beginn_1918_cold = Share_SpaceHeat_beginn_1918_cold * FlowTemp_SpaceHeat_beginn_1918_cold + (1 - Share_SpaceHeat_beginn_1918_cold) * 323,
+    FlowTemp_1919_1948_cold = Share_SpaceHeat_1919_1948_cold * FlowTemp_SpaceHeat_1919_1948_cold + (1 - Share_SpaceHeat_1919_1948_cold) * 323,
+    FlowTemp_1949_1978_cold = Share_SpaceHeat_1949_1978_cold * FlowTemp_SpaceHeat_1949_1978_cold + (1 - Share_SpaceHeat_1949_1978_cold) * 323,
+    FlowTemp_1979_1986_cold = Share_SpaceHeat_1979_1986_cold * FlowTemp_SpaceHeat_1979_1986_cold + (1 - Share_SpaceHeat_1979_1986_cold) * 323,
+    FlowTemp_1987_1990_cold = Share_SpaceHeat_1987_1990_cold * FlowTemp_SpaceHeat_1987_1990_cold + (1 - Share_SpaceHeat_1987_1990_cold) * 323,
+    FlowTemp_1991_1995_cold = Share_SpaceHeat_1991_1995_cold * FlowTemp_SpaceHeat_1991_1995_cold + (1 - Share_SpaceHeat_1991_1995_cold) * 323,
+    FlowTemp_1996_2000_cold = Share_SpaceHeat_1996_2000_cold * FlowTemp_SpaceHeat_1996_2000_cold + (1 - Share_SpaceHeat_1996_2000_cold) * 323,
+    FlowTemp_2001_2011_cold = Share_SpaceHeat_2001_2011_cold * FlowTemp_SpaceHeat_2001_2011_cold + (1 - Share_SpaceHeat_2001_2011_cold) * 323,
+    FlowTemp_2012_2022_cold = Share_SpaceHeat_2012_2022_cold * FlowTemp_SpaceHeat_2012_2022_cold + (1 - Share_SpaceHeat_2012_2022_cold) * 323,
+    FlowTemp_2023_2030_cold = Share_SpaceHeat_2023_2030_cold * FlowTemp_SpaceHeat_2023_2030_cold + (1 - Share_SpaceHeat_2023_2030_cold) * 323
+  ) %>%
+  select(
+    -c(
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030,
+      FlowTemp_SpaceHeat_beginn_1918_cold,
+      FlowTemp_SpaceHeat_1919_1948_cold,
+      FlowTemp_SpaceHeat_1949_1978_cold,
+      FlowTemp_SpaceHeat_1979_1986_cold,
+      FlowTemp_SpaceHeat_1987_1990_cold,
+      FlowTemp_SpaceHeat_1991_1995_cold,
+      FlowTemp_SpaceHeat_1996_2000_cold,
+      FlowTemp_SpaceHeat_2001_2011_cold,
+      FlowTemp_SpaceHeat_2012_2022_cold,
+      FlowTemp_SpaceHeat_2023_2030_cold,
+      Share_SpaceHeat_beginn_1918_cold,
+      Share_SpaceHeat_1919_1948_cold,
+      Share_SpaceHeat_1949_1978_cold,
+      Share_SpaceHeat_1979_1986_cold,
+      Share_SpaceHeat_1987_1990_cold,
+      Share_SpaceHeat_1991_1995_cold,
+      Share_SpaceHeat_1996_2000_cold,
+      Share_SpaceHeat_2001_2011_cold,
+      Share_SpaceHeat_2012_2022_cold,
+      Share_SpaceHeat_2023_2030_cold,
+      Dar
+    )
+  )
+
+eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
+  left_join(weather_data_hot, by = "Time") %>%
+  mutate(Dar = TMix - 293.15) %>%
+  left_join(eh_combined_slopes, by = "Time") %>%
+  mutate(
+    FlowTemp_SpaceHeat_beginn_1918_hot = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
+    FlowTemp_SpaceHeat_1919_1948_hot = flow_temperature_function(Slope_SpaceHeat_1919_1948, Dar),
+    FlowTemp_SpaceHeat_1949_1978_hot = flow_temperature_function(Slope_SpaceHeat_1949_1978, Dar),
+    FlowTemp_SpaceHeat_1979_1986_hot = flow_temperature_function(Slope_SpaceHeat_1979_1986, Dar),
+    FlowTemp_SpaceHeat_1987_1990_hot = flow_temperature_function(Slope_SpaceHeat_1987_1990, Dar),
+    FlowTemp_SpaceHeat_1991_1995_hot = flow_temperature_function(Slope_SpaceHeat_1991_1995, Dar),
+    FlowTemp_SpaceHeat_1996_2000_hot = flow_temperature_function(Slope_SpaceHeat_1996_2000, Dar),
+    FlowTemp_SpaceHeat_2001_2011_hot = flow_temperature_function(Slope_SpaceHeat_2001_2011, Dar),
+    FlowTemp_SpaceHeat_2012_2022_hot = flow_temperature_function(Slope_SpaceHeat_2012_2022, Dar),
+    FlowTemp_SpaceHeat_2023_2030_hot = flow_temperature_function(Slope_SpaceHeat_2023_2030, Dar),
+    Share_SpaceHeat_beginn_1918_hot = SpaceHeat_beginn_1918_hot / (SpaceHeat_beginn_1918_hot + HotWater_hot),
+    Share_SpaceHeat_1919_1948_hot = SpaceHeat_1919_1948_hot / (SpaceHeat_1919_1948_hot + HotWater_hot),
+    Share_SpaceHeat_1949_1978_hot = SpaceHeat_1949_1978_hot / (SpaceHeat_1949_1978_hot + HotWater_hot),
+    Share_SpaceHeat_1979_1986_hot = SpaceHeat_1979_1986_hot / (SpaceHeat_1979_1986_hot + HotWater_hot),
+    Share_SpaceHeat_1987_1990_hot = SpaceHeat_1987_1990_hot / (SpaceHeat_1987_1990_hot + HotWater_hot),
+    Share_SpaceHeat_1991_1995_hot = SpaceHeat_1991_1995_hot / (SpaceHeat_1991_1995_hot + HotWater_hot),
+    Share_SpaceHeat_1996_2000_hot = SpaceHeat_1996_2000_hot / (SpaceHeat_1996_2000_hot + HotWater_hot),
+    Share_SpaceHeat_2001_2011_hot = SpaceHeat_2001_2011_hot / (SpaceHeat_2001_2011_hot + HotWater_hot),
+    Share_SpaceHeat_2012_2022_hot = SpaceHeat_2012_2022_hot / (SpaceHeat_2012_2022_hot + HotWater_hot),
+    Share_SpaceHeat_2023_2030_hot = SpaceHeat_2023_2030_hot / (SpaceHeat_2023_2030_hot + HotWater_hot),
+    FlowTemp_beginn_1918_hot = Share_SpaceHeat_beginn_1918_hot * FlowTemp_SpaceHeat_beginn_1918_hot + (1 - Share_SpaceHeat_beginn_1918_hot) * 323,
+    FlowTemp_1919_1948_hot = Share_SpaceHeat_1919_1948_hot * FlowTemp_SpaceHeat_1919_1948_hot + (1 - Share_SpaceHeat_1919_1948_hot) * 323,
+    FlowTemp_1949_1978_hot = Share_SpaceHeat_1949_1978_hot * FlowTemp_SpaceHeat_1949_1978_hot + (1 - Share_SpaceHeat_1949_1978_hot) * 323,
+    FlowTemp_1979_1986_hot = Share_SpaceHeat_1979_1986_hot * FlowTemp_SpaceHeat_1979_1986_hot + (1 - Share_SpaceHeat_1979_1986_hot) * 323,
+    FlowTemp_1987_1990_hot = Share_SpaceHeat_1987_1990_hot * FlowTemp_SpaceHeat_1987_1990_hot + (1 - Share_SpaceHeat_1987_1990_hot) * 323,
+    FlowTemp_1991_1995_hot = Share_SpaceHeat_1991_1995_hot * FlowTemp_SpaceHeat_1991_1995_hot + (1 - Share_SpaceHeat_1991_1995_hot) * 323,
+    FlowTemp_1996_2000_hot = Share_SpaceHeat_1996_2000_hot * FlowTemp_SpaceHeat_1996_2000_hot + (1 - Share_SpaceHeat_1996_2000_hot) * 323,
+    FlowTemp_2001_2011_hot = Share_SpaceHeat_2001_2011_hot * FlowTemp_SpaceHeat_2001_2011_hot + (1 - Share_SpaceHeat_2001_2011_hot) * 323,
+    FlowTemp_2012_2022_hot = Share_SpaceHeat_2012_2022_hot * FlowTemp_SpaceHeat_2012_2022_hot + (1 - Share_SpaceHeat_2012_2022_hot) * 323,
+    FlowTemp_2023_2030_hot = Share_SpaceHeat_2023_2030_hot * FlowTemp_SpaceHeat_2023_2030_hot + (1 - Share_SpaceHeat_2023_2030_hot) * 323
+  ) %>%
+  select(
+    -c(
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030,
+      FlowTemp_SpaceHeat_beginn_1918_hot,
+      FlowTemp_SpaceHeat_1919_1948_hot,
+      FlowTemp_SpaceHeat_1949_1978_hot,
+      FlowTemp_SpaceHeat_1979_1986_hot,
+      FlowTemp_SpaceHeat_1987_1990_hot,
+      FlowTemp_SpaceHeat_1991_1995_hot,
+      FlowTemp_SpaceHeat_1996_2000_hot,
+      FlowTemp_SpaceHeat_2001_2011_hot,
+      FlowTemp_SpaceHeat_2012_2022_hot,
+      FlowTemp_SpaceHeat_2023_2030_hot,
+      Share_SpaceHeat_beginn_1918_hot,
+      Share_SpaceHeat_1919_1948_hot,
+      Share_SpaceHeat_1949_1978_hot,
+      Share_SpaceHeat_1979_1986_hot,
+      Share_SpaceHeat_1987_1990_hot,
+      Share_SpaceHeat_1991_1995_hot,
+      Share_SpaceHeat_1996_2000_hot,
+      Share_SpaceHeat_2001_2011_hot,
+      Share_SpaceHeat_2012_2022_hot,
+      Share_SpaceHeat_2023_2030_hot,
+      Dar
+    )
+  )
+
+mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
+  left_join(weather_data_avg, by = "Time") %>%
+  mutate(Dar = TMix - 293.15) %>%
+  left_join(mh_combined_slopes, by = "Time") %>%
+  mutate(
+    FlowTemp_SpaceHeat_beginn_1918_avg = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
+    FlowTemp_SpaceHeat_1919_1948_avg = flow_temperature_function(Slope_SpaceHeat_1919_1948, Dar),
+    FlowTemp_SpaceHeat_1949_1978_avg = flow_temperature_function(Slope_SpaceHeat_1949_1978, Dar),
+    FlowTemp_SpaceHeat_1979_1986_avg = flow_temperature_function(Slope_SpaceHeat_1979_1986, Dar),
+    FlowTemp_SpaceHeat_1987_1990_avg = flow_temperature_function(Slope_SpaceHeat_1987_1990, Dar),
+    FlowTemp_SpaceHeat_1991_1995_avg = flow_temperature_function(Slope_SpaceHeat_1991_1995, Dar),
+    FlowTemp_SpaceHeat_1996_2000_avg = flow_temperature_function(Slope_SpaceHeat_1996_2000, Dar),
+    FlowTemp_SpaceHeat_2001_2011_avg = flow_temperature_function(Slope_SpaceHeat_2001_2011, Dar),
+    FlowTemp_SpaceHeat_2012_2022_avg = flow_temperature_function(Slope_SpaceHeat_2012_2022, Dar),
+    FlowTemp_SpaceHeat_2023_2030_avg = flow_temperature_function(Slope_SpaceHeat_2023_2030, Dar),
+    Share_SpaceHeat_beginn_1918_avg = SpaceHeat_beginn_1918_avg / (SpaceHeat_beginn_1918_avg + HotWater_avg),
+    Share_SpaceHeat_1919_1948_avg = SpaceHeat_1919_1948_avg / (SpaceHeat_1919_1948_avg + HotWater_avg),
+    Share_SpaceHeat_1949_1978_avg = SpaceHeat_1949_1978_avg / (SpaceHeat_1949_1978_avg + HotWater_avg),
+    Share_SpaceHeat_1979_1986_avg = SpaceHeat_1979_1986_avg / (SpaceHeat_1979_1986_avg + HotWater_avg),
+    Share_SpaceHeat_1987_1990_avg = SpaceHeat_1987_1990_avg / (SpaceHeat_1987_1990_avg + HotWater_avg),
+    Share_SpaceHeat_1991_1995_avg = SpaceHeat_1991_1995_avg / (SpaceHeat_1991_1995_avg + HotWater_avg),
+    Share_SpaceHeat_1996_2000_avg = SpaceHeat_1996_2000_avg / (SpaceHeat_1996_2000_avg + HotWater_avg),
+    Share_SpaceHeat_2001_2011_avg = SpaceHeat_2001_2011_avg / (SpaceHeat_2001_2011_avg + HotWater_avg),
+    Share_SpaceHeat_2012_2022_avg = SpaceHeat_2012_2022_avg / (SpaceHeat_2012_2022_avg + HotWater_avg),
+    Share_SpaceHeat_2023_2030_avg = SpaceHeat_2023_2030_avg / (SpaceHeat_2023_2030_avg + HotWater_avg),
+    FlowTemp_beginn_1918_avg = Share_SpaceHeat_beginn_1918_avg * FlowTemp_SpaceHeat_beginn_1918_avg + (1 - Share_SpaceHeat_beginn_1918_avg) * 373,
+    FlowTemp_1919_1948_avg = Share_SpaceHeat_1919_1948_avg * FlowTemp_SpaceHeat_1919_1948_avg + (1 - Share_SpaceHeat_1919_1948_avg) * 373,
+    FlowTemp_1949_1978_avg = Share_SpaceHeat_1949_1978_avg * FlowTemp_SpaceHeat_1949_1978_avg + (1 - Share_SpaceHeat_1949_1978_avg) * 373,
+    FlowTemp_1979_1986_avg = Share_SpaceHeat_1979_1986_avg * FlowTemp_SpaceHeat_1979_1986_avg + (1 - Share_SpaceHeat_1979_1986_avg) * 373,
+    FlowTemp_1987_1990_avg = Share_SpaceHeat_1987_1990_avg * FlowTemp_SpaceHeat_1987_1990_avg + (1 - Share_SpaceHeat_1987_1990_avg) * 373,
+    FlowTemp_1991_1995_avg = Share_SpaceHeat_1991_1995_avg * FlowTemp_SpaceHeat_1991_1995_avg + (1 - Share_SpaceHeat_1991_1995_avg) * 373,
+    FlowTemp_1996_2000_avg = Share_SpaceHeat_1996_2000_avg * FlowTemp_SpaceHeat_1996_2000_avg + (1 - Share_SpaceHeat_1996_2000_avg) * 373,
+    FlowTemp_2001_2011_avg = Share_SpaceHeat_2001_2011_avg * FlowTemp_SpaceHeat_2001_2011_avg + (1 - Share_SpaceHeat_2001_2011_avg) * 373,
+    FlowTemp_2012_2022_avg = Share_SpaceHeat_2012_2022_avg * FlowTemp_SpaceHeat_2012_2022_avg + (1 - Share_SpaceHeat_2012_2022_avg) * 373,
+    FlowTemp_2023_2030_avg = Share_SpaceHeat_2023_2030_avg * FlowTemp_SpaceHeat_2023_2030_avg + (1 - Share_SpaceHeat_2023_2030_avg) * 373
+  ) %>%
+  select(
+    -c(
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030,
+      FlowTemp_SpaceHeat_beginn_1918_avg,
+      FlowTemp_SpaceHeat_1919_1948_avg,
+      FlowTemp_SpaceHeat_1949_1978_avg,
+      FlowTemp_SpaceHeat_1979_1986_avg,
+      FlowTemp_SpaceHeat_1987_1990_avg,
+      FlowTemp_SpaceHeat_1991_1995_avg,
+      FlowTemp_SpaceHeat_1996_2000_avg,
+      FlowTemp_SpaceHeat_2001_2011_avg,
+      FlowTemp_SpaceHeat_2012_2022_avg,
+      FlowTemp_SpaceHeat_2023_2030_avg,
+      Share_SpaceHeat_beginn_1918_avg,
+      Share_SpaceHeat_1919_1948_avg,
+      Share_SpaceHeat_1949_1978_avg,
+      Share_SpaceHeat_1979_1986_avg,
+      Share_SpaceHeat_1987_1990_avg,
+      Share_SpaceHeat_1991_1995_avg,
+      Share_SpaceHeat_1996_2000_avg,
+      Share_SpaceHeat_2001_2011_avg,
+      Share_SpaceHeat_2012_2022_avg,
+      Share_SpaceHeat_2023_2030_avg,
+      Dar
+    )
+  )
+
+mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
+  left_join(weather_data_cold, by = "Time") %>%
+  mutate(Dar = TMix - 293.15) %>%
+  left_join(mh_combined_slopes, by = "Time") %>%
+  mutate(
+    FlowTemp_SpaceHeat_beginn_1918_cold = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
+    FlowTemp_SpaceHeat_1919_1948_cold = flow_temperature_function(Slope_SpaceHeat_1919_1948, Dar),
+    FlowTemp_SpaceHeat_1949_1978_cold = flow_temperature_function(Slope_SpaceHeat_1949_1978, Dar),
+    FlowTemp_SpaceHeat_1979_1986_cold = flow_temperature_function(Slope_SpaceHeat_1979_1986, Dar),
+    FlowTemp_SpaceHeat_1987_1990_cold = flow_temperature_function(Slope_SpaceHeat_1987_1990, Dar),
+    FlowTemp_SpaceHeat_1991_1995_cold = flow_temperature_function(Slope_SpaceHeat_1991_1995, Dar),
+    FlowTemp_SpaceHeat_1996_2000_cold = flow_temperature_function(Slope_SpaceHeat_1996_2000, Dar),
+    FlowTemp_SpaceHeat_2001_2011_cold = flow_temperature_function(Slope_SpaceHeat_2001_2011, Dar),
+    FlowTemp_SpaceHeat_2012_2022_cold = flow_temperature_function(Slope_SpaceHeat_2012_2022, Dar),
+    FlowTemp_SpaceHeat_2023_2030_cold = flow_temperature_function(Slope_SpaceHeat_2023_2030, Dar),
+    Share_SpaceHeat_beginn_1918_cold = SpaceHeat_beginn_1918_cold / (SpaceHeat_beginn_1918_cold + HotWater_cold),
+    Share_SpaceHeat_1919_1948_cold = SpaceHeat_1919_1948_cold / (SpaceHeat_1919_1948_cold + HotWater_cold),
+    Share_SpaceHeat_1949_1978_cold = SpaceHeat_1949_1978_cold / (SpaceHeat_1949_1978_cold + HotWater_cold),
+    Share_SpaceHeat_1979_1986_cold = SpaceHeat_1979_1986_cold / (SpaceHeat_1979_1986_cold + HotWater_cold),
+    Share_SpaceHeat_1987_1990_cold = SpaceHeat_1987_1990_cold / (SpaceHeat_1987_1990_cold + HotWater_cold),
+    Share_SpaceHeat_1991_1995_cold = SpaceHeat_1991_1995_cold / (SpaceHeat_1991_1995_cold + HotWater_cold),
+    Share_SpaceHeat_1996_2000_cold = SpaceHeat_1996_2000_cold / (SpaceHeat_1996_2000_cold + HotWater_cold),
+    Share_SpaceHeat_2001_2011_cold = SpaceHeat_2001_2011_cold / (SpaceHeat_2001_2011_cold + HotWater_cold),
+    Share_SpaceHeat_2012_2022_cold = SpaceHeat_2012_2022_cold / (SpaceHeat_2012_2022_cold + HotWater_cold),
+    Share_SpaceHeat_2023_2030_cold = SpaceHeat_2023_2030_cold / (SpaceHeat_2023_2030_cold + HotWater_cold),
+    FlowTemp_beginn_1918_cold = Share_SpaceHeat_beginn_1918_cold * FlowTemp_SpaceHeat_beginn_1918_cold + (1 - Share_SpaceHeat_beginn_1918_cold) * 373,
+    FlowTemp_1919_1948_cold = Share_SpaceHeat_1919_1948_cold * FlowTemp_SpaceHeat_1919_1948_cold + (1 - Share_SpaceHeat_1919_1948_cold) * 373,
+    FlowTemp_1949_1978_cold = Share_SpaceHeat_1949_1978_cold * FlowTemp_SpaceHeat_1949_1978_cold + (1 - Share_SpaceHeat_1949_1978_cold) * 373,
+    FlowTemp_1979_1986_cold = Share_SpaceHeat_1979_1986_cold * FlowTemp_SpaceHeat_1979_1986_cold + (1 - Share_SpaceHeat_1979_1986_cold) * 373,
+    FlowTemp_1987_1990_cold = Share_SpaceHeat_1987_1990_cold * FlowTemp_SpaceHeat_1987_1990_cold + (1 - Share_SpaceHeat_1987_1990_cold) * 373,
+    FlowTemp_1991_1995_cold = Share_SpaceHeat_1991_1995_cold * FlowTemp_SpaceHeat_1991_1995_cold + (1 - Share_SpaceHeat_1991_1995_cold) * 373,
+    FlowTemp_1996_2000_cold = Share_SpaceHeat_1996_2000_cold * FlowTemp_SpaceHeat_1996_2000_cold + (1 - Share_SpaceHeat_1996_2000_cold) * 373,
+    FlowTemp_2001_2011_cold = Share_SpaceHeat_2001_2011_cold * FlowTemp_SpaceHeat_2001_2011_cold + (1 - Share_SpaceHeat_2001_2011_cold) * 373,
+    FlowTemp_2012_2022_cold = Share_SpaceHeat_2012_2022_cold * FlowTemp_SpaceHeat_2012_2022_cold + (1 - Share_SpaceHeat_2012_2022_cold) * 373,
+    FlowTemp_2023_2030_cold = Share_SpaceHeat_2023_2030_cold * FlowTemp_SpaceHeat_2023_2030_cold + (1 - Share_SpaceHeat_2023_2030_cold) * 373
+  ) %>%
+  select(
+    -c(
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030,
+      FlowTemp_SpaceHeat_beginn_1918_cold,
+      FlowTemp_SpaceHeat_1919_1948_cold,
+      FlowTemp_SpaceHeat_1949_1978_cold,
+      FlowTemp_SpaceHeat_1979_1986_cold,
+      FlowTemp_SpaceHeat_1987_1990_cold,
+      FlowTemp_SpaceHeat_1991_1995_cold,
+      FlowTemp_SpaceHeat_1996_2000_cold,
+      FlowTemp_SpaceHeat_2001_2011_cold,
+      FlowTemp_SpaceHeat_2012_2022_cold,
+      FlowTemp_SpaceHeat_2023_2030_cold,
+      Share_SpaceHeat_beginn_1918_cold,
+      Share_SpaceHeat_1919_1948_cold,
+      Share_SpaceHeat_1949_1978_cold,
+      Share_SpaceHeat_1979_1986_cold,
+      Share_SpaceHeat_1987_1990_cold,
+      Share_SpaceHeat_1991_1995_cold,
+      Share_SpaceHeat_1996_2000_cold,
+      Share_SpaceHeat_2001_2011_cold,
+      Share_SpaceHeat_2012_2022_cold,
+      Share_SpaceHeat_2023_2030_cold,
+      Dar
+    )
+  )
+
+mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
+  left_join(weather_data_hot, by = "Time") %>%
+  mutate(Dar = TMix - 293.15) %>%
+  left_join(mh_combined_slopes, by = "Time") %>%
+  mutate(
+    FlowTemp_SpaceHeat_beginn_1918_hot = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
+    FlowTemp_SpaceHeat_1919_1948_hot = flow_temperature_function(Slope_SpaceHeat_1919_1948, Dar),
+    FlowTemp_SpaceHeat_1949_1978_hot = flow_temperature_function(Slope_SpaceHeat_1949_1978, Dar),
+    FlowTemp_SpaceHeat_1979_1986_hot = flow_temperature_function(Slope_SpaceHeat_1979_1986, Dar),
+    FlowTemp_SpaceHeat_1987_1990_hot = flow_temperature_function(Slope_SpaceHeat_1987_1990, Dar),
+    FlowTemp_SpaceHeat_1991_1995_hot = flow_temperature_function(Slope_SpaceHeat_1991_1995, Dar),
+    FlowTemp_SpaceHeat_1996_2000_hot = flow_temperature_function(Slope_SpaceHeat_1996_2000, Dar),
+    FlowTemp_SpaceHeat_2001_2011_hot = flow_temperature_function(Slope_SpaceHeat_2001_2011, Dar),
+    FlowTemp_SpaceHeat_2012_2022_hot = flow_temperature_function(Slope_SpaceHeat_2012_2022, Dar),
+    FlowTemp_SpaceHeat_2023_2030_hot = flow_temperature_function(Slope_SpaceHeat_2023_2030, Dar),
+    Share_SpaceHeat_beginn_1918_hot = SpaceHeat_beginn_1918_hot / (SpaceHeat_beginn_1918_hot + HotWater_hot),
+    Share_SpaceHeat_1919_1948_hot = SpaceHeat_1919_1948_hot / (SpaceHeat_1919_1948_hot + HotWater_hot),
+    Share_SpaceHeat_1949_1978_hot = SpaceHeat_1949_1978_hot / (SpaceHeat_1949_1978_hot + HotWater_hot),
+    Share_SpaceHeat_1979_1986_hot = SpaceHeat_1979_1986_hot / (SpaceHeat_1979_1986_hot + HotWater_hot),
+    Share_SpaceHeat_1987_1990_hot = SpaceHeat_1987_1990_hot / (SpaceHeat_1987_1990_hot + HotWater_hot),
+    Share_SpaceHeat_1991_1995_hot = SpaceHeat_1991_1995_hot / (SpaceHeat_1991_1995_hot + HotWater_hot),
+    Share_SpaceHeat_1996_2000_hot = SpaceHeat_1996_2000_hot / (SpaceHeat_1996_2000_hot + HotWater_hot),
+    Share_SpaceHeat_2001_2011_hot = SpaceHeat_2001_2011_hot / (SpaceHeat_2001_2011_hot + HotWater_hot),
+    Share_SpaceHeat_2012_2022_hot = SpaceHeat_2012_2022_hot / (SpaceHeat_2012_2022_hot + HotWater_hot),
+    Share_SpaceHeat_2023_2030_hot = SpaceHeat_2023_2030_hot / (SpaceHeat_2023_2030_hot + HotWater_hot),
+    FlowTemp_beginn_1918_hot = Share_SpaceHeat_beginn_1918_hot * FlowTemp_SpaceHeat_beginn_1918_hot + (1 - Share_SpaceHeat_beginn_1918_hot) * 373,
+    FlowTemp_1919_1948_hot = Share_SpaceHeat_1919_1948_hot * FlowTemp_SpaceHeat_1919_1948_hot + (1 - Share_SpaceHeat_1919_1948_hot) * 373,
+    FlowTemp_1949_1978_hot = Share_SpaceHeat_1949_1978_hot * FlowTemp_SpaceHeat_1949_1978_hot + (1 - Share_SpaceHeat_1949_1978_hot) * 373,
+    FlowTemp_1979_1986_hot = Share_SpaceHeat_1979_1986_hot * FlowTemp_SpaceHeat_1979_1986_hot + (1 - Share_SpaceHeat_1979_1986_hot) * 373,
+    FlowTemp_1987_1990_hot = Share_SpaceHeat_1987_1990_hot * FlowTemp_SpaceHeat_1987_1990_hot + (1 - Share_SpaceHeat_1987_1990_hot) * 373,
+    FlowTemp_1991_1995_hot = Share_SpaceHeat_1991_1995_hot * FlowTemp_SpaceHeat_1991_1995_hot + (1 - Share_SpaceHeat_1991_1995_hot) * 373,
+    FlowTemp_1996_2000_hot = Share_SpaceHeat_1996_2000_hot * FlowTemp_SpaceHeat_1996_2000_hot + (1 - Share_SpaceHeat_1996_2000_hot) * 373,
+    FlowTemp_2001_2011_hot = Share_SpaceHeat_2001_2011_hot * FlowTemp_SpaceHeat_2001_2011_hot + (1 - Share_SpaceHeat_2001_2011_hot) * 373,
+    FlowTemp_2012_2022_hot = Share_SpaceHeat_2012_2022_hot * FlowTemp_SpaceHeat_2012_2022_hot + (1 - Share_SpaceHeat_2012_2022_hot) * 373,
+    FlowTemp_2023_2030_hot = Share_SpaceHeat_2023_2030_hot * FlowTemp_SpaceHeat_2023_2030_hot + (1 - Share_SpaceHeat_2023_2030_hot) * 373
+  ) %>%
+  select(
+    -c(
+      Slope_SpaceHeat_beginn_1918,
+      Slope_SpaceHeat_1919_1948,
+      Slope_SpaceHeat_1949_1978,
+      Slope_SpaceHeat_1979_1986,
+      Slope_SpaceHeat_1987_1990,
+      Slope_SpaceHeat_1991_1995,
+      Slope_SpaceHeat_1996_2000,
+      Slope_SpaceHeat_2001_2011,
+      Slope_SpaceHeat_2012_2022,
+      Slope_SpaceHeat_2023_2030,
+      FlowTemp_SpaceHeat_beginn_1918_hot,
+      FlowTemp_SpaceHeat_1919_1948_hot,
+      FlowTemp_SpaceHeat_1949_1978_hot,
+      FlowTemp_SpaceHeat_1979_1986_hot,
+      FlowTemp_SpaceHeat_1987_1990_hot,
+      FlowTemp_SpaceHeat_1991_1995_hot,
+      FlowTemp_SpaceHeat_1996_2000_hot,
+      FlowTemp_SpaceHeat_2001_2011_hot,
+      FlowTemp_SpaceHeat_2012_2022_hot,
+      FlowTemp_SpaceHeat_2023_2030_hot,
+      Share_SpaceHeat_beginn_1918_hot,
+      Share_SpaceHeat_1919_1948_hot,
+      Share_SpaceHeat_1949_1978_hot,
+      Share_SpaceHeat_1979_1986_hot,
+      Share_SpaceHeat_1987_1990_hot,
+      Share_SpaceHeat_1991_1995_hot,
+      Share_SpaceHeat_1996_2000_hot,
+      Share_SpaceHeat_2001_2011_hot,
+      Share_SpaceHeat_2012_2022_hot,
+      Share_SpaceHeat_2023_2030_hot,
+      Dar
+    )
+  )
+
+
+max(eh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
+max(eh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
+max(eh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+min(eh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
+min(eh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
+min(eh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+
+max(mh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
+max(mh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
+max(mh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+min(mh_combined_heat_demand_avg$FlowTemp_1979_1986_avg)
+min(mh_combined_heat_demand_cold$FlowTemp_1979_1986_cold)
+min(mh_combined_heat_demand_hot$FlowTemp_1979_1986_hot)
+
