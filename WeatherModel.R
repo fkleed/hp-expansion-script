@@ -321,13 +321,6 @@ weather_data_combined <- weather_data_combined %>%
   left_join(magdeburg, by = "MESS_DATUM") %>%
   left_join(trier_petrisberg, by = "MESS_DATUM")
 
-# Get the amount of columns that are not NA for each row
-weather_data_combined <- weather_data_combined %>%
-  mutate(ValidValuesAmount = rowSums(!is.na(weather_data_combined[,2:17])))
-
-# Calculate the sum of all columns that are not NA for each row
-weather_data_combined <- weather_data_combined %>%
-  mutate(RowSumValidValues = rowSums(weather_data_combined[,2:17], na.rm = TRUE))
 
 # Calculate the mean temperature over all stations
 weather_data_combined <- weather_data_combined %>%
