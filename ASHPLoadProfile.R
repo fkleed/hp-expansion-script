@@ -421,7 +421,7 @@ mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
     )
   )
 
-romm_target_temperature <- 293.15
+room_target_temperature <- 293.15
 level <- 0
 
 # dar = Tmix - romm_target_temperature
@@ -540,11 +540,8 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 hot_water_temperature_eh <- 323
 hot_water_temperature_mh <- 373
 
-target_room_temperature <- 293.15
-
-
 eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(eh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_avg = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -615,7 +612,7 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
   )
 
 eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(eh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_cold = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -686,7 +683,7 @@ eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
   )
 
 eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(eh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_hot = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -757,7 +754,7 @@ eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
   )
 
 mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(mh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_avg = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -828,7 +825,7 @@ mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
   )
 
 mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(mh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_cold = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -899,7 +896,7 @@ mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
   )
 
 mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
-  mutate(Dar = TMix - target_room_temperature) %>%
+  mutate(Dar = TMix - room_target_temperature) %>%
   left_join(mh_combined_slopes, by = "Time") %>%
   mutate(
     FlowTemp_SpaceHeat_beginn_1918_hot = flow_temperature_function(Slope_SpaceHeat_beginn_1918, Dar),
@@ -2287,11 +2284,11 @@ sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_
 
 
 # Write output to csv
-write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_avg.csv")
-write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_cold.csv")
-write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_hot.csv")
+# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_avg.csv")
+# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_cold.csv")
+# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_hot.csv")
 
 
-write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_avg.csv")
-write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_cold.csv")
-write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_hot.csv")
+# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_avg.csv")
+# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_cold.csv")
+# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_hot.csv")
