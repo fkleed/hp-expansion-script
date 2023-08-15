@@ -1778,18 +1778,20 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 # Inclusion of efficiency losses
 # Assume the Efficiency of the ASHP is 0.428 of the theoretical COP
 # https://www.renewableinstitute.org/heat-pumps-reducing-losses-increasing-efficiency/
+efficiency_heatpump <- 0.428
+
 eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
   mutate(
-    COPHPReal_beginn_1918_avg = COPHPTheo_beginn_1918_avg * 0.428,
-    COPHPReal_1919_1948_avg = COPHPTheo_1919_1948_avg * 0.428,
-    COPHPReal_1949_1978_avg = COPHPTheo_1949_1978_avg * 0.428,
-    COPHPReal_1979_1986_avg = COPHPTheo_1979_1986_avg * 0.428,
-    COPHPReal_1987_1990_avg = COPHPTheo_1987_1990_avg * 0.428,
-    COPHPReal_1991_1995_avg = COPHPTheo_1991_1995_avg * 0.428,
-    COPHPReal_1996_2000_avg = COPHPTheo_1996_2000_avg * 0.428,
-    COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * 0.428,
-    COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * 0.428,
-    COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * 0.428
+    COPHPReal_beginn_1918_avg = COPHPTheo_beginn_1918_avg * efficiency_heatpump,
+    COPHPReal_1919_1948_avg = COPHPTheo_1919_1948_avg * efficiency_heatpump,
+    COPHPReal_1949_1978_avg = COPHPTheo_1949_1978_avg * efficiency_heatpump,
+    COPHPReal_1979_1986_avg = COPHPTheo_1979_1986_avg * efficiency_heatpump,
+    COPHPReal_1987_1990_avg = COPHPTheo_1987_1990_avg * efficiency_heatpump,
+    COPHPReal_1991_1995_avg = COPHPTheo_1991_1995_avg * efficiency_heatpump,
+    COPHPReal_1996_2000_avg = COPHPTheo_1996_2000_avg * efficiency_heatpump,
+    COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * efficiency_heatpump,
+    COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * efficiency_heatpump,
+    COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1808,16 +1810,16 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
 
 eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
   mutate(
-    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * 0.428,
-    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * 0.428,
-    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * 0.428,
-    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * 0.428,
-    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * 0.428,
-    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * 0.428,
-    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * 0.428,
-    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * 0.428,
-    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * 0.428,
-    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * 0.428
+    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * efficiency_heatpump,
+    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * efficiency_heatpump,
+    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * efficiency_heatpump,
+    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * efficiency_heatpump,
+    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * efficiency_heatpump,
+    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * efficiency_heatpump,
+    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * efficiency_heatpump,
+    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * efficiency_heatpump,
+    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * efficiency_heatpump,
+    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1836,16 +1838,16 @@ eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
 
 eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
   mutate(
-    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * 0.428,
-    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * 0.428,
-    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * 0.428,
-    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * 0.428,
-    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * 0.428,
-    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * 0.428,
-    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * 0.428,
-    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * 0.428,
-    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * 0.428,
-    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * 0.428
+    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * efficiency_heatpump,
+    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * efficiency_heatpump,
+    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * efficiency_heatpump,
+    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * efficiency_heatpump,
+    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * efficiency_heatpump,
+    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * efficiency_heatpump,
+    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * efficiency_heatpump,
+    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * efficiency_heatpump,
+    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * efficiency_heatpump,
+    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1865,16 +1867,16 @@ eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
 
 mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
   mutate(
-    COPHPReal_beginn_1918_avg = COPHPTheo_beginn_1918_avg * 0.428,
-    COPHPReal_1919_1948_avg = COPHPTheo_1919_1948_avg * 0.428,
-    COPHPReal_1949_1978_avg = COPHPTheo_1949_1978_avg * 0.428,
-    COPHPReal_1979_1986_avg = COPHPTheo_1979_1986_avg * 0.428,
-    COPHPReal_1987_1990_avg = COPHPTheo_1987_1990_avg * 0.428,
-    COPHPReal_1991_1995_avg = COPHPTheo_1991_1995_avg * 0.428,
-    COPHPReal_1996_2000_avg = COPHPTheo_1996_2000_avg * 0.428,
-    COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * 0.428,
-    COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * 0.428,
-    COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * 0.428
+    COPHPReal_beginn_1918_avg = COPHPTheo_beginn_1918_avg * efficiency_heatpump,
+    COPHPReal_1919_1948_avg = COPHPTheo_1919_1948_avg * efficiency_heatpump,
+    COPHPReal_1949_1978_avg = COPHPTheo_1949_1978_avg * efficiency_heatpump,
+    COPHPReal_1979_1986_avg = COPHPTheo_1979_1986_avg * efficiency_heatpump,
+    COPHPReal_1987_1990_avg = COPHPTheo_1987_1990_avg * efficiency_heatpump,
+    COPHPReal_1991_1995_avg = COPHPTheo_1991_1995_avg * efficiency_heatpump,
+    COPHPReal_1996_2000_avg = COPHPTheo_1996_2000_avg * efficiency_heatpump,
+    COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * efficiency_heatpump,
+    COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * efficiency_heatpump,
+    COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1893,16 +1895,16 @@ mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
 
 mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
   mutate(
-    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * 0.428,
-    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * 0.428,
-    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * 0.428,
-    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * 0.428,
-    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * 0.428,
-    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * 0.428,
-    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * 0.428,
-    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * 0.428,
-    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * 0.428,
-    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * 0.428
+    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * efficiency_heatpump,
+    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * efficiency_heatpump,
+    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * efficiency_heatpump,
+    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * efficiency_heatpump,
+    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * efficiency_heatpump,
+    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * efficiency_heatpump,
+    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * efficiency_heatpump,
+    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * efficiency_heatpump,
+    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * efficiency_heatpump,
+    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1921,16 +1923,16 @@ mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
 
 mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
   mutate(
-    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * 0.428,
-    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * 0.428,
-    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * 0.428,
-    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * 0.428,
-    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * 0.428,
-    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * 0.428,
-    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * 0.428,
-    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * 0.428,
-    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * 0.428,
-    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * 0.428
+    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * efficiency_heatpump,
+    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * efficiency_heatpump,
+    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * efficiency_heatpump,
+    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * efficiency_heatpump,
+    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * efficiency_heatpump,
+    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * efficiency_heatpump,
+    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * efficiency_heatpump,
+    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * efficiency_heatpump,
+    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * efficiency_heatpump,
+    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * efficiency_heatpump
   ) %>%
   select(
     -c(
@@ -1946,7 +1948,6 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
       COPHPTheo_2023_2030_hot
     )
   )
-
 
 # Calculate the required electricity
 # Assumption: Immersion heater has COP of 1
