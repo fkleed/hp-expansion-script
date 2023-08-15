@@ -1790,6 +1790,20 @@ eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
     COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * 0.428,
     COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * 0.428,
     COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_avg,
+      COPHPTheo_1919_1948_avg,
+      COPHPTheo_1949_1978_avg,
+      COPHPTheo_1979_1986_avg,
+      COPHPTheo_1987_1990_avg,
+      COPHPTheo_1991_1995_avg,
+      COPHPTheo_1996_2000_avg,
+      COPHPTheo_2001_2011_avg,
+      COPHPTheo_2012_2022_avg,
+      COPHPTheo_2023_2030_avg
+    )
   )
 
 eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
@@ -1804,6 +1818,20 @@ eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
     COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * 0.428,
     COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * 0.428,
     COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_cold,
+      COPHPTheo_1919_1948_cold,
+      COPHPTheo_1949_1978_cold,
+      COPHPTheo_1979_1986_cold,
+      COPHPTheo_1987_1990_cold,
+      COPHPTheo_1991_1995_cold,
+      COPHPTheo_1996_2000_cold,
+      COPHPTheo_2001_2011_cold,
+      COPHPTheo_2012_2022_cold,
+      COPHPTheo_2023_2030_cold
+    )
   )
 
 eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
@@ -1818,6 +1846,20 @@ eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
     COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * 0.428,
     COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * 0.428,
     COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_hot,
+      COPHPTheo_1919_1948_hot,
+      COPHPTheo_1949_1978_hot,
+      COPHPTheo_1979_1986_hot,
+      COPHPTheo_1987_1990_hot,
+      COPHPTheo_1991_1995_hot,
+      COPHPTheo_1996_2000_hot,
+      COPHPTheo_2001_2011_hot,
+      COPHPTheo_2012_2022_hot,
+      COPHPTheo_2023_2030_hot
+    )
   )
 
 
@@ -1833,6 +1875,20 @@ mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
     COPHPReal_2001_2011_avg = COPHPTheo_2001_2011_avg * 0.428,
     COPHPReal_2012_2022_avg = COPHPTheo_2012_2022_avg * 0.428,
     COPHPReal_2023_2030_avg = COPHPTheo_2023_2030_avg * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_avg,
+      COPHPTheo_1919_1948_avg,
+      COPHPTheo_1949_1978_avg,
+      COPHPTheo_1979_1986_avg,
+      COPHPTheo_1987_1990_avg,
+      COPHPTheo_1991_1995_avg,
+      COPHPTheo_1996_2000_avg,
+      COPHPTheo_2001_2011_avg,
+      COPHPTheo_2012_2022_avg,
+      COPHPTheo_2023_2030_avg
+    )
   )
 
 mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
@@ -1847,6 +1903,20 @@ mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
     COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * 0.428,
     COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * 0.428,
     COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_cold,
+      COPHPTheo_1919_1948_cold,
+      COPHPTheo_1949_1978_cold,
+      COPHPTheo_1979_1986_cold,
+      COPHPTheo_1987_1990_cold,
+      COPHPTheo_1991_1995_cold,
+      COPHPTheo_1996_2000_cold,
+      COPHPTheo_2001_2011_cold,
+      COPHPTheo_2012_2022_cold,
+      COPHPTheo_2023_2030_cold
+    )
   )
 
 mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
@@ -1861,4 +1931,347 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
     COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * 0.428,
     COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * 0.428,
     COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * 0.428
+  ) %>%
+  select(
+    -c(
+      COPHPTheo_beginn_1918_hot,
+      COPHPTheo_1919_1948_hot,
+      COPHPTheo_1949_1978_hot,
+      COPHPTheo_1979_1986_hot,
+      COPHPTheo_1987_1990_hot,
+      COPHPTheo_1991_1995_hot,
+      COPHPTheo_1996_2000_hot,
+      COPHPTheo_2001_2011_hot,
+      COPHPTheo_2012_2022_hot,
+      COPHPTheo_2023_2030_hot
+    )
   )
+
+
+# Calculate the required electricity
+# Assumption: Immersion heater has COP of 1
+electricity_function <-
+  function(thermal_output,
+           share_heatpump,
+           cop_heatpump) {
+    return (ifelse(
+      share_heatpump == 1,
+      (thermal_output / cop_heatpump),
+      ((share_heatpump * thermal_output) / cop_heatpump) + (((1 - share_heatpump) * thermal_output) / 1)
+    ))
+  }
+
+eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
+  mutate(
+    ElectricityDemand_beginn_1918_avg = electricity_function((SpaceHeat_beginn_1918_avg + HotWater_avg),
+                                                             ShareHP_beginn_1918_avg,
+                                                             COPHPReal_beginn_1918_avg
+    ),
+    ElectricityDemand_1919_1948_avg = electricity_function((SpaceHeat_1919_1948_avg + HotWater_avg),
+                                                           ShareHP_1919_1948_avg,
+                                                           COPHPReal_1919_1948_avg
+    ),
+    ElectricityDemand_1949_1978_avg = electricity_function((SpaceHeat_1949_1978_avg + HotWater_avg),
+                                                           ShareHP_1949_1978_avg,
+                                                           COPHPReal_1949_1978_avg
+    ),
+    ElectricityDemand_1979_1986_avg = electricity_function((SpaceHeat_1979_1986_avg + HotWater_avg),
+                                                           ShareHP_1979_1986_avg,
+                                                           COPHPReal_1979_1986_avg
+    ),
+    ElectricityDemand_1987_1990_avg = electricity_function((SpaceHeat_1987_1990_avg + HotWater_avg),
+                                                           ShareHP_1987_1990_avg,
+                                                           COPHPReal_1987_1990_avg
+    ),
+    ElectricityDemand_1991_1995_avg = electricity_function((SpaceHeat_1991_1995_avg + HotWater_avg),
+                                                           ShareHP_1991_1995_avg,
+                                                           COPHPReal_1991_1995_avg
+    ),
+    ElectricityDemand_1996_2000_avg = electricity_function((SpaceHeat_1996_2000_avg + HotWater_avg),
+                                                           ShareHP_1996_2000_avg,
+                                                           COPHPReal_1996_2000_avg
+    ),
+    ElectricityDemand_2001_2011_avg = electricity_function((SpaceHeat_2001_2011_avg + HotWater_avg),
+                                                           ShareHP_2001_2011_avg,
+                                                           COPHPReal_2001_2011_avg
+    ),
+    ElectricityDemand_2012_2022_avg = electricity_function((SpaceHeat_2012_2022_avg + HotWater_avg),
+                                                           ShareHP_2012_2022_avg,
+                                                           COPHPReal_2012_2022_avg
+    ),
+    ElectricityDemand_2023_2030_avg = electricity_function((SpaceHeat_2023_2030_avg + HotWater_avg),
+                                                           ShareHP_2023_2030_avg,
+                                                           COPHPReal_2023_2030_avg
+    )
+  )
+
+eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
+  mutate(
+    ElectricityDemand_beginn_1918_cold = electricity_function((SpaceHeat_beginn_1918_cold + HotWater_cold),
+                                                              ShareHP_beginn_1918_cold,
+                                                              COPHPReal_beginn_1918_cold
+    ),
+    ElectricityDemand_1919_1948_cold = electricity_function((SpaceHeat_1919_1948_cold + HotWater_cold),
+                                                            ShareHP_1919_1948_cold,
+                                                            COPHPReal_1919_1948_cold
+    ),
+    ElectricityDemand_1949_1978_cold = electricity_function((SpaceHeat_1949_1978_cold + HotWater_cold),
+                                                            ShareHP_1949_1978_cold,
+                                                            COPHPReal_1949_1978_cold
+    ),
+    ElectricityDemand_1979_1986_cold = electricity_function((SpaceHeat_1979_1986_cold + HotWater_cold),
+                                                            ShareHP_1979_1986_cold,
+                                                            COPHPReal_1979_1986_cold
+    ),
+    ElectricityDemand_1987_1990_cold = electricity_function((SpaceHeat_1987_1990_cold + HotWater_cold),
+                                                            ShareHP_1987_1990_cold,
+                                                            COPHPReal_1987_1990_cold
+    ),
+    ElectricityDemand_1991_1995_cold = electricity_function((SpaceHeat_1991_1995_cold + HotWater_cold),
+                                                            ShareHP_1991_1995_cold,
+                                                            COPHPReal_1991_1995_cold
+    ),
+    ElectricityDemand_1996_2000_cold = electricity_function((SpaceHeat_1996_2000_cold + HotWater_cold),
+                                                            ShareHP_1996_2000_cold,
+                                                            COPHPReal_1996_2000_cold
+    ),
+    ElectricityDemand_2001_2011_cold = electricity_function((SpaceHeat_2001_2011_cold + HotWater_cold),
+                                                            ShareHP_2001_2011_cold,
+                                                            COPHPReal_2001_2011_cold
+    ),
+    ElectricityDemand_2012_2022_cold = electricity_function((SpaceHeat_2012_2022_cold + HotWater_cold),
+                                                            ShareHP_2012_2022_cold,
+                                                            COPHPReal_2012_2022_cold
+    ),
+    ElectricityDemand_2023_2030_cold = electricity_function((SpaceHeat_2023_2030_cold + HotWater_cold),
+                                                            ShareHP_2023_2030_cold,
+                                                            COPHPReal_2023_2030_cold
+    )
+  )
+
+eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
+  mutate(
+    ElectricityDemand_beginn_1918_hot = electricity_function((SpaceHeat_beginn_1918_hot + HotWater_hot),
+                                                             ShareHP_beginn_1918_hot,
+                                                             COPHPReal_beginn_1918_hot
+    ),
+    ElectricityDemand_1919_1948_hot = electricity_function((SpaceHeat_1919_1948_hot + HotWater_hot),
+                                                           ShareHP_1919_1948_hot,
+                                                           COPHPReal_1919_1948_hot
+    ),
+    ElectricityDemand_1949_1978_hot = electricity_function((SpaceHeat_1949_1978_hot + HotWater_hot),
+                                                           ShareHP_1949_1978_hot,
+                                                           COPHPReal_1949_1978_hot
+    ),
+    ElectricityDemand_1979_1986_hot = electricity_function((SpaceHeat_1979_1986_hot + HotWater_hot),
+                                                           ShareHP_1979_1986_hot,
+                                                           COPHPReal_1979_1986_hot
+    ),
+    ElectricityDemand_1987_1990_hot = electricity_function((SpaceHeat_1987_1990_hot + HotWater_hot),
+                                                           ShareHP_1987_1990_hot,
+                                                           COPHPReal_1987_1990_hot
+    ),
+    ElectricityDemand_1991_1995_hot = electricity_function((SpaceHeat_1991_1995_hot + HotWater_hot),
+                                                           ShareHP_1991_1995_hot,
+                                                           COPHPReal_1991_1995_hot
+    ),
+    ElectricityDemand_1996_2000_hot = electricity_function((SpaceHeat_1996_2000_hot + HotWater_hot),
+                                                           ShareHP_1996_2000_hot,
+                                                           COPHPReal_1996_2000_hot
+    ),
+    ElectricityDemand_2001_2011_hot = electricity_function((SpaceHeat_2001_2011_hot + HotWater_hot),
+                                                           ShareHP_2001_2011_hot,
+                                                           COPHPReal_2001_2011_hot
+    ),
+    ElectricityDemand_2012_2022_hot = electricity_function((SpaceHeat_2012_2022_hot + HotWater_hot),
+                                                           ShareHP_2012_2022_hot,
+                                                           COPHPReal_2012_2022_hot
+    ),
+    ElectricityDemand_2023_2030_hot = electricity_function((SpaceHeat_2023_2030_hot + HotWater_hot),
+                                                           ShareHP_2023_2030_hot,
+                                                           COPHPReal_2023_2030_hot
+    )
+  )
+
+
+mh_combined_heat_demand_avg <- mh_combined_heat_demand_avg %>%
+  mutate(
+    ElectricityDemand_beginn_1918_avg = electricity_function((SpaceHeat_beginn_1918_avg + HotWater_avg),
+                                                             ShareHP_beginn_1918_avg,
+                                                             COPHPReal_beginn_1918_avg
+    ),
+    ElectricityDemand_1919_1948_avg = electricity_function((SpaceHeat_1919_1948_avg + HotWater_avg),
+                                                           ShareHP_1919_1948_avg,
+                                                           COPHPReal_1919_1948_avg
+    ),
+    ElectricityDemand_1949_1978_avg = electricity_function((SpaceHeat_1949_1978_avg + HotWater_avg),
+                                                           ShareHP_1949_1978_avg,
+                                                           COPHPReal_1949_1978_avg
+    ),
+    ElectricityDemand_1979_1986_avg = electricity_function((SpaceHeat_1979_1986_avg + HotWater_avg),
+                                                           ShareHP_1979_1986_avg,
+                                                           COPHPReal_1979_1986_avg
+    ),
+    ElectricityDemand_1987_1990_avg = electricity_function((SpaceHeat_1987_1990_avg + HotWater_avg),
+                                                           ShareHP_1987_1990_avg,
+                                                           COPHPReal_1987_1990_avg
+    ),
+    ElectricityDemand_1991_1995_avg = electricity_function((SpaceHeat_1991_1995_avg + HotWater_avg),
+                                                           ShareHP_1991_1995_avg,
+                                                           COPHPReal_1991_1995_avg
+    ),
+    ElectricityDemand_1996_2000_avg = electricity_function((SpaceHeat_1996_2000_avg + HotWater_avg),
+                                                           ShareHP_1996_2000_avg,
+                                                           COPHPReal_1996_2000_avg
+    ),
+    ElectricityDemand_2001_2011_avg = electricity_function((SpaceHeat_2001_2011_avg + HotWater_avg),
+                                                           ShareHP_2001_2011_avg,
+                                                           COPHPReal_2001_2011_avg
+    ),
+    ElectricityDemand_2012_2022_avg = electricity_function((SpaceHeat_2012_2022_avg + HotWater_avg),
+                                                           ShareHP_2012_2022_avg,
+                                                           COPHPReal_2012_2022_avg
+    ),
+    ElectricityDemand_2023_2030_avg = electricity_function((SpaceHeat_2023_2030_avg + HotWater_avg),
+                                                           ShareHP_2023_2030_avg,
+                                                           COPHPReal_2023_2030_avg
+    )
+  )
+
+mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
+  mutate(
+    ElectricityDemand_beginn_1918_cold = electricity_function((SpaceHeat_beginn_1918_cold + HotWater_cold),
+                                                              ShareHP_beginn_1918_cold,
+                                                              COPHPReal_beginn_1918_cold
+    ),
+    ElectricityDemand_1919_1948_cold = electricity_function((SpaceHeat_1919_1948_cold + HotWater_cold),
+                                                            ShareHP_1919_1948_cold,
+                                                            COPHPReal_1919_1948_cold
+    ),
+    ElectricityDemand_1949_1978_cold = electricity_function((SpaceHeat_1949_1978_cold + HotWater_cold),
+                                                            ShareHP_1949_1978_cold,
+                                                            COPHPReal_1949_1978_cold
+    ),
+    ElectricityDemand_1979_1986_cold = electricity_function((SpaceHeat_1979_1986_cold + HotWater_cold),
+                                                            ShareHP_1979_1986_cold,
+                                                            COPHPReal_1979_1986_cold
+    ),
+    ElectricityDemand_1987_1990_cold = electricity_function((SpaceHeat_1987_1990_cold + HotWater_cold),
+                                                            ShareHP_1987_1990_cold,
+                                                            COPHPReal_1987_1990_cold
+    ),
+    ElectricityDemand_1991_1995_cold = electricity_function((SpaceHeat_1991_1995_cold + HotWater_cold),
+                                                            ShareHP_1991_1995_cold,
+                                                            COPHPReal_1991_1995_cold
+    ),
+    ElectricityDemand_1996_2000_cold = electricity_function((SpaceHeat_1996_2000_cold + HotWater_cold),
+                                                            ShareHP_1996_2000_cold,
+                                                            COPHPReal_1996_2000_cold
+    ),
+    ElectricityDemand_2001_2011_cold = electricity_function((SpaceHeat_2001_2011_cold + HotWater_cold),
+                                                            ShareHP_2001_2011_cold,
+                                                            COPHPReal_2001_2011_cold
+    ),
+    ElectricityDemand_2012_2022_cold = electricity_function((SpaceHeat_2012_2022_cold + HotWater_cold),
+                                                            ShareHP_2012_2022_cold,
+                                                            COPHPReal_2012_2022_cold
+    ),
+    ElectricityDemand_2023_2030_cold = electricity_function((SpaceHeat_2023_2030_cold + HotWater_cold),
+                                                            ShareHP_2023_2030_cold,
+                                                            COPHPReal_2023_2030_cold
+    )
+  )
+
+mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
+  mutate(
+    ElectricityDemand_beginn_1918_hot = electricity_function((SpaceHeat_beginn_1918_hot + HotWater_hot),
+                                                             ShareHP_beginn_1918_hot,
+                                                             COPHPReal_beginn_1918_hot
+    ),
+    ElectricityDemand_1919_1948_hot = electricity_function((SpaceHeat_1919_1948_hot + HotWater_hot),
+                                                           ShareHP_1919_1948_hot,
+                                                           COPHPReal_1919_1948_hot
+    ),
+    ElectricityDemand_1949_1978_hot = electricity_function((SpaceHeat_1949_1978_hot + HotWater_hot),
+                                                           ShareHP_1949_1978_hot,
+                                                           COPHPReal_1949_1978_hot
+    ),
+    ElectricityDemand_1979_1986_hot = electricity_function((SpaceHeat_1979_1986_hot + HotWater_hot),
+                                                           ShareHP_1979_1986_hot,
+                                                           COPHPReal_1979_1986_hot
+    ),
+    ElectricityDemand_1987_1990_hot = electricity_function((SpaceHeat_1987_1990_hot + HotWater_hot),
+                                                           ShareHP_1987_1990_hot,
+                                                           COPHPReal_1987_1990_hot
+    ),
+    ElectricityDemand_1991_1995_hot = electricity_function((SpaceHeat_1991_1995_hot + HotWater_hot),
+                                                           ShareHP_1991_1995_hot,
+                                                           COPHPReal_1991_1995_hot
+    ),
+    ElectricityDemand_1996_2000_hot = electricity_function((SpaceHeat_1996_2000_hot + HotWater_hot),
+                                                           ShareHP_1996_2000_hot,
+                                                           COPHPReal_1996_2000_hot
+    ),
+    ElectricityDemand_2001_2011_hot = electricity_function((SpaceHeat_2001_2011_hot + HotWater_hot),
+                                                           ShareHP_2001_2011_hot,
+                                                           COPHPReal_2001_2011_hot
+    ),
+    ElectricityDemand_2012_2022_hot = electricity_function((SpaceHeat_2012_2022_hot + HotWater_hot),
+                                                           ShareHP_2012_2022_hot,
+                                                           COPHPReal_2012_2022_hot
+    ),
+    ElectricityDemand_2023_2030_hot = electricity_function((SpaceHeat_2023_2030_hot + HotWater_hot),
+                                                           ShareHP_2023_2030_hot,
+                                                           COPHPReal_2023_2030_hot
+    )
+  )
+
+
+# Average year eh
+sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
+
+# Cold year eh
+sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
+
+# Hot year eh
+sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
+
+
+# Average year mh
+sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
+
+# Cold year mh
+sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
+
+# Hot year mh
+sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
