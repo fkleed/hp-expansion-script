@@ -58,14 +58,14 @@ weather_data_avg <-
   tibble::rowid_to_column(weather_data_avg, "RowNumber")
 
 weather_data_avg  <-
-  weather_data_avg %>% mutate(T72WeightedAverage = round(rollmeanr(TemperatureKelvin,
-                                                                   72,
-                                                                   fill = NA), 2))
+  weather_data_avg %>% mutate(T72WeightedAverage = rollmeanr(TemperatureKelvin,
+                                                             72,
+                                                             fill = NA))
 
 weather_data_avg_until_71 <-
   weather_data_avg %>% filter(RowNumber < 72) %>%
   mutate(CumSumTemperatureKelvin = cumsum(TemperatureKelvin)) %>%
-  mutate(T72WeightedAverage = round(CumSumTemperatureKelvin / RowNumber, 2)) %>%
+  mutate(T72WeightedAverage = (CumSumTemperatureKelvin / RowNumber)) %>%
   select(-c(CumSumTemperatureKelvin))
 
 weather_data_avg <- weather_data_avg %>%
@@ -89,14 +89,14 @@ weather_data_cold <-
   tibble::rowid_to_column(weather_data_cold, "RowNumber")
 
 weather_data_cold  <-
-  weather_data_cold %>% mutate(T72WeightedAverage = round(rollmeanr(TemperatureKelvin,
-                                                                    72,
-                                                                    fill = NA), 2))
+  weather_data_cold %>% mutate(T72WeightedAverage = rollmeanr(TemperatureKelvin,
+                                                              72,
+                                                              fill = NA))
 
 weather_data_cold_until_71 <-
   weather_data_cold %>% filter(RowNumber < 72) %>%
   mutate(CumSumTemperatureKelvin = cumsum(TemperatureKelvin)) %>%
-  mutate(T72WeightedAverage = round(CumSumTemperatureKelvin / RowNumber, 2)) %>%
+  mutate(T72WeightedAverage = (CumSumTemperatureKelvin / RowNumber)) %>%
   select(-c(CumSumTemperatureKelvin))
 
 weather_data_cold <- weather_data_cold %>%
@@ -120,14 +120,14 @@ weather_data_hot <-
   tibble::rowid_to_column(weather_data_hot, "RowNumber")
 
 weather_data_hot  <-
-  weather_data_hot %>% mutate(T72WeightedAverage = round(rollmeanr(TemperatureKelvin,
-                                                                   72,
-                                                                   fill = NA), 2))
+  weather_data_hot %>% mutate(T72WeightedAverage = rollmeanr(TemperatureKelvin,
+                                                             72,
+                                                             fill = NA))
 
 weather_data_hot_until_71 <-
   weather_data_hot %>% filter(RowNumber < 72) %>%
   mutate(CumSumTemperatureKelvin = cumsum(TemperatureKelvin)) %>%
-  mutate(T72WeightedAverage = round(CumSumTemperatureKelvin / RowNumber, 2)) %>%
+  mutate(T72WeightedAverage = (CumSumTemperatureKelvin / RowNumber)) %>%
   select(-c(CumSumTemperatureKelvin))
 
 weather_data_hot <- weather_data_hot %>%
