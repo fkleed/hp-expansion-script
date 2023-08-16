@@ -1987,11 +1987,11 @@ sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot)
 
 
 # Write output to csv
-# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_space_heat_only_avg.csv")
-# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_space_heat_only_cold.csv")
-# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_space_heat_only_hot.csv")
+# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_ashp_space_heat_only_avg.csv")
+# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_ashp_space_heat_only_cold.csv")
+# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_ashp_space_heat_only_hot.csv")
 
 
-# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_space_heat_only_avg.csv")
-# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_space_heat_only_cold.csv")
-# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_space_heat_only_hot.csv")
+# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_ashp_space_heat_only_avg.csv")
+# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_ashp_space_heat_only_cold.csv")
+# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_ashp_space_heat_only_hot.csv")
