@@ -6,22 +6,28 @@ library(zoo)
 
 # Read the heat demand data
 eh_combined_heat_demand_avg <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_avg.csv")
+  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_avg.csv") %>%
+  select(-c(HotWater_avg))
 
 eh_combined_heat_demand_cold <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_cold.csv")
+  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_cold.csv") %>%
+  select(-c(HotWater_cold))
 
 eh_combined_heat_demand_hot <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_hot.csv")
+  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_hot.csv") %>%
+  select(-c(HotWater_hot))
 
 mh_combined_heat_demand_avg <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_avg.csv")
+  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_avg.csv") %>%
+  select(-c(HotWater_avg))
 
 mh_combined_heat_demand_cold <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_cold.csv")
+  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_cold.csv") %>%
+  select(-c(HotWater_cold))
 
 mh_combined_heat_demand_hot <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_hot.csv")
+  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_hot.csv") %>%
+  select(-c(HotWater_hot))
 
 
 # Read the weather data
@@ -1166,58 +1172,59 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
 sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
 sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
-sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
-sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
-sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg)
+sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg)
 
 # Cold year eh
 sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
 sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
 sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
-sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
-sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
-sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold)
+sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold)
 
 # Hot year eh
 sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
 sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
 sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
-sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
-sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
-sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot)
+sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot)
 
 
 # Average year mh
 sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
 sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
 sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
-sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
-sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
-sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg)
+sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg)
 
 # Cold year mh
 sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
 sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
 sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
-sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
-sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
-sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold)
+sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold)
 
 # Hot year mh
 sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
 sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
 sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
-sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
-sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
-sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot)
+sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot)
+
 
 
 # Write output to csv
-write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_avg.csv")
-write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_cold.csv")
-write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_hot.csv")
+# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_avg.csv")
+# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_cold.csv")
+# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_gshp_space_heat_only_hot.csv")
 
 
-write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_avg.csv")
-write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_cold.csv")
-write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_hot.csv")
+# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_avg.csv")
+# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_cold.csv")
+# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_gshp_space_heat_only_hot.csv")
