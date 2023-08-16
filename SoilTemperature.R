@@ -196,8 +196,10 @@ muenchen_flughafen <-
   )) %>%
   rename("V_TE050_1262" = "V_TE050")
 
-muenchen_flughafen$MESS_DATUM <- as.factor(muenchen_flughafen$MESS_DATUM)
-muenchen_flughafen$V_TE050_1262 <- as.numeric(muenchen_flughafen$V_TE050_1262)
+muenchen_flughafen$MESS_DATUM <-
+  as.factor(muenchen_flughafen$MESS_DATUM)
+muenchen_flughafen$V_TE050_1262 <-
+  as.numeric(muenchen_flughafen$V_TE050_1262)
 muenchen_flughafen$V_TE050_1262 <- replace(
   muenchen_flughafen$V_TE050_1262,
   muenchen_flughafen$V_TE050_1262 < -15 |
@@ -223,12 +225,10 @@ potsdam <-
 
 potsdam$MESS_DATUM <- as.factor(potsdam$MESS_DATUM)
 potsdam$V_TE050_3987 <- as.numeric(potsdam$V_TE050_3987)
-potsdam$V_TE050_3987 <- replace(
-  potsdam$V_TE050_3987,
-  potsdam$V_TE050_3987 < -15 |
-    potsdam$V_TE050_3987 > 30,
-  NA
-)
+potsdam$V_TE050_3987 <- replace(potsdam$V_TE050_3987,
+                                potsdam$V_TE050_3987 < -15 |
+                                  potsdam$V_TE050_3987 > 30,
+                                NA)
 
 
 stuttgart_echterdingen <-
@@ -246,8 +246,10 @@ stuttgart_echterdingen <-
   )) %>%
   rename("V_TE050_4931" = "V_TE050")
 
-stuttgart_echterdingen$MESS_DATUM <- as.factor(stuttgart_echterdingen$MESS_DATUM)
-stuttgart_echterdingen$V_TE050_4931 <- as.numeric(stuttgart_echterdingen$V_TE050_4931)
+stuttgart_echterdingen$MESS_DATUM <-
+  as.factor(stuttgart_echterdingen$MESS_DATUM)
+stuttgart_echterdingen$V_TE050_4931 <-
+  as.numeric(stuttgart_echterdingen$V_TE050_4931)
 stuttgart_echterdingen$V_TE050_4931 <- replace(
   stuttgart_echterdingen$V_TE050_4931,
   stuttgart_echterdingen$V_TE050_4931 < -15 |
@@ -271,8 +273,10 @@ saarbruecken_ensheim <-
   )) %>%
   rename("V_TE050_4336" = "V_TE050")
 
-saarbruecken_ensheim$MESS_DATUM <- as.factor(saarbruecken_ensheim$MESS_DATUM)
-saarbruecken_ensheim$V_TE050_4336 <- as.numeric(saarbruecken_ensheim$V_TE050_4336)
+saarbruecken_ensheim$MESS_DATUM <-
+  as.factor(saarbruecken_ensheim$MESS_DATUM)
+saarbruecken_ensheim$V_TE050_4336 <-
+  as.numeric(saarbruecken_ensheim$V_TE050_4336)
 saarbruecken_ensheim$V_TE050_4336 <- replace(
   saarbruecken_ensheim$V_TE050_4336,
   saarbruecken_ensheim$V_TE050_4336 < -15 |
@@ -323,12 +327,10 @@ fehmarn <-
 
 fehmarn$MESS_DATUM <- as.factor(fehmarn$MESS_DATUM)
 fehmarn$V_TE050_5516 <- as.numeric(fehmarn$V_TE050_5516)
-fehmarn$V_TE050_5516 <- replace(
-  fehmarn$V_TE050_5516,
-  fehmarn$V_TE050_5516 < -15 |
-    fehmarn$V_TE050_5516 > 30,
-  NA
-)
+fehmarn$V_TE050_5516 <- replace(fehmarn$V_TE050_5516,
+                                fehmarn$V_TE050_5516 < -15 |
+                                  fehmarn$V_TE050_5516 > 30,
+                                NA)
 
 
 rostock_warnemuende <-
@@ -346,8 +348,10 @@ rostock_warnemuende <-
   )) %>%
   rename("V_TE050_4271" = "V_TE050")
 
-rostock_warnemuende$MESS_DATUM <- as.factor(rostock_warnemuende$MESS_DATUM)
-rostock_warnemuende$V_TE050_4271 <- as.numeric(rostock_warnemuende$V_TE050_4271)
+rostock_warnemuende$MESS_DATUM <-
+  as.factor(rostock_warnemuende$MESS_DATUM)
+rostock_warnemuende$V_TE050_4271 <-
+  as.numeric(rostock_warnemuende$V_TE050_4271)
 rostock_warnemuende$V_TE050_4271 <- replace(
   rostock_warnemuende$V_TE050_4271,
   rostock_warnemuende$V_TE050_4271 < -15 |
@@ -373,12 +377,10 @@ magdeburg <-
 
 magdeburg$MESS_DATUM <- as.factor(magdeburg$MESS_DATUM)
 magdeburg$V_TE050_3126 <- as.numeric(magdeburg$V_TE050_3126)
-magdeburg$V_TE050_3126 <- replace(
-  magdeburg$V_TE050_3126,
-  magdeburg$V_TE050_3126 < -15 |
-    magdeburg$V_TE050_3126 > 30,
-  NA
-)
+magdeburg$V_TE050_3126 <- replace(magdeburg$V_TE050_3126,
+                                  magdeburg$V_TE050_3126 < -15 |
+                                    magdeburg$V_TE050_3126 > 30,
+                                  NA)
 
 
 trier_petrisberg <-
@@ -396,11 +398,92 @@ trier_petrisberg <-
   )) %>%
   rename("V_TE050_5100" = "V_TE050")
 
-trier_petrisberg$MESS_DATUM <- as.factor(trier_petrisberg$MESS_DATUM)
-trier_petrisberg$V_TE050_5100 <- as.numeric(trier_petrisberg$V_TE050_5100)
+trier_petrisberg$MESS_DATUM <-
+  as.factor(trier_petrisberg$MESS_DATUM)
+trier_petrisberg$V_TE050_5100 <-
+  as.numeric(trier_petrisberg$V_TE050_5100)
 trier_petrisberg$V_TE050_5100 <- replace(
   trier_petrisberg$V_TE050_5100 ,
   trier_petrisberg$V_TE050_5100  < -15 |
     trier_petrisberg$V_TE050_5100  > 30,
   NA
 )
+
+
+# Join the soil temperature data from weather stations
+list_soil_temperature <- list(
+  bremen,
+  dresden_klotzsche,
+  erfurt_weimar,
+  frankfurt_main,
+  hamburg_fuhlsbuettel,
+  hannover,
+  koeln_bonn,
+  muenchen_flughafen,
+  potsdam,
+  stuttgart_echterdingen,
+  saarbruecken_ensheim,
+  berlin_dahlem,
+  fehmarn,
+  rostock_warnemuende,
+  magdeburg,
+  trier_petrisberg
+)
+
+
+soil_temperature_combined <-
+  list_soil_temperature %>% reduce(left_join, by = "MESS_DATUM")
+
+
+# Calculate the mean soil temperature over all stations
+soil_temperature_combined <- soil_temperature_combined %>%
+  mutate(MeanSoilTemperature = rowMeans(soil_temperature_combined[, 2:17], na.rm = TRUE))
+
+
+# Calculate soil temperature values for an average year over the years 2010 - 2022 and filter leap year
+soil_temperature_average_yer <- soil_temperature_combined %>%
+  select(c("MESS_DATUM", "MeanSoilTemperature")) %>%
+  mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
+  select(-c(MESS_DATUM)) %>%
+  mutate_if(is.character, as.factor) %>%
+  group_by(Date) %>%
+  summarise(MeanSoilTemperature = mean(MeanSoilTemperature),
+            .groups = 'drop') %>%
+  filter(substr(as.character(Date), 1, 4) != "0229")
+
+
+# Calculate soil temperature values for the cold year 2010
+soil_temperature_2010 <- soil_temperature_combined %>%
+  select(c("MESS_DATUM", "MeanSoilTemperature")) %>%
+  filter(substr(as.character(soil_temperature_combined$MESS_DATUM), 1, 4) == 2010) %>%
+  mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
+  select(-c(MESS_DATUM)) %>%
+  mutate_if(is.character, as.factor) %>%
+  relocate(Date, .before = MeanSoilTemperature)
+
+
+# Calculate soil temperature values for the hot year 2022
+soil_temperature_2022 <- soil_temperature_combined %>%
+  select(c("MESS_DATUM", "MeanSoilTemperature")) %>%
+  filter(substr(as.character(soil_temperature_combined$MESS_DATUM), 1, 4) == 2022) %>%
+  mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
+  select(-c(MESS_DATUM)) %>%
+  mutate_if(is.character, as.factor) %>%
+  relocate(Date, .before = MeanSoilTemperature)
+
+
+# Write soil temperature values of average year to csv file
+# write_csv2(
+#   soil_temperature_average_yer,
+#   "data/weatherstations/output/soiltempaverageyear.csv"
+# )
+
+# write_csv2(
+#   soil_temperature_2010,
+#   "data/weatherstations/output/soiltempyear2010.csv"
+# )
+
+# write_csv2(
+#   soil_temperature_2022,
+#   "data/weatherstations/output/soiltempyear2022.csv"
+# )
