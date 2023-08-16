@@ -56,7 +56,7 @@ weather_data_hot <-
 # Read the soil temperature data
 soil_data_avg <-
   read_csv2("data/loadprofile/soildata/soiltempaverageyear.csv") %>%
-  mutate(SoilTemperatureKelvin = MeanSoilTemperature + 273.15, 2,
+  mutate(SoilTemperatureKelvin = MeanSoilTemperature + 273.15,
          Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
                       paste(substr(Date, 5, 6), "00", sep = ":"))) %>%
   select(-c(Date, MeanSoilTemperature))
