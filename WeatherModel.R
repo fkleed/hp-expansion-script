@@ -4,7 +4,8 @@ library(readxl)
 library("dplyr")
 
 # Read data from weather stations
-bremen <- read_csv2("data/weatherstations/bremen.csv") %>%
+bremen <-
+  read_csv2("data/weatherstations/airtemperature/bremen.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_691" = "TT_TU")
@@ -18,7 +19,7 @@ bremen$TT_TU_691 <- replace(bremen$TT_TU_691,
 
 
 dresden_klotzsche <-
-  read_csv2("data/weatherstations/dresden-klotzsche.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/dresden-klotzsche.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_1048" = "TT_TU")
@@ -37,7 +38,7 @@ dresden_klotzsche$TT_TU_1048 <-
 
 
 erfurt_weimar <-
-  read_csv2("data/weatherstations/erfurt-weimar.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/erfurt-weimar.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_1270" = "TT_TU")
@@ -53,7 +54,7 @@ erfurt_weimar$TT_TU_1270 <- replace(
 
 
 frankfurt_main <-
-  read_csv2("data/weatherstations/frankfurt-main.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/frankfurt-main.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_1420" = "TT_TU")
@@ -69,7 +70,7 @@ frankfurt_main$TT_TU_1420 <- replace(
 
 
 hamburg_fuhlsbuettel <-
-  read_csv2("data/weatherstations/hamburg-fuhlsbuettel.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/hamburg-fuhlsbuettel.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_1975" = "TT_TU")
@@ -87,7 +88,8 @@ hamburg_fuhlsbuettel$TT_TU_1975 <-
   )
 
 
-hannover <- read_csv2("data/weatherstations/hannover.csv") %>%
+hannover <-
+  read_csv2("data/weatherstations/airtemperature/hannover.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_2014" = "TT_TU")
@@ -100,7 +102,8 @@ hannover$TT_TU_2014  <- replace(hannover$TT_TU_2014,
                                 NA)
 
 
-koeln_bonn <- read_csv2("data/weatherstations/koeln-bonn.csv") %>%
+koeln_bonn <-
+  read_csv2("data/weatherstations/airtemperature/koeln-bonn.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_2667" = "TT_TU")
@@ -114,7 +117,7 @@ koeln_bonn$TT_TU_2667  <- replace(koeln_bonn$TT_TU_2667,
 
 
 muenchen_flughafen <-
-  read_csv2("data/weatherstations/muenchen-flughafen.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/muenchen-flughafen.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_1262" = "TT_TU")
@@ -132,7 +135,8 @@ muenchen_flughafen$TT_TU_1262  <-
   )
 
 
-potsdam <- read_csv2("data/weatherstations/potsdam.csv") %>%
+potsdam <-
+  read_csv2("data/weatherstations/airtemperature/potsdam.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_3987" = "TT_TU")
@@ -149,7 +153,7 @@ potsdam$TT_TU_3987  <-
 
 
 stuttgart_echterdingen <-
-  read_csv2("data/weatherstations/stuttgart-echterdingen.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/stuttgart-echterdingen.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_4931" = "TT_TU")
@@ -169,7 +173,7 @@ stuttgart_echterdingen$TT_TU_4931  <-
 
 
 saarbruecken_ensheim <-
-  read_csv2("data/weatherstations/saarbruecken-ensheim.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/saarbruecken-ensheim.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_4336" = "TT_TU")
@@ -202,7 +206,7 @@ nrow(saarbruecken_ensheim)
 
 # Missing values
 berlin_dahlem <-
-  read_csv2("data/weatherstations/berlin-dahlem.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/berlin-dahlem.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_403" = "TT_TU")
@@ -220,7 +224,8 @@ berlin_dahlem$TT_TU_403  <-
   )
 
 
-fehmarn <- read_csv2("data/weatherstations/fehmarn.csv") %>%
+fehmarn <-
+  read_csv2("data/weatherstations/airtemperature/fehmarn.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_5516" = "TT_TU")
@@ -237,7 +242,7 @@ fehmarn$TT_TU_5516  <-
 
 
 rostock_warnemuende <-
-  read_csv2("data/weatherstations/rostock-warnemuende.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/rostock-warnemuende.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_4271" = "TT_TU")
@@ -255,7 +260,8 @@ rostock_warnemuende$TT_TU_4271  <-
   )
 
 
-magdeburg <- read_csv2("data/weatherstations/magdeburg.csv") %>%
+magdeburg <-
+  read_csv2("data/weatherstations/airtemperature/magdeburg.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_3126" = "TT_TU")
@@ -271,7 +277,7 @@ magdeburg$TT_TU_3126  <-
           NA)
 
 trier_petrisberg <-
-  read_csv2("data/weatherstations/trier-petrisberg.csv") %>%
+  read_csv2("data/weatherstations/airtemperature/trier-petrisberg.csv") %>%
   filter(MESS_DATUM >= 2010010100) %>%
   select(-c(STATIONS_ID, QN_9, RF_TU, eor)) %>%
   rename("TT_TU_5100" = "TT_TU")
@@ -296,42 +302,32 @@ summary(magdeburg)
 summary(trier_petrisberg)
 
 # Join the weather stations without missing data
-list_weather_data <- list(bremen,
-                          dresden_klotzsche,
-                          erfurt_weimar,
-                          frankfurt_main,
-                          hamburg_fuhlsbuettel,
-                          hannover,
-                          koeln_bonn,
-                          muenchen_flughafen,
-                          potsdam,
-                          saarbruecken_ensheim,
-                          stuttgart_echterdingen
-                          )
+list_weather_data <- list(
+  bremen,
+  dresden_klotzsche,
+  erfurt_weimar,
+  frankfurt_main,
+  hamburg_fuhlsbuettel,
+  hannover,
+  koeln_bonn,
+  muenchen_flughafen,
+  potsdam,
+  saarbruecken_ensheim,
+  stuttgart_echterdingen,
+  berlin_dahlem,
+  fehmarn,
+  rostock_warnemuende,
+  magdeburg,
+  trier_petrisberg
+)
 
+weather_data_combined <-
+  list_weather_data %>% reduce(left_join, by = "MESS_DATUM")
 
-weather_data_combined <- list_weather_data %>% reduce(inner_join, by = "MESS_DATUM")
-
-
-# Join the weather stations with missing data
-weather_data_combined <- weather_data_combined %>%
-  left_join(berlin_dahlem, by = "MESS_DATUM") %>%
-  left_join(fehmarn, by = "MESS_DATUM") %>%
-  left_join(rostock_warnemuende, by = "MESS_DATUM") %>%
-  left_join(magdeburg, by = "MESS_DATUM") %>%
-  left_join(trier_petrisberg, by = "MESS_DATUM")
-
-# Get the amount of columns that are not NA for each row
-weather_data_combined <- weather_data_combined %>%
-  mutate(ValidValuesAmount = rowSums(!is.na(weather_data_combined[,2:17])))
-
-# Calculate the sum of all columns that are not NA for each row
-weather_data_combined <- weather_data_combined %>%
-  mutate(RowSumValidValues = rowSums(weather_data_combined[,2:17], na.rm = TRUE))
 
 # Calculate the mean temperature over all stations
 weather_data_combined <- weather_data_combined %>%
-  mutate(MeanTemperature = rowMeans(weather_data_combined[,2:17], na.rm = TRUE))
+  mutate(MeanTemperature = rowMeans(weather_data_combined[, 2:17], na.rm = TRUE))
 
 
 # Calculate temperature values for an average year over the years 2010 - 2022
@@ -341,17 +337,14 @@ weather_data_average_yer <- weather_data_combined %>%
   select(-c(MESS_DATUM)) %>%
   mutate_if(is.character, as.factor) %>%
   group_by(Date) %>%
-  summarise(MeanTemperature = mean(MeanTemperature), .groups = 'drop')
+  summarise(MeanTemperature = mean(MeanTemperature),
+            .groups = 'drop')
+
 
 # Filter leap year and round mean temperature
 weather_data_average_yer <- weather_data_average_yer %>%
   filter(substr(as.character(weather_data_average_yer$Date), 1, 4) != "0229") %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
-
-# Write temperature values of average year to txt file
-writeLines(weather_data_average_yer$RoundedMeanTemperatureRounded,
-           "data/weatherstations/output/averageyear.txt",
-           sep = ",")
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
 
 # Calculate temperature values for the cold year 2010
@@ -360,12 +353,8 @@ weather_data_2010 <- weather_data_combined %>%
   select(c("MESS_DATUM", "MeanTemperature")) %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
-
-# Write temperature values of year 2010 to txt file
-writeLines(weather_data_2010$RoundedMeanTemperatureRounded,
-           "data/weatherstations/output/year2010.txt",
-           sep = ",")
+  mutate_if(is.character, as.factor) %>%
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
 
 # Calculate temperature values for the hot year 2022
@@ -374,9 +363,40 @@ weather_data_2022 <- weather_data_combined %>%
   select(c("MESS_DATUM", "MeanTemperature")) %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
-  mutate(RoundedMeanTemperatureRounded = as.character(round(MeanTemperature, 1)))
+  mutate_if(is.character, as.factor) %>%
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
+
+
+# Write average, cold, and hot year to csv
+# Write temperature values of average year to txt file
+writeLines(
+  weather_data_average_yer$RoundedMeanTemperature,
+  "data/weatherstations/output/averageyear.txt",
+  sep = ","
+)
+
+# Write temperature values of average year to csv file
+write_csv2(weather_data_average_yer,
+           "data/weatherstations/output/averageyear.csv")
+
+# Write temperature values of year 2010 to txt file
+writeLines(
+  weather_data_2010$RoundedMeanTemperature,
+  "data/weatherstations/output/year2010.txt",
+  sep = ","
+)
+
+# Write temperature values of year 2010 to csv file
+write_csv2(weather_data_2010,
+           "data/weatherstations/output/year2010.csv")
 
 # Write temperature values of year 2022 to txt file
-writeLines(weather_data_2022$RoundedMeanTemperatureRounded,
-           "data/weatherstations/output/year2022.txt",
-           sep = ",")
+writeLines(
+  weather_data_2022$RoundedMeanTemperature,
+  "data/weatherstations/output/year2022.txt",
+  sep = ","
+)
+
+# Write temperature values of year 2022 to csv file
+write_csv2(weather_data_2022,
+           "data/weatherstations/output/year2022.csv")

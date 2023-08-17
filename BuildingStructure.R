@@ -200,7 +200,6 @@ heatinginfo_only_dormitories_2022 <-
 # Predict distribution of Building Stock for 2030
 # Assumption: The increase in building stock from 2023 - 2030 is assumed to be distributed as in 2012-2022
 # Assumption: Due to increasing surface sealing and rising construction costs, the overall building increase is only 60% compared to 2012 - 2022
-
 new_buildings_without_dormitories_by_state_2030 <-
   new_buildings_without_dormitories_by_state %>%
   mutate(NewBuildingsWithoutDormitoriesCount = NewBuildingsWithoutDormitoriesCount * 0.6)
@@ -281,7 +280,6 @@ distribution_dormitories_2030 <-
   relocate(YearOfConstruction, .before = NewBuildingCount)
 
 # Get new heatinginfos until 2030
-
 heatinginfo_without_dormitories_2030 <-
   heatinginfo_without_dormitories_2022 %>%
   rbind(
