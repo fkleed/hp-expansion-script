@@ -6,27 +6,27 @@ library(zoo)
 
 # Read the heat demand data
 eh_combined_heat_demand_avg <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_avg.csv")
+  read_csv2("data/output/heatdemand/eh_combined_heat_demand_avg.csv")
 
 eh_combined_heat_demand_cold <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_cold.csv")
+  read_csv2("data/output/heatdemand/eh_combined_heat_demand_cold.csv")
 
 eh_combined_heat_demand_hot <-
-  read_csv2("data/loadprofile/heatdemand/eh_combined_heat_demand_hot.csv")
+  read_csv2("data/output/heatdemand/eh_combined_heat_demand_hot.csv")
 
 mh_combined_heat_demand_avg <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_avg.csv")
+  read_csv2("data/output/heatdemand/mh_combined_heat_demand_avg.csv")
 
 mh_combined_heat_demand_cold <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_cold.csv")
+  read_csv2("data/output/heatdemand/mh_combined_heat_demand_cold.csv")
 
 mh_combined_heat_demand_hot <-
-  read_csv2("data/loadprofile/heatdemand/mh_combined_heat_demand_hot.csv")
+  read_csv2("data/output/heatdemand/mh_combined_heat_demand_hot.csv")
 
 
 # Read the weather data
 weather_data_avg <-
-  read_csv2("data/loadprofile/weatherdata/averageyear.csv") %>%
+  read_csv2("data/output/weathermodel/averageyear.csv") %>%
   mutate(
     TemperatureKelvin = as.numeric(RoundedMeanTemperature) + 273.15,
     Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
@@ -35,7 +35,7 @@ weather_data_avg <-
   select(-c(Date, MeanTemperature, RoundedMeanTemperature))
 
 weather_data_cold <-
-  read_csv2("data/loadprofile/weatherdata/year2010.csv") %>%
+  read_csv2("data/output/weathermodel/year2010.csv") %>%
   mutate(
     TemperatureKelvin = as.numeric(RoundedMeanTemperature) + 273.15,
     Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
@@ -44,7 +44,7 @@ weather_data_cold <-
   select(-c(Date, MeanTemperature, RoundedMeanTemperature))
 
 weather_data_hot <-
-  read_csv2("data/loadprofile/weatherdata/year2022.csv") %>%
+  read_csv2("data/output/weathermodel/year2022.csv") %>%
   mutate(
     TemperatureKelvin = as.numeric(RoundedMeanTemperature) + 273.15,
     Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
@@ -1430,11 +1430,11 @@ sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_
 
 
 # Write output to csv
-# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_gshp_probe_avg.csv")
-# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_gshp_probe_cold.csv")
-# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_gshp_probe_hot.csv")
+write_csv2(eh_combined_heat_demand_avg, "data/output/loadprofile/eh_loadprofile_gshp_probe_avg.csv")
+write_csv2(eh_combined_heat_demand_cold, "data/output/loadprofile/eh_loadprofile_gshp_probe_cold.csv")
+write_csv2(eh_combined_heat_demand_hot, "data/output/loadprofile/eh_loadprofile_gshp_probe_hot.csv")
 
 
-# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_gshp_probe_avg.csv")
-# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_gshp_probe_cold.csv")
-# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_gshp_probe_hot.csv")
+write_csv2(mh_combined_heat_demand_avg, "data/output/loadprofile/mh_loadprofile_gshp_probe_avg.csv")
+write_csv2(mh_combined_heat_demand_cold, "data/output/loadprofile/mh_loadprofile_gshp_probe_cold.csv")
+write_csv2(mh_combined_heat_demand_hot, "data/output/loadprofile/mh_loadprofile_gshp_probe_hot.csv")

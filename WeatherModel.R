@@ -371,32 +371,32 @@ weather_data_2022 <- weather_data_combined %>%
 # Write temperature values of average year to txt file
 writeLines(
   weather_data_average_yer$RoundedMeanTemperature,
-  "data/weatherstations/output/averageyear.txt",
+  "data/output/weathermodel/averageyear.txt",
   sep = ","
 )
 
 # Write temperature values of average year to csv file
 write_csv2(weather_data_average_yer,
-           "data/weatherstations/output/averageyear.csv")
+           "data/output/weathermodel/averageyear.csv")
 
 # Write temperature values of year 2010 to txt file
 writeLines(
   weather_data_2010$RoundedMeanTemperature,
-  "data/weatherstations/output/year2010.txt",
+  "data/output/weathermodel/year2010.txt",
   sep = ","
 )
 
 # Write temperature values of year 2010 to csv file
 write_csv2(weather_data_2010,
-           "data/weatherstations/output/year2010.csv")
+           "data/output/weathermodel/year2010.csv")
 
 # Write temperature values of year 2022 to txt file
 writeLines(
   weather_data_2022$RoundedMeanTemperature,
-  "data/weatherstations/output/year2022.txt",
+  "data/output/weathermodel/year2022.txt",
   sep = ","
 )
 
 # Write temperature values of year 2022 to csv file
 write_csv2(weather_data_2022,
-           "data/weatherstations/output/year2022.csv")
+           "data/output/weathermodel/year2022.csv")

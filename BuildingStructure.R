@@ -5,13 +5,13 @@ library("dplyr")
 
 
 # Load heating and region info
-nuts3regioninfo <- read_excel("data/nuts3regioninfo.xlsx")
+nuts3regioninfo <- read_excel("data/buildingstructure/nuts3regioninfo.xlsx")
 
 heatinginfo_without_dormitories <-
-  read_csv("data/heatinginfo_without_dormitories.csv")
+  read_csv("data/buildingstructure/heatinginfo_without_dormitories.csv")
 
 heatinginfo_only_dormitories <-
-  read_csv("data/heatinginfo_only_dormitories.csv")
+  read_csv("data/buildingstructure/heatinginfo_only_dormitories.csv")
 
 nuts3regioninfo <-
   nuts3regioninfo %>% mutate_if(is.character, as.factor)
@@ -372,16 +372,3 @@ write_csv2(
   summarized_building_stock_2030,
   "data/output/buildingstructure/summarized_building_stock_2030.csv"
 )
-
-
-# Optional: check if numbers are consistent with building stock
-# For example Bavaria had 2.908.526	buildings end of 2011 and zensus was taken mid 2011
-heatinginfo_without_dormitories %>%
-  inner_join(nuts3regioninfo, by = "NUTS-3-Code") %>%
-  group_by(`NUTS1-Name`) %>%
-  summarise(sum = sum(`Sum of BuildingCount`))
-
-heatinginfo_only_dormitories %>%
-  inner_join(nuts3regioninfo, by = "NUTS-3-Code") %>%
-  group_by(`NUTS1-Name`) %>%
-  summarise(sum = sum(`Sum of BuildingCount`))
