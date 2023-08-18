@@ -1456,11 +1456,11 @@ sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_
 
 
 # Write output to csv
-# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_gshp_avg.csv")
-# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_gshp_cold.csv")
-# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_gshp_hot.csv")
+# write_csv2(eh_combined_heat_demand_avg, "data/loadprofile/output/eh_loadprofile_gshp_collector_avg.csv")
+# write_csv2(eh_combined_heat_demand_cold, "data/loadprofile/output/eh_loadprofile_gshp_collector_cold.csv")
+# write_csv2(eh_combined_heat_demand_hot, "data/loadprofile/output/eh_loadprofile_gshp_collector_hot.csv")
 
 
-# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_gshp_avg.csv")
-# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_gshp_cold.csv")
-# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_gshp_hot.csv")
+# write_csv2(mh_combined_heat_demand_avg, "data/loadprofile/output/mh_loadprofile_gshp_collector_avg.csv")
+# write_csv2(mh_combined_heat_demand_cold, "data/loadprofile/output/mh_loadprofile_gshp_collector_cold.csv")
+# write_csv2(mh_combined_heat_demand_hot, "data/loadprofile/output/mh_loadprofile_gshp_collector_hot.csv")
