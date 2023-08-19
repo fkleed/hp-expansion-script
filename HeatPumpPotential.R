@@ -6,7 +6,7 @@ library(stringr)
 
 # Read the building stock data
 building_stock_2030 <-
-  read_csv("data/output/buildingstructure/summarized_building_stock_2030.csv") %>% mutate_if(is.character, as.factor)
+  read_csv2("data/output/buildingstructure/summarized_building_stock_2030.csv") %>% mutate_if(is.character, as.factor)
 
 
 # Read the nuts region info data
@@ -73,6 +73,8 @@ hp_potential_2022 <- hp_potential_2022 %>%
     "Potential" = "Sum of value"
   )
 
+remove(hp_potential_2022_regions)
+
 hp_potential_2022 <- hp_potential_2022 %>%
   group_by(NUTS3Code, BuildingType, HPHeatSource) %>%
   summarise(Potential = mean(Potential), .groups = 'drop') %>%
@@ -99,3 +101,24 @@ hp_potential_2022 <- hp_potential_2022 %>%
       "Solar-Thermal Energy and Ice Storage" = "4"
     )
   )
+
+
+# Combine the building stock data with heat pump potentials
+hp_potential_2022 <-
+  hp_potential_2022 %>%
+  filter(BuildingType != "Total") %>%
+  spread(HPHeatSource, Potential) %>%
+  rename(
+    "HPPotentialTotal" = "Total",
+    "HPPotentialAir" = "Air",
+    "HPPotentialProbe" = "Ground Probe",
+    "HPPotentialCollector" = "Ground Collector",
+    "HPPotentialSolarThermalEnergyIceStorage" = "Solar-Thermal Energy and Ice Storage"
+  )
+
+building_stock_2030_with_hp_potential <- building_stock_2030 %>%
+  inner_join(
+    hp_potential_2022,
+    by = c("BuildingTypeSize" = "BuildingType", "NUTS3Code" = "NUTS3Code")
+  )
+
