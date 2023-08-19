@@ -2,26 +2,22 @@
 library(tidyverse)
 library(readxl)
 library("dplyr")
-library("rjson")
 library(stringr)
-library(fuzzyjoin)
 
 # Read the building stock data
 building_stock_2030 <-
-  read_csv2("data/output/buildingstructure/summarized_building_stock_2030.csv") %>% mutate_if(is.character, as.factor)
+  read_csv("data/output/buildingstructure/summarized_building_stock_2030.csv") %>% mutate_if(is.character, as.factor)
+
 
 # Read the nuts region info data
 nuts3regioninfo <-
   read_excel("data/buildingstructure/nuts3regioninfo.xlsx") %>% mutate_if(is.character, as.factor)
 
+
 # Read the heat pump potential data
 hp_potential_2022 <-
-  as.data.frame(fromJSON(
-    "data/heatpumppotential/waermepumpenampel-german-districts.json"
-  )) %>% select(c("region",
-                  "internal_id_1",
-                  "internal_id_2",
-                  "value"))
+  read_csv("data/heatpumppotential/heat-pump-traffic-light.csv")
+
 
 # Join the heat pump potential with the nuts region info data
 hp_potential_2022_regions <-
@@ -46,6 +42,7 @@ hp_potential_2022_regions <- hp_potential_2022_regions %>%
       "Chemnitz, Kreisfreie Stadt" = "Chemnitz",
       "Dresden, Kreisfreie Stadt" = "Dresden",
       "Wartburgkreis" = "Eisenach, Kreisfreie Stadt",
+      "Landkreis Rostock" = "Rostock"
     )
   )
 
@@ -54,14 +51,51 @@ nuts3regioninfo <- nuts3regioninfo %>%
     NUTS3NameModified = ifelse(
       NUTS3Type == "Kreisfreie Stadt" | NUTS3Type == "Stadtkreis",
       paste(gsub(",.*", "", NUTS3Name), "Kreisfreie Stadt", sep = ", "),
-      gsub(",.*", "", NUTS3Name)
+      gsub(",.*"
+           , "", NUTS3Name)
     )
   )
 
-test <- hp_potential_2022_regions %>% full_join(nuts3regioninfo,
-                                                by = c("RegionKey" = "NUTS3NameModified"))
+hp_potential_2022_regions <-
+  hp_potential_2022_regions %>% full_join(nuts3regioninfo,
+                                          by = c("RegionKey" = "NUTS3NameModified"))
 
+hp_potential_2022_regions <- hp_potential_2022_regions %>%
+  select(c("region", "NUTS3Code"))
 
-test2 <- filter(test, is.na(region))
+hp_potential_2022 <- hp_potential_2022 %>%
+  left_join(hp_potential_2022_regions, by = "region") %>%
+  relocate(NUTS3Code, .before = region) %>%
+  select(-c("region")) %>%
+  rename(
+    "BuildingType" = "internal_id_1",
+    "HPHeatSource" = "internal_id_2",
+    "Potential" = "Sum of value"
+  )
 
+hp_potential_2022 <- hp_potential_2022 %>%
+  group_by(NUTS3Code, BuildingType, HPHeatSource) %>%
+  summarise(Potential = mean(Potential), .groups = 'drop') %>%
+  mutate(BuildingType = as.factor(BuildingType),
+         HPHeatSource = as.factor(HPHeatSource))
 
+hp_potential_2022 <- hp_potential_2022 %>%
+  mutate(
+    BuildingType = fct_recode(
+      BuildingType,
+      "One- and Two-family Houses" = "1",
+      "Apartment Buildings (3-6)" = "6",
+      "Row Houses" = "9",
+      "Semi-detached Houses" = "11",
+      "Apartment Buildings: 7 and More Apartments" = "38",
+      "Total" = "100"
+    ),
+    HPHeatSource = fct_recode(
+      HPHeatSource,
+      "Total" = "0",
+      "Air" = "1",
+      "Ground Probe" = "2",
+      "Ground Collector" = "3",
+      "Solar-Thermal Energy and Ice Storage" = "4"
+    )
+  )
