@@ -486,11 +486,11 @@ soil_temperature_2022 <- soil_temperature_combined %>%
 # Write soil temperature values of average year to csv file
 write_csv2(
   soil_temperature_average_yer,
-  "data/weatherstations/output/soiltempaverageyear.csv"
+  "data/output/weathermodel/soiltempaverageyear.csv"
 )
 
 write_csv2(soil_temperature_2010,
-           "data/weatherstations/output/soiltempyear2010.csv")
+           "data/output/weathermodel/soiltempyear2010.csv")
 
 write_csv2(soil_temperature_2022,
-           "data/weatherstations/output/soiltempyear2022.csv")
+           "data/output/weathermodel/soiltempyear2022.csv")

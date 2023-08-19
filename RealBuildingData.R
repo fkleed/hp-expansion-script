@@ -37,7 +37,7 @@ space_heat_2022_building_36_38 <- space_heat_2022_building_36_38 %>%
 
 
 # Compare with the model data from 2022
-mh_heat_demand_2022 <- read.csv2("data/realbuildingdata/mh_combined_heat_demand_hot.csv") %>%
+mh_heat_demand_2022 <- read.csv2("data/output/heatdemand/mh_combined_heat_demand_hot.csv") %>%
   select(c(Time, SpaceHeat_2012_2022_hot)) %>%
   mutate(Month = substr(Time, 4, 5)) %>%
   select(-c(Time)) %>%

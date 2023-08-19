@@ -2379,31 +2379,31 @@ mh_combined_heat_demand_hot <-
 # Write output to csv
 write_csv2(
   eh_combined_heat_demand_avg,
-  "data/heatdemand/output/eh_combined_heat_demand_avg.csv"
+  "data/output/heatdemand/eh_combined_heat_demand_avg.csv"
 )
 
 write_csv2(
   eh_combined_heat_demand_cold,
-  "data/heatdemand/output/eh_combined_heat_demand_cold.csv"
+  "data/output/heatdemand/eh_combined_heat_demand_cold.csv"
 )
 
 write_csv2(
   eh_combined_heat_demand_hot,
-  "data/heatdemand/output/eh_combined_heat_demand_hot.csv"
+  "data/output/heatdemand/eh_combined_heat_demand_hot.csv"
 )
 
 
 write_csv2(
   mh_combined_heat_demand_avg,
-  "data/heatdemand/output/mh_combined_heat_demand_avg.csv"
+  "data/output/heatdemand/mh_combined_heat_demand_avg.csv"
 )
 
 write_csv2(
   mh_combined_heat_demand_cold,
-  "data/heatdemand/output/mh_combined_heat_demand_cold.csv"
+  "data/output/heatdemand/mh_combined_heat_demand_cold.csv"
 )
 
 write_csv2(
   mh_combined_heat_demand_hot,
-  "data/heatdemand/output/mh_combined_heat_demand_hot.csv"
+  "data/output/heatdemand/mh_combined_heat_demand_hot.csv"
 )
