@@ -120,5 +120,12 @@ building_stock_2030_with_hp_potential <- building_stock_2030 %>%
   inner_join(
     hp_potential_2022,
     by = c("BuildingTypeSize" = "BuildingType", "NUTS3Code" = "NUTS3Code")
-  )
+  ) %>%
+  relocate(NUTS3Code, .before = BuildingTypeSize)
 
+
+# Write output to csv
+write_csv2(
+  building_stock_2030_with_hp_potential,
+  "data/output/heatpumppotential/building_stock_2030_with_hp_potential.csv"
+)
