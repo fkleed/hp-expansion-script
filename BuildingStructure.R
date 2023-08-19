@@ -22,7 +22,7 @@ heatinginfo_without_dormitories <-
 heatinginfo_only_dormitories <-
   heatinginfo_only_dormitories %>% mutate_if(is.character, as.factor)
 
-levels(heatinginfo_without_dormitories$YearOfConstruction)
+
 # Reduce categories for the building size
 heatinginfo_without_dormitories <-
   heatinginfo_without_dormitories %>%
