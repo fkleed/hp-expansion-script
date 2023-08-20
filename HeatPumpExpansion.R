@@ -64,68 +64,52 @@ heat_pump_distribution_function <-
            max_hp_amount_air,
            max_hp_amount_probe,
            max_hp_amount_collector) {
-    remaining <- total_hp_amount
+    hp_amount_air <-
+      ifelse(
+        max_hp_amount_air > share_ashp * total_hp_amount,
+        share_ashp * total_hp_amount,
+        max_hp_amount_air
+      )
 
-    hp_amount_air <- 0
-    hp_amount_probe <- 0
-    hp_amount_collector <- 0
+    hp_amount_probe <-
+      ifelse(
+        max_hp_amount_probe > share_gshp_probe * total_hp_amount,
+        share_gshp_probe * total_hp_amount,
+        max_hp_amount_probe
+      )
 
-    if (max_hp_amount_air >= (share_ashp * total_hp_amount)) {
-      hp_amount_air <-  share_ashp * total_hp_amount
-      remaining <- remaining - (share_ashp * total_hp_amount)
-    } else {
-      hp_amount_air <- max_hp_amount_air
-      remaining <- remaining - max_hp_amount_air
-    }
+    hp_amount_collector <-
+      ifelse(
+        max_hp_amount_collector > share_gshp_collector * total_hp_amount,
+        share_gshp_collector * total_hp_amount,
+        max_hp_amount_collector
+      )
 
-    if (max_hp_amount_probe >= (share_gshp_probe * total_hp_amount)) {
-      hp_amount_probe <-  share_gshp_probe * total_hp_amount
-      remaining <- remaining - (share_gshp_probe * total_hp_amount)
-    } else {
-      hp_amount_probe <- max_hp_amount_probe
-      remaining <- remaining - max_hp_amount_probe
-    }
+    remaining <-
+      total_hp_amount - hp_amount_air - hp_amount_probe - hp_amount_collector
 
-    if (max_hp_amount_collector >= (share_gshp_collector * total_hp_amount)) {
-      hp_amount_collector <-  share_gshp_collector * total_hp_amount
-      remaining <-
-        remaining - (share_gshp_collector * total_hp_amount)
-    } else {
-      hp_amount_collector <- max_hp_amount_collector
-      remaining <- remaining - max_hp_amount_collector
-    }
-
-
-    if (remaining > 0) {
-      remaining_hp_potential_air <-
-        ifelse(
-          max_hp_amount_air > (share_ashp * total_hp_amount),
-          max_hp_amount_air - (share_ashp * total_hp_amount),
-          0
-        )
-
-      remaining_hp_potential_probe <-
-        ifelse(
-          max_hp_amount_probe > (share_gshp_probe * total_hp_amount),
-          max_hp_amount_probe - (share_gshp_probe * total_hp_amount),
-          0
-        )
-
-      remaining_hp_potential_collector <-
-        ifelse(
-          max_hp_amount_collector > (share_gshp_collector * total_hp_amount),
-          max_hp_amount_collector - (share_gshp_collector * total_hp_amount),
-          0
-        )
-    }
-
-
+    list(
+      HPAmountAir = hp_amount_air,
+      HPAmountProbe = hp_amount_probe,
+      HPAmountCollector  = hp_amount_collector,
+      Remaining = remaining
+    )
 
   }
 
 
 # Calculate the heat pump distribution for 2023 - 2030
+test <- building_stock_2030_with_hp_potential_2023_2030 %>% cbind(
+  heat_pump_distribution_function(
+    building_stock_2030_with_hp_potential_2023_2030$BuildingCountHPPotential,
+    building_stock_2030_with_hp_potential_2023_2030$MaxBuildingCountHPPotentialAir,
+    building_stock_2030_with_hp_potential_2023_2030$MaxBuildingCountHPPotentialProbe,
+    building_stock_2030_with_hp_potential_2023_2030$MaxBuildingCountHPPotentialCollector
+  )
+)
 
+
+summary(building_stock_2030_with_hp_potential_2023_2030)
 
 
 # Calculate the amount of assigned heat pumps
