@@ -19,6 +19,22 @@ hp_potential_2022 <-
   read_csv("data/heatpumppotential/heat-pump-traffic-light.csv")
 
 
+# Group together buildings with year 2001 - 2004, 2005 - 2008, and 2009 - 2011
+building_stock_2030 <- building_stock_2030 %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2001 - 2011" = "2001 - 2004",
+      "2001 - 2011" = "2005 - 2008",
+      "2001 - 2011" = "2009 - 2011"
+    )
+  ) %>% group_by(BuildingTypeSize,
+                 HeatingType,
+                 NUTS3Code,
+                 YearOfConstruction) %>% summarise(BuildingCount = sum(BuildingCount),
+                                                   .groups = 'drop')
+
+
 # Join the heat pump potential with the nuts region info data
 hp_potential_2022_regions <-
   hp_potential_2022 %>% distinct(region) %>% mutate_if(is.character, as.factor) %>% mutate(RegionKey = region)
