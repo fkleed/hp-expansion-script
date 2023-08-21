@@ -24,8 +24,15 @@ building_stock_2030_with_hp_potential <-
 
 summary(building_stock_2030_with_hp_potential)
 
+
 # The calculations will be implemented in Kotlin
 write_csv(
   building_stock_2030_with_hp_potential,
   "data/output/heatpumpexpansion/building_stock_2030_with_hp_potential_processed.csv"
 )
+
+# Read the Kotlin calculation results
+building_stock_2030_with_hp_distribution <- read_csv("data/output/kotlin/building_stock_2030_with_hp_distribution.csv")
+
+sum(building_stock_2030_with_hp_distribution$HPAmountAir) + sum(building_stock_2030_with_hp_distribution$HPAmountProbe) + sum(building_stock_2030_with_hp_distribution$HPAmountCollector)
+
