@@ -257,7 +257,7 @@ slope_function <-
   function(x,
            min_space_heat_per_m2,
            max_space_heat_per_m2) {
-    return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
+    return (min_slope + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
     ))
   }
 

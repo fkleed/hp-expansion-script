@@ -270,7 +270,7 @@ slope_function <-
   function(x,
            min_space_heat_per_m2,
            max_space_heat_per_m2) {
-    return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
+    return (min_slope + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
     ))
   }
 
@@ -1406,50 +1406,50 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 
 
 # Average year eh
-sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
-sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
-sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(eh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
+(sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)) / sum(eh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
+(sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)) / sum(eh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
+(sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)) / sum(eh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
 sum(eh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
 sum(eh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
 sum(eh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(eh_combined_heat_demand_avg$HotWater_avg)
 
 # Cold year eh
-sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
-sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
-sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(eh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
+(sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)) / sum(eh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
+(sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)) / sum(eh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
+(sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)) / sum(eh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
 sum(eh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
 sum(eh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
 sum(eh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(eh_combined_heat_demand_cold$HotWater_cold)
 
 # Hot year eh
-sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
-sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
-sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(eh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
+(sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)) / sum(eh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
+(sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)) / sum(eh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
+(sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)) / sum(eh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
 sum(eh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
 sum(eh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
 sum(eh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(eh_combined_heat_demand_hot$HotWater_hot)
 
 
 # Average year mh
-sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
-sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
-sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) / sum(mh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
+(sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)) / sum(mh_combined_heat_demand_avg$ElectricityDemand_beginn_1918_avg)
+(sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)) / sum(mh_combined_heat_demand_avg$ElectricityDemand_1996_2000_avg)
+(sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)) / sum(mh_combined_heat_demand_avg$ElectricityDemand_2023_2030_avg)
 sum(mh_combined_heat_demand_avg$SpaceHeat_beginn_1918_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
 sum(mh_combined_heat_demand_avg$SpaceHeat_1996_2000_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
 sum(mh_combined_heat_demand_avg$SpaceHeat_2023_2030_avg) + sum(mh_combined_heat_demand_avg$HotWater_avg)
 
 # Cold year mh
-sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
-sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
-sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) / sum(mh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
+(sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)) / sum(mh_combined_heat_demand_cold$ElectricityDemand_beginn_1918_cold)
+(sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)) / sum(mh_combined_heat_demand_cold$ElectricityDemand_1996_2000_cold)
+(sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)) / sum(mh_combined_heat_demand_cold$ElectricityDemand_2023_2030_cold)
 sum(mh_combined_heat_demand_cold$SpaceHeat_beginn_1918_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
 sum(mh_combined_heat_demand_cold$SpaceHeat_1996_2000_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
 sum(mh_combined_heat_demand_cold$SpaceHeat_2023_2030_cold) + sum(mh_combined_heat_demand_cold$HotWater_cold)
 
 # Hot year mh
-sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
-sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
-sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) / sum(mh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
+(sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)) / sum(mh_combined_heat_demand_hot$ElectricityDemand_beginn_1918_hot)
+(sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)) / sum(mh_combined_heat_demand_hot$ElectricityDemand_1996_2000_hot)
+(sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)) / sum(mh_combined_heat_demand_hot$ElectricityDemand_2023_2030_hot)
 sum(mh_combined_heat_demand_hot$SpaceHeat_beginn_1918_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
 sum(mh_combined_heat_demand_hot$SpaceHeat_1996_2000_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
 sum(mh_combined_heat_demand_hot$SpaceHeat_2023_2030_hot) + sum(mh_combined_heat_demand_hot$HotWater_hot)
