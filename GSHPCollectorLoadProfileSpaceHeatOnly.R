@@ -847,9 +847,9 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 
 
 # Inclusion of efficiency losses
-# Assume the Efficiency of the ASHP is 0.428 of the theoretical COP
+# Assume the Efficiency of the ASHP is 0.4 of the theoretical COP
 # https://www.renewableinstitute.org/heat-pumps-reducing-losses-increasing-efficiency/
-efficiency_heatpump <- 0.428
+efficiency_heatpump <- 0.4
 
 eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
   mutate(
