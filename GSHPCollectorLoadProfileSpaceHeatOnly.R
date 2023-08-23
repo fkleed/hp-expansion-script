@@ -276,7 +276,7 @@ slope_function <-
   function(x,
            min_space_heat_per_m2,
            max_space_heat_per_m2) {
-    return (0.3 + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
+    return (min_slope + (x - min_space_heat_per_m2) * ((max_slope - min_slope) / (max_space_heat_per_m2 - min_space_heat_per_m2)
     ))
   }
 
@@ -847,9 +847,9 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
 
 
 # Inclusion of efficiency losses
-# Assume the Efficiency of the ASHP is 0.428 of the theoretical COP
+# Assume the Efficiency of the ASHP is 0.4 of the theoretical COP
 # https://www.renewableinstitute.org/heat-pumps-reducing-losses-increasing-efficiency/
-efficiency_heatpump <- 0.428
+efficiency_heatpump <- 0.4
 
 eh_combined_heat_demand_avg <- eh_combined_heat_demand_avg %>%
   mutate(
