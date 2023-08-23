@@ -483,7 +483,6 @@ mh_passivhaus_avg <-
 
 
 # Read nPro data from the cold year
-# Read nPro data from the average year
 eh_1919_1948_cold <-
   read_csv("data/heatdemand/2023-08-09-Quartiercoldyear(2010)/EH-1919-1948.csv") %>%
   select(
@@ -961,7 +960,6 @@ mh_passivhaus_cold <-
   )
 
 # Read nPro data from the hot year
-# Read nPro data from the average year
 eh_1919_1948_hot <-
   read_csv("data/heatdemand/2023-08-09-Quartierhotyear(2022)/EH-1919-1948.csv") %>%
   select(
@@ -1438,6 +1436,483 @@ mh_passivhaus_hot <-
     "HotWater_passivhaus_hot" = "Trinkwarmwasser (kW)"
   )
 
+# Read nPro data from the reference year
+eh_1919_1948_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1919-1948.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1919_1948_reference" = "Raumwärme (kW)",
+    "HotWater_1919_1948_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1949_1957_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1949-1957.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1949_1957_reference" = "Raumwärme (kW)",
+    "HotWater_1949_1957_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1958_1968_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1958-1968.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1958_1968_reference" = "Raumwärme (kW)",
+    "HotWater_1958_1968_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1969_1978_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1969-1978.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1969_1978_reference" = "Raumwärme (kW)",
+    "HotWater_1969_1978_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1979_1983_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1979-1983.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1979_1983_reference" = "Raumwärme (kW)",
+    "HotWater_1979_1983_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1984_1994_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1984-1994.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1984_1994_reference" = "Raumwärme (kW)",
+    "HotWater_1984_1994_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_1995_2001_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1995-2001.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1995_2001_reference" = "Raumwärme (kW)",
+    "HotWater_1995_2001_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_2002_ende_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-2002-ende.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_2002_ende_reference" = "Raumwärme (kW)",
+    "HotWater_2002_ende_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_beginn_1918_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-beginn-1918.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_beginn_1918_reference" = "Raumwärme (kW)",
+    "HotWater_beginn_1918_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_kfw_40_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-40.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_40_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_40_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_kfw_55_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-55.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_55_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_55_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_kfw_70_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-70.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_70_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_70_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_kfw_85_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-85.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_85_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_85_reference" = "Trinkwarmwasser (kW)"
+  )
+
+eh_passivhaus_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-Passivhaus.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_passivhaus_reference" = "Raumwärme (kW)",
+    "HotWater_passivhaus_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1919_1948_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1919-1948.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1919_1948_reference" = "Raumwärme (kW)",
+    "HotWater_1919_1948_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1949_1957_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1949-1957.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1949_1957_reference" = "Raumwärme (kW)",
+    "HotWater_1949_1957_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1958_1968_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1958-1968.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1958_1968_reference" = "Raumwärme (kW)",
+    "HotWater_1958_1968_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1969_1978_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1969-1978.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1969_1978_reference" = "Raumwärme (kW)",
+    "HotWater_1969_1978_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1979_1983_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1979-1983.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1979_1983_reference" = "Raumwärme (kW)",
+    "HotWater_1979_1983_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1984_1994_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1984-1994.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1984_1994_reference" = "Raumwärme (kW)",
+    "HotWater_1984_1994_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_1995_2001_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1995-2001.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_1995_2001_reference" = "Raumwärme (kW)",
+    "HotWater_1995_2001_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_2002_ende_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-2002-ende.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_2002_ende_reference" = "Raumwärme (kW)",
+    "HotWater_2002_ende_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_beginn_1918_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-beginn-1918.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_beginn_1918_reference" = "Raumwärme (kW)",
+    "HotWater_beginn_1918_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_kfw_40_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-40.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_40_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_40_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_kfw_55_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-55.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_55_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_55_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_kfw_70_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-70.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_70_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_70_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_kfw_85_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-85.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_kfw_85_reference" = "Raumwärme (kW)",
+    "HotWater_kfw_85_reference" = "Trinkwarmwasser (kW)"
+  )
+
+mh_passivhaus_reference <-
+  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-Passivhaus.csv") %>%
+  select(
+    -c(
+      "Klimatisierung (kW)",
+      "Prozesskälte (kW)",
+      "Nutzerstrom (kW)",
+      "Elektromobilität (kW)"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor) %>%
+  rename(
+    "Time" = "Zeit (TT-MM hh:mm)",
+    "SpaceHeat_passivhaus_reference" = "Raumwärme (kW)",
+    "HotWater_passivhaus_reference" = "Trinkwarmwasser (kW)"
+  )
+
 
 # Derive data single family homes
 # Derive data for 1949 - 1978
@@ -1507,6 +1982,27 @@ eh_1949_1978_hot <-
     )
   )
 
+eh_1949_1978_reference <-
+  list(eh_1949_1957_reference, eh_1958_1968_reference, eh_1969_1978_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1949_1978_reference = (
+      SpaceHeat_1949_1957_reference + SpaceHeat_1958_1968_reference + SpaceHeat_1969_1978_reference
+    ) / 3,
+    HotWater_1949_1978_reference = (
+      HotWater_1949_1957_reference + HotWater_1958_1968_reference + HotWater_1969_1978_reference
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1949_1957_reference",
+      "HotWater_1949_1957_reference",
+      "SpaceHeat_1958_1968_reference",
+      "HotWater_1958_1968_reference",
+      "SpaceHeat_1969_1978_reference",
+      "HotWater_1969_1978_reference"
+    )
+  )
 
 # Derive data for 1979 - 1986
 eh_1979_1986_avg <-
@@ -1560,6 +2056,24 @@ eh_1979_1986_hot <-
       "HotWater_1979_1983_hot",
       "SpaceHeat_1984_1994_hot",
       "HotWater_1984_1994_hot"
+    )
+  )
+
+eh_1979_1986_reference <-
+  list(eh_1979_1983_reference, eh_1984_1994_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1979_1986_reference = (SpaceHeat_1979_1983_reference * 5 / 8 + SpaceHeat_1984_1994_reference * 3 /
+                                       8),
+    HotWater_1979_1986_reference = (HotWater_1979_1983_reference * 5 / 8 + HotWater_1984_1994_reference * 3 /
+                                      8)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1979_1983_reference",
+      "HotWater_1979_1983_reference",
+      "SpaceHeat_1984_1994_reference",
+      "HotWater_1984_1994_reference"
     )
   )
 
@@ -1619,6 +2133,23 @@ eh_1991_1995_hot <-
     )
   )
 
+eh_1991_1995_reference <-
+  list(eh_1984_1994_reference, eh_1995_2001_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1991_1995_reference = (SpaceHeat_1984_1994_reference * 4 / 5 + SpaceHeat_1995_2001_reference * 1 /
+                                       5),
+    HotWater_1991_1995_reference = (HotWater_1984_1994_reference * 4 / 5 + HotWater_1995_2001_reference * 1 /
+                                      5)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1984_1994_reference",
+      "HotWater_1984_1994_reference",
+      "SpaceHeat_1995_2001_reference",
+      "HotWater_1995_2001_reference"
+    )
+  )
 
 # Derive data for 2012 - 2022
 eh_2012_2022_avg <-
@@ -1697,6 +2228,30 @@ eh_2012_2022_hot <-
     )
   )
 
+eh_2012_2022_reference <-
+  list(eh_kfw_85_reference, eh_kfw_70_reference, eh_kfw_55_reference, eh_kfw_40_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2012_2022_reference = (
+      SpaceHeat_kfw_85_reference + SpaceHeat_kfw_70_reference + SpaceHeat_kfw_55_reference + SpaceHeat_kfw_40_reference
+    ) / 4,
+    HotWater_2012_2022_reference = (
+      HotWater_kfw_85_reference + HotWater_kfw_70_reference + HotWater_kfw_55_reference + HotWater_kfw_40_reference
+    ) / 4
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_85_reference",
+      "SpaceHeat_kfw_70_reference",
+      "SpaceHeat_kfw_55_reference",
+      "SpaceHeat_kfw_40_reference",
+      "HotWater_kfw_85_reference",
+      "HotWater_kfw_70_reference",
+      "HotWater_kfw_55_reference",
+      "HotWater_kfw_40_reference"
+    )
+  )
+
 # Derive data for 2023 - 2030
 eh_2023_2030_avg <-
   list(eh_kfw_55_avg, eh_kfw_40_avg, eh_passivhaus_avg) %>%
@@ -1761,6 +2316,28 @@ eh_2023_2030_hot <-
       "HotWater_kfw_55_hot",
       "HotWater_kfw_40_hot",
       "HotWater_passivhaus_hot"
+    )
+  )
+
+eh_2023_2030_reference <-
+  list(eh_kfw_55_reference, eh_kfw_40_reference, eh_passivhaus_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2023_2030_reference = (
+      SpaceHeat_kfw_55_reference + SpaceHeat_kfw_40_reference + SpaceHeat_passivhaus_reference
+    ) / 3,
+    HotWater_2023_2030_reference = (
+      HotWater_kfw_55_reference + HotWater_kfw_40_reference + HotWater_passivhaus_reference
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_55_reference",
+      "SpaceHeat_kfw_40_reference",
+      "SpaceHeat_passivhaus_reference",
+      "HotWater_kfw_55_reference",
+      "HotWater_kfw_40_reference",
+      "HotWater_passivhaus_reference"
     )
   )
 
@@ -1833,6 +2410,27 @@ mh_1949_1978_hot <-
     )
   )
 
+mh_1949_1978_reference <-
+  list(mh_1949_1957_reference, mh_1958_1968_reference, mh_1969_1978_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1949_1978_reference = (
+      SpaceHeat_1949_1957_reference + SpaceHeat_1958_1968_reference + SpaceHeat_1969_1978_reference
+    ) / 3,
+    HotWater_1949_1978_reference = (
+      HotWater_1949_1957_reference + HotWater_1958_1968_reference + HotWater_1969_1978_reference
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1949_1957_reference",
+      "HotWater_1949_1957_reference",
+      "SpaceHeat_1958_1968_reference",
+      "HotWater_1958_1968_reference",
+      "SpaceHeat_1969_1978_reference",
+      "HotWater_1969_1978_reference"
+    )
+  )
 
 # Derive data for 1979 - 1986
 mh_1979_1986_avg <-
@@ -1889,6 +2487,23 @@ mh_1979_1986_hot <-
     )
   )
 
+mh_1979_1986_reference <-
+  list(mh_1979_1983_reference, mh_1984_1994_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1979_1986_reference = (SpaceHeat_1979_1983_reference * 5 / 8 + SpaceHeat_1984_1994_reference * 3 /
+                                       8),
+    HotWater_1979_1986_reference = (HotWater_1979_1983_reference * 5 / 8 + HotWater_1984_1994_reference * 3 /
+                                      8)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1979_1983_reference",
+      "HotWater_1979_1983_reference",
+      "SpaceHeat_1984_1994_reference",
+      "HotWater_1984_1994_reference"
+    )
+  )
 
 # Derive data for 1991 - 1995
 mh_1991_1995_avg <-
@@ -1945,6 +2560,23 @@ mh_1991_1995_hot <-
     )
   )
 
+mh_1991_1995_reference <-
+  list(mh_1984_1994_reference, mh_1995_2001_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_1991_1995_reference = (SpaceHeat_1984_1994_reference * 4 / 5 + SpaceHeat_1995_2001_reference * 1 /
+                                       5),
+    HotWater_1991_1995_reference = (HotWater_1984_1994_reference * 4 / 5 + HotWater_1995_2001_reference * 1 /
+                                      5)
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_1984_1994_reference",
+      "HotWater_1984_1994_reference",
+      "SpaceHeat_1995_2001_reference",
+      "HotWater_1995_2001_reference"
+    )
+  )
 
 # Derive data for 2012 - 2022
 mh_2012_2022_avg <-
@@ -2023,6 +2655,30 @@ mh_2012_2022_hot <-
     )
   )
 
+mh_2012_2022_reference <-
+  list(mh_kfw_85_reference, mh_kfw_70_reference, mh_kfw_55_reference, mh_kfw_40_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2012_2022_reference = (
+      SpaceHeat_kfw_85_reference + SpaceHeat_kfw_70_reference + SpaceHeat_kfw_55_reference + SpaceHeat_kfw_40_reference
+    ) / 4,
+    HotWater_2012_2022_reference = (
+      HotWater_kfw_85_reference + HotWater_kfw_70_reference + HotWater_kfw_55_reference + HotWater_kfw_40_reference
+    ) / 4
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_85_reference",
+      "SpaceHeat_kfw_70_reference",
+      "SpaceHeat_kfw_55_reference",
+      "SpaceHeat_kfw_40_reference",
+      "HotWater_kfw_85_reference",
+      "HotWater_kfw_70_reference",
+      "HotWater_kfw_55_reference",
+      "HotWater_kfw_40_reference"
+    )
+  )
+
 # Derive data for 2023 - 2030
 mh_2023_2030_avg <-
   list(mh_kfw_55_avg, mh_kfw_40_avg, mh_passivhaus_avg) %>%
@@ -2087,6 +2743,28 @@ mh_2023_2030_hot <-
       "HotWater_kfw_55_hot",
       "HotWater_kfw_40_hot",
       "HotWater_passivhaus_hot"
+    )
+  )
+
+mh_2023_2030_reference <-
+  list(mh_kfw_55_reference, mh_kfw_40_reference, mh_passivhaus_reference) %>%
+  reduce(inner_join, by = "Time") %>%
+  mutate(
+    SpaceHeat_2023_2030_reference = (
+      SpaceHeat_kfw_55_reference + SpaceHeat_kfw_40_reference + SpaceHeat_passivhaus_reference
+    ) / 3,
+    HotWater_2023_2030_reference = (
+      HotWater_kfw_55_reference + HotWater_kfw_40_reference + HotWater_passivhaus_reference
+    ) / 3
+  ) %>%
+  select(
+    -c(
+      "SpaceHeat_kfw_55_reference",
+      "SpaceHeat_kfw_40_reference",
+      "SpaceHeat_passivhaus_reference",
+      "HotWater_kfw_55_reference",
+      "HotWater_kfw_40_reference",
+      "HotWater_passivhaus_reference"
     )
   )
 
@@ -2233,6 +2911,53 @@ eh_combined_heat_demand_hot <-
     HotWater_hot = HotWater_hot / 10000
   )
 
+eh_combined_heat_demand_reference <-
+  list(
+    eh_beginn_1918_reference,
+    eh_1919_1948_reference,
+    eh_1949_1978_reference,
+    eh_1979_1986_reference,
+    eh_1984_1994_reference,
+    eh_1991_1995_reference,
+    eh_1995_2001_reference,
+    eh_2002_ende_reference,
+    eh_2012_2022_reference,
+    eh_2023_2030_reference
+  ) %>%
+  reduce(inner_join, by = "Time") %>%
+  rename(
+    "SpaceHeat_1987_1990_reference" = "SpaceHeat_1984_1994_reference",
+    "SpaceHeat_1996_2000_reference" = "SpaceHeat_1995_2001_reference",
+    "SpaceHeat_2001_2011_reference" = "SpaceHeat_2002_ende_reference",
+    "HotWater_reference" = "HotWater_2023_2030_reference",
+  ) %>%
+  select(
+    -c(
+      "HotWater_beginn_1918_reference",
+      "HotWater_1919_1948_reference",
+      "HotWater_1949_1978_reference",
+      "HotWater_1979_1986_reference",
+      "HotWater_1984_1994_reference",
+      "HotWater_1991_1995_reference",
+      "HotWater_1995_2001_reference",
+      "HotWater_2002_ende_reference",
+      "HotWater_2012_2022_reference"
+    )
+  ) %>%
+  mutate(
+    SpaceHeat_beginn_1918_reference = SpaceHeat_beginn_1918_reference / 10000,
+    SpaceHeat_1919_1948_reference = SpaceHeat_1919_1948_reference / 10000,
+    SpaceHeat_1949_1978_reference = SpaceHeat_1949_1978_reference / 10000,
+    SpaceHeat_1979_1986_reference = SpaceHeat_1979_1986_reference / 10000,
+    SpaceHeat_1987_1990_reference = SpaceHeat_1987_1990_reference / 10000,
+    SpaceHeat_1991_1995_reference = SpaceHeat_1991_1995_reference / 10000,
+    SpaceHeat_1996_2000_reference = SpaceHeat_1996_2000_reference / 10000,
+    SpaceHeat_2001_2011_reference = SpaceHeat_2001_2011_reference / 10000,
+    SpaceHeat_2012_2022_reference = SpaceHeat_2012_2022_reference / 10000,
+    SpaceHeat_2023_2030_reference = SpaceHeat_2023_2030_reference / 10000,
+    HotWater_reference = HotWater_reference / 10000
+  )
+
 
 mh_combined_heat_demand_avg <-
   list(
@@ -2375,6 +3100,53 @@ mh_combined_heat_demand_hot <-
     HotWater_hot = HotWater_hot / 10000
   )
 
+mh_combined_heat_demand_reference <-
+  list(
+    mh_beginn_1918_reference,
+    mh_1919_1948_reference,
+    mh_1949_1978_reference,
+    mh_1979_1986_reference,
+    mh_1984_1994_reference,
+    mh_1991_1995_reference,
+    mh_1995_2001_reference,
+    mh_2002_ende_reference,
+    mh_2012_2022_reference,
+    mh_2023_2030_reference
+  ) %>%
+  reduce(inner_join, by = "Time") %>%
+  rename(
+    "SpaceHeat_1987_1990_reference" = "SpaceHeat_1984_1994_reference",
+    "SpaceHeat_1996_2000_reference" = "SpaceHeat_1995_2001_reference",
+    "SpaceHeat_2001_2011_reference" = "SpaceHeat_2002_ende_reference",
+    "HotWater_reference" = "HotWater_2023_2030_reference",
+  ) %>%
+  select(
+    -c(
+      "HotWater_beginn_1918_reference",
+      "HotWater_1919_1948_reference",
+      "HotWater_1949_1978_reference",
+      "HotWater_1979_1986_reference",
+      "HotWater_1984_1994_reference",
+      "HotWater_1991_1995_reference",
+      "HotWater_1995_2001_reference",
+      "HotWater_2002_ende_reference",
+      "HotWater_2012_2022_reference"
+    )
+  ) %>%
+  mutate(
+    SpaceHeat_beginn_1918_reference = SpaceHeat_beginn_1918_reference / 10000,
+    SpaceHeat_1919_1948_reference = SpaceHeat_1919_1948_reference / 10000,
+    SpaceHeat_1949_1978_reference = SpaceHeat_1949_1978_reference / 10000,
+    SpaceHeat_1979_1986_reference = SpaceHeat_1979_1986_reference / 10000,
+    SpaceHeat_1987_1990_reference = SpaceHeat_1987_1990_reference / 10000,
+    SpaceHeat_1991_1995_reference = SpaceHeat_1991_1995_reference / 10000,
+    SpaceHeat_1996_2000_reference = SpaceHeat_1996_2000_reference / 10000,
+    SpaceHeat_2001_2011_reference = SpaceHeat_2001_2011_reference / 10000,
+    SpaceHeat_2012_2022_reference = SpaceHeat_2012_2022_reference / 10000,
+    SpaceHeat_2023_2030_reference = SpaceHeat_2023_2030_reference / 10000,
+    HotWater_reference = HotWater_reference / 10000
+  )
+
 
 # Write output to csv
 write_csv2(
@@ -2392,6 +3164,11 @@ write_csv2(
   "data/output/heatdemand/eh_combined_heat_demand_hot.csv"
 )
 
+write_csv2(
+  eh_combined_heat_demand_reference,
+  "data/output/heatdemand/eh_combined_heat_demand_reference.csv"
+)
+
 
 write_csv2(
   mh_combined_heat_demand_avg,
@@ -2406,4 +3183,9 @@ write_csv2(
 write_csv2(
   mh_combined_heat_demand_hot,
   "data/output/heatdemand/mh_combined_heat_demand_hot.csv"
+)
+
+write_csv2(
+  mh_combined_heat_demand_reference,
+  "data/output/heatdemand/mh_combined_heat_demand_reference.csv"
 )

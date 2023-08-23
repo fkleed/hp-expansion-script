@@ -366,6 +366,20 @@ weather_data_2022 <- weather_data_combined %>%
   mutate_if(is.character, as.factor) %>%
   mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
+# Calculate the temperature values for the reference year 2016
+weather_data_2016 <- weather_data_combined %>%
+  filter(substr(as.character(weather_data_combined$MESS_DATUM), 1, 4) == 2016) %>%
+  select(c("MESS_DATUM", "MeanTemperature")) %>%
+  mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
+  select(-c(MESS_DATUM)) %>%
+  mutate_if(is.character, as.factor) %>%
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
+
+summary(weather_data_average_yer)
+summary(weather_data_2010)
+summary(weather_data_2022)
+summary(weather_data_2016)
+
 
 # Write average, cold, and hot year to csv
 # Write temperature values of average year to txt file
@@ -400,3 +414,18 @@ writeLines(
 # Write temperature values of year 2022 to csv file
 write_csv2(weather_data_2022,
            "data/output/weathermodel/year2022.csv")
+
+# Write temperature values of year 2010 to csv file
+write_csv2(weather_data_2010,
+           "data/output/weathermodel/year2010.csv")
+
+# Write temperature values of year 2016 to txt file
+writeLines(
+  weather_data_2016$RoundedMeanTemperature,
+  "data/output/weathermodel/year2016.txt",
+  sep = ","
+)
+
+# Write temperature values of year 2022 to csv file
+write_csv2(weather_data_2016,
+           "data/output/weathermodel/year2016.csv")
