@@ -10,7 +10,7 @@ building_stock_2030_with_hp_potential <-
 
 # The calculations will be implemented in Kotlin
 # Read the Kotlin calculation results
-building_stock_2030_with_hp_distribution <- read_csv("data/output/heatpumpexpansion/building_stock_2030_with_hp_distribution.csv")
+building_stock_2030_with_hp_distribution <- read_csv("data/output/heatpumpexpansion/building_stock_2030_with_hp_distribution.csv") %>% mutate_if(is.character, as.factor)
 
 sum(building_stock_2030_with_hp_distribution$HPAmountAir) + sum(building_stock_2030_with_hp_distribution$HPAmountProbe) + sum(building_stock_2030_with_hp_distribution$HPAmountCollector)
 
