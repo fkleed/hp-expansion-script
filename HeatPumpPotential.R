@@ -164,7 +164,7 @@ building_stock_2030_with_hp_potential <- building_stock_2030 %>%
 
 
 # Write output to csv
-write_csv2(
+write_csv(
   building_stock_2030_with_hp_potential,
   "data/output/heatpumppotential/building_stock_2030_with_hp_potential.csv"
 )
