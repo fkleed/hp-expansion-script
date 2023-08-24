@@ -35,6 +35,26 @@ building_stock_2030 <- building_stock_2030 %>%
                                                    .groups = 'drop')
 
 
+# Remove buildings with heating type district heating
+# Assumption: District heating won't be replaced by heat pumps
+building_stock_2030 <-
+  building_stock_2030 %>%
+  filter(HeatingType != "District heating")
+
+
+# Remove the heating type column
+building_stock_2030 <-
+  building_stock_2030 %>%
+  select(-c("HeatingType")) %>%
+  group_by(
+    BuildingTypeSize,
+    NUTS3Code,
+    YearOfConstruction
+  ) %>% summarise(BuildingCount = sum(BuildingCount),
+                  .groups = 'drop'
+  )
+
+
 # Join the heat pump potential with the nuts region info data
 hp_potential_2022_regions <-
   hp_potential_2022 %>% distinct(region) %>% mutate_if(is.character, as.factor) %>% mutate(RegionKey = region)
@@ -118,8 +138,6 @@ hp_potential_2022 <- hp_potential_2022 %>%
     )
   )
 
-
-# Combine the building stock data with heat pump potentials
 hp_potential_2022 <-
   hp_potential_2022 %>%
   filter(BuildingType != "Total") %>%
@@ -132,6 +150,11 @@ hp_potential_2022 <-
     "HPPotentialSolarThermalEnergyIceStorage" = "Solar-Thermal Energy and Ice Storage"
   )
 
+hp_potential_2022 <- hp_potential_2022 %>%
+  select(-c("HPPotentialSolarThermalEnergyIceStorage"))
+
+
+# Combine the building stock data with heat pump potentials
 building_stock_2030_with_hp_potential <- building_stock_2030 %>%
   inner_join(
     hp_potential_2022,
@@ -141,7 +164,7 @@ building_stock_2030_with_hp_potential <- building_stock_2030 %>%
 
 
 # Write output to csv
-write_csv2(
+write_csv(
   building_stock_2030_with_hp_potential,
   "data/output/heatpumppotential/building_stock_2030_with_hp_potential.csv"
 )
