@@ -32,7 +32,7 @@ avg_apartments_ab7more <-
   (share_mfh712 / (share_mfh712 + share_gmh)) * avg_apartments_mfh712 + (share_gmh / (share_mfh712 + share_gmh)) * avg_apartments_gmh
 
 ls_ab7more <-
-  floor(((share_mfh712 / (share_mfh712 + share_gmh)) * ls_per_flat_mfh + (share_gmh / (share_mfh712 + share_gmh)) * ls_per_flat_gmh
+  round(((share_mfh712 / (share_mfh712 + share_gmh)) * ls_per_flat_mfh + (share_gmh / (share_mfh712 + share_gmh)) * ls_per_flat_gmh
   ) * avg_apartments_ab7more)
 
 
