@@ -489,7 +489,8 @@ soil_temperature_2016 <- soil_temperature_combined %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
   mutate_if(is.character, as.factor) %>%
-  relocate(Date, .before = MeanSoilTemperature)
+  relocate(Date, .before = MeanSoilTemperature) %>%
+  filter(substr(as.character(Date), 1, 4) != "0229")
 
 
 # Write soil temperature values of average year to csv file
