@@ -354,6 +354,50 @@ summarized_building_stock_2030 <-
            YearOfConstruction) %>%
   summarise(BuildingCount = sum(BuildingCount), .groups = 'drop')
 
+
+summarized_building_stock <- summarized_building_stock %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2001 - 2011" = "2001 - 2004",
+      "2001 - 2011" = "2005 - 2008",
+      "2001 - 2011" = "2009 and later"
+    )
+  ) %>% group_by(BuildingTypeSize,
+                 HeatingType,
+                 NUTS3Code,
+                 YearOfConstruction) %>% summarise(BuildingCount = sum(BuildingCount),
+                                                   .groups = 'drop')
+
+summarized_building_stock_2022 <- summarized_building_stock_2022 %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2001 - 2011" = "2001 - 2004",
+      "2001 - 2011" = "2005 - 2008",
+      "2001 - 2011" = "2009 - 2011"
+    )
+  ) %>% group_by(BuildingTypeSize,
+                 HeatingType,
+                 NUTS3Code,
+                 YearOfConstruction) %>% summarise(BuildingCount = sum(BuildingCount),
+                                                   .groups = 'drop')
+
+summarized_building_stock_2030 <- summarized_building_stock_2030 %>%
+  mutate(
+    YearOfConstruction = fct_recode(
+      YearOfConstruction,
+      "2001 - 2011" = "2001 - 2004",
+      "2001 - 2011" = "2005 - 2008",
+      "2001 - 2011" = "2009 - 2011"
+    )
+  ) %>% group_by(BuildingTypeSize,
+                 HeatingType,
+                 NUTS3Code,
+                 YearOfConstruction) %>% summarise(BuildingCount = sum(BuildingCount),
+                                                   .groups = 'drop')
+
+
 sum(summarized_building_stock$BuildingCount)
 sum(summarized_building_stock_2022$BuildingCount)
 sum(summarized_building_stock_2030$BuildingCount)
