@@ -375,6 +375,11 @@ weather_data_2016 <- weather_data_combined %>%
   mutate_if(is.character, as.factor) %>%
   mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
 
+# Filter the leap year day from 2016
+weather_data_2016 <- weather_data_2016 %>%
+  filter(substr(as.character(weather_data_2016$Date), 1, 4) != "0229") %>%
+  mutate(RoundedMeanTemperature = as.character(round(MeanTemperature, 1)))
+
 summary(weather_data_average_yer)
 summary(weather_data_2010)
 summary(weather_data_2022)
@@ -393,6 +398,7 @@ writeLines(
 write_csv2(weather_data_average_yer,
            "data/output/weathermodel/averageyear.csv")
 
+
 # Write temperature values of year 2010 to txt file
 writeLines(
   weather_data_2010$RoundedMeanTemperature,
@@ -403,6 +409,7 @@ writeLines(
 # Write temperature values of year 2010 to csv file
 write_csv2(weather_data_2010,
            "data/output/weathermodel/year2010.csv")
+
 
 # Write temperature values of year 2022 to txt file
 writeLines(
@@ -415,9 +422,6 @@ writeLines(
 write_csv2(weather_data_2022,
            "data/output/weathermodel/year2022.csv")
 
-# Write temperature values of year 2010 to csv file
-write_csv2(weather_data_2010,
-           "data/output/weathermodel/year2010.csv")
 
 # Write temperature values of year 2016 to txt file
 writeLines(
@@ -426,6 +430,6 @@ writeLines(
   sep = ","
 )
 
-# Write temperature values of year 2022 to csv file
+# Write temperature values of year 2016 to csv file
 write_csv2(weather_data_2016,
            "data/output/weathermodel/year2016.csv")
