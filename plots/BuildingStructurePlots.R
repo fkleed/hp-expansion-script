@@ -90,14 +90,14 @@ bar_chart_building_types_by_federal_state
 
 # Save plots
 ggsave(
-  "plots/output/bar_chart_building_types_by_year_of_construction.png",
+  "plots/output/buildingstructure/bar_chart_building_types_by_year_of_construction.png",
   bar_chart_building_types_by_year_of_construction,
   width = 25,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/bar_chart_building_types_by_federal_state.png",
+  "plots/output/buildingstructure/bar_chart_building_types_by_federal_state.png",
   bar_chart_building_types_by_federal_state,
   width = 25,
   units = "cm"
