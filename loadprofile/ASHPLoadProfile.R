@@ -25,7 +25,7 @@ mh_combined_heat_demand_hot <-
 
 # Read the weather data
 weather_data_reference <-
-  read_csv2("data/output/weathermodel/year2016.csv") %>%
+  read_csv2("data/output/weathermodel/year2017.csv") %>%
   mutate(
     TemperatureKelvin = as.numeric(RoundedMeanTemperature) + 273.15,
     Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),

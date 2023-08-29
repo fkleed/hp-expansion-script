@@ -26,7 +26,7 @@ mh_combined_heat_demand_hot <-
 
 # Read the weather data
 weather_data_reference <-
-  read_csv2("data/output/weathermodel/year2016.csv") %>%
+  read_csv2("data/output/weathermodel/year2017.csv") %>%
   mutate(
     TemperatureKelvin = as.numeric(RoundedMeanTemperature) + 273.15,
     Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
@@ -55,7 +55,7 @@ weather_data_hot <-
 
 # Read the soil temperature data
 soil_data_reference <-
-  read_csv2("data/output/weathermodel/soiltempyear2016.csv") %>%
+  read_csv2("data/output/weathermodel/soiltempyear2017.csv") %>%
   mutate(SoilTemperatureKelvin = MeanSoilTemperature + 273.15,
          Time = paste(paste(substr(Date, 3, 4), substr(Date, 1, 2), sep = "-"),
                       paste(substr(Date, 5, 6), "00", sep = ":"))) %>%

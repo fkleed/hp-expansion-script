@@ -17,7 +17,7 @@ ls_ab_7more <- ls_building_types[5, 2]$LivingSpace
 
 # Read load profile data and calculate the load profile of the building types
 
-# Space heat and hot water for reference year
+# Space heat and hot water for cold year
 eh_loadprofile_ashp_cold <-
   read_csv2("data/output/loadprofile/eh_loadprofile_ashp_cold.csv") %>%
   select(
@@ -452,7 +452,7 @@ loadprofile_cold <- loadprofile_ashp_cold %>%
                                                           .after = SoilTemperatureKelvinCollector)
 
 
-# Only space heat for reference year
+# Only space heat for cold year
 eh_loadprofile_ashp_space_heat_only_cold <-
   read_csv2("data/output/loadprofile/eh_loadprofile_ashp_space_heat_only_cold.csv") %>%
   select(
