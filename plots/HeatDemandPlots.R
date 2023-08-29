@@ -198,8 +198,71 @@ mh_combined_heat_demand <- mh_combined_heat_demand_reference %>%
 
 
 # Plot the heat demand for single and multi-family houses
-eh_heat_demand_plot <- ggplot(eh_combined_heat_demand, aes(x = `Heat demand in kWh`, y = `Year of construction`)) +
+eh_heat_demand_plot <- ggplot(eh_combined_heat_demand,
+                              aes(x = `Heat demand in kWh`,
+                                  y = factor(
+                                    `Year of construction`,
+                                    level = c(
+                                      "Beginn - 1918",
+                                      "1919 - 1948",
+                                      "1949 - 1978",
+                                      "1979 - 1986",
+                                      "1987 - 1990",
+                                      "1991 - 1995",
+                                      "1996 - 2000",
+                                      "2001 - 2011",
+                                      "2012 - 2022",
+                                      "2023 - 2030"
+                                    )
+
+                                  ))) +
   geom_bar(stat = "identity") +
-  facet_grid(Year ~ .)
+  facet_grid(Year ~ .) +
+  labs(x = expression("Annual heat demand in kWh per m" ^
+                        2),
+       y = "Year of construction")
 
 eh_heat_demand_plot
+
+mh_heat_demand_plot <- ggplot(mh_combined_heat_demand,
+                              aes(x = `Heat demand in kWh`,
+                                  y = factor(
+                                    `Year of construction`,
+                                    level = c(
+                                      "Beginn - 1918",
+                                      "1919 - 1948",
+                                      "1949 - 1978",
+                                      "1979 - 1986",
+                                      "1987 - 1990",
+                                      "1991 - 1995",
+                                      "1996 - 2000",
+                                      "2001 - 2011",
+                                      "2012 - 2022",
+                                      "2023 - 2030"
+                                    )
+
+                                  ))) +
+  geom_bar(stat = "identity") +
+  facet_grid(Year ~ .) +
+  labs(x = expression("Annual heat demand in kWh per m" ^
+                        2),
+       y = "Year of construction")
+
+
+mh_heat_demand_plot
+
+
+# Save the plots
+ggsave(
+  "plots/output/heatdemand/eh_heat_demand_plot.png",
+  eh_heat_demand_plot,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/heatdemand/mh_heat_demand_plot.png",
+  mh_heat_demand_plot,
+  width = 25,
+  units = "cm"
+)
