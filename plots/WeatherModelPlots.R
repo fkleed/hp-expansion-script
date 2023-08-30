@@ -96,7 +96,7 @@ temp_2010_plot <-
   ggplot(data=temp_2010, aes(DATEISO, Temperature, color=Kind)) +
   geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
-  theme(legend.title=element_blank())
+  guides(color = guide_legend(title = "Kind of temperature"))
 
 temp_2010_plot
 
@@ -104,7 +104,7 @@ temp_2017_plot <-
   ggplot(data=temp_2017, aes(DATEISO, Temperature, color=Kind)) +
   geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
-  theme(legend.title=element_blank())
+  guides(color = guide_legend(title = "Kind of temperature"))
 
 temp_2017_plot
 
@@ -112,7 +112,7 @@ temp_2022_plot <-
   ggplot(data=temp_2022, aes(DATEISO, Temperature, color=Kind)) +
   geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
-  theme(legend.title=element_blank())
+  guides(color = guide_legend(title = "Kind of temperature"))
 
 temp_2022_plot
 
@@ -126,7 +126,7 @@ ggsave(
 )
 
 ggsave(
-  "plots/output/weathermodel/temp_2017_plot.pdf",
+  "plots/output/weathermodel/temp_2017_plot.png",
   temp_2017_plot,
   width = 25,
   units = "cm"

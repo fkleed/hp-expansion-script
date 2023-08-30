@@ -196,6 +196,14 @@ mh_combined_heat_demand <- mh_combined_heat_demand_reference %>%
   mutate_if(is.character, as.factor) %>%
   mutate(Year = as.factor(Year))
 
+eh_combined_heat_demand <- eh_combined_heat_demand %>%
+  mutate(`Year of construction` = fct_recode(`Year of construction`,
+                                             "Before 1919" = "Beginn - 1918"))
+
+mh_combined_heat_demand <- mh_combined_heat_demand %>%
+  mutate(`Year of construction` = fct_recode(`Year of construction`,
+                                             "Before 1919" = "Beginn - 1918"))
+
 
 # Plot the heat demand for single and multi-family houses
 eh_heat_demand_plot <- ggplot(eh_combined_heat_demand,
@@ -203,7 +211,7 @@ eh_heat_demand_plot <- ggplot(eh_combined_heat_demand,
                                   y = factor(
                                     `Year of construction`,
                                     level = c(
-                                      "Beginn - 1918",
+                                      "Before 1919",
                                       "1919 - 1948",
                                       "1949 - 1978",
                                       "1979 - 1986",
@@ -229,7 +237,7 @@ mh_heat_demand_plot <- ggplot(mh_combined_heat_demand,
                                   y = factor(
                                     `Year of construction`,
                                     level = c(
-                                      "Beginn - 1918",
+                                      "Before 1919",
                                       "1919 - 1948",
                                       "1949 - 1978",
                                       "1979 - 1986",
