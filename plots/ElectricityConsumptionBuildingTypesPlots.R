@@ -125,6 +125,7 @@ hp_loadprofile_reference_otfh_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
@@ -244,6 +245,7 @@ hp_loadprofile_reference_ab36_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
@@ -363,6 +365,7 @@ hp_loadprofile_cold_otfh_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
@@ -482,6 +485,7 @@ hp_loadprofile_cold_ab36_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
@@ -601,6 +605,7 @@ hp_loadprofile_hot_otfh_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
@@ -720,6 +725,7 @@ hp_loadprofile_hot_ab36_selected_plot <-
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
   facet_grid(Type ~ `Year of construction`) +
+  coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
 
