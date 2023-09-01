@@ -13,7 +13,7 @@ building_stock_2030_with_hp_distribution <-
 
 
 # Calculate the regions with the max and min heat pump amount
-nuts3_heat_pump_hp_distribution <-
+nuts3_heat_pump_distribution <-
   building_stock_2030_with_hp_distribution %>%
   select(c(
     "NUTS3Code",
@@ -22,32 +22,32 @@ nuts3_heat_pump_hp_distribution <-
     "HPAmountCollector"
   ))
 
-nuts3_heat_pump_hp_distribution <-
-  nuts3_heat_pump_hp_distribution %>%
+nuts3_heat_pump_distribution <-
+  nuts3_heat_pump_distribution %>%
   group_by(NUTS3Code) %>%
   summarise(
     "ASHP" = sum(HPAmountAir),
-    "GSHP Collector" = sum(HPAmountProbe),
-    "GSHP Probe" = sum(HPAmountCollector)
+    "GSHP Probe" = sum(HPAmountProbe),
+    "GSHP Collector" = sum(HPAmountCollector)
   ) %>%
   mutate(HPSum = ASHP + `GSHP Collector` + `GSHP Probe`)
 
-nuts3_heat_pump_hp_distribution_min_five <-
-  nuts3_heat_pump_hp_distribution %>%
+nuts3_heat_pump_distribution_min_five <-
+  nuts3_heat_pump_distribution %>%
   slice_min(HPSum, n = 5)
 
-nuts3_heat_pump_hp_distribution_max_five <-
-  nuts3_heat_pump_hp_distribution %>%
+nuts3_heat_pump_distribution_max_five <-
+  nuts3_heat_pump_distribution %>%
   slice_max(HPSum, n = 5)
 
-nuts3_heat_pump_hp_distribution_min_max_five <-
-  nuts3_heat_pump_hp_distribution_min_five %>%
-  rbind(nuts3_heat_pump_hp_distribution_max_five) %>%
+nuts3_heat_pump_distribution_min_max_five <-
+  nuts3_heat_pump_distribution_min_five %>%
+  rbind(nuts3_heat_pump_distribution_max_five) %>%
   gather("Type", "Amount", 2:4) %>%
   left_join(nuts3regioninfo, by = c("NUTS3Code"))
 
-nuts3_heat_pump_hp_distribution_min_max_five <-
-  nuts3_heat_pump_hp_distribution_min_max_five %>%
+nuts3_heat_pump_distribution_min_max_five <-
+  nuts3_heat_pump_distribution_min_max_five %>%
   select(c(
     "NUTS3Code",
     "HPSum",
@@ -62,13 +62,13 @@ nuts3_heat_pump_hp_distribution_min_max_five <-
 
 # Plot bar chart for the amount of heat pumps
 bar_chart_hp_amount_min_max_five <-
-  ggplot(data = nuts3_heat_pump_hp_distribution_min_max_five) +
+  ggplot(data = nuts3_heat_pump_distribution_min_max_five) +
   geom_bar(mapping = aes(
     x = reorder(NUTS3Name,-Amount),
     y = Amount,
     fill = factor(Type,
-                  level = c("GSHP Probe",
-                            "GSHP Collector",
+                  level = c("GSHP Collector",
+                            "GSHP Probe",
                             "ASHP"))
   ),
   stat = "identity") +
@@ -80,3 +80,66 @@ bar_chart_hp_amount_min_max_five <-
   theme(legend.position = "bottom")
 
 bar_chart_hp_amount_min_max_five
+
+
+# Calculate the heat pump amount on a federal state basis
+heat_pump_distribution_federal_states <- nuts3_heat_pump_distribution %>%
+  left_join(nuts3regioninfo, by = c("NUTS3Code")) %>%
+  select(
+    c(
+      "ASHP",
+      "GSHP Probe",
+      "GSHP Collector",
+      "HPSum",
+      "NUTS1Name"
+    )
+  ) %>%
+  group_by(NUTS1Name) %>%
+  summarise(
+    "ASHP" = sum(ASHP),
+    "GSHP Probe" = sum(`GSHP Probe`),
+    "GSHP Collector" = sum(`GSHP Collector`),
+    "HPSum" = sum(HPSum)
+  )
+
+heat_pump_distribution_federal_states <- heat_pump_distribution_federal_states %>%
+  gather("Type", "Amount", 2:4)
+
+
+
+# Plot the amount of heat pumps per federal state
+bar_chart_hp_per_federal_state <-
+  ggplot(data = heat_pump_distribution_federal_states) +
+  geom_bar(mapping = aes(
+    x = reorder(NUTS1Name,-Amount),
+    y = Amount,
+    fill = factor(Type,
+                  level = c("GSHP Collector",
+                            "GSHP Probe",
+                            "ASHP"))
+  ),
+  stat = "identity") +
+  labs(x = "Federal state",
+       y = "Number of heat pumps",
+       fill = "Heat pump type") +
+  scale_fill_brewer(palette = "Set3") +
+  coord_flip() +
+  theme(legend.position = "bottom")
+
+bar_chart_hp_per_federal_state
+
+
+# Save the plots
+ggsave(
+  "plots/output/heatpumpdistribution/bar_chart_hp_amount_min_max_five.png",
+  bar_chart_hp_amount_min_max_five,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/heatpumpdistribution/bar_chart_hp_per_federal_state.png",
+  bar_chart_hp_per_federal_state,
+  width = 25,
+  units = "cm"
+)
