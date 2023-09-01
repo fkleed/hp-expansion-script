@@ -56,7 +56,7 @@ nuts3_heat_pump_distribution <-
 
 nuts3_heat_pump_distribution <- nuts3_heat_pump_distribution %>%
   group_by(NUTS3Code) %>%
-  summarise(TotalHPSum = sum(HPSum))
+  summarise(`Total heat pump sum` = sum(HPSum))
 
 
 # Join the districts geo info with the heat pump amount per NUTS 3
@@ -69,7 +69,7 @@ districts_germany_geo_info_with_hp_sum <-
 tmap_mode("plot")
 hp_distribution_germany_plot <- tm_shape(districts_germany_geo_info_with_hp_sum) +
   tm_polygons(
-    "TotalHPSum",
+    "Total heat pump sum",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
@@ -95,3 +95,30 @@ tmap_save(
   width = 25,
   units = "cm"
 )
+
+
+# Create an interactive map
+tmap_mode("view")
+hp_distribution_germany_interactive <- tm_shape(districts_germany_geo_info_with_hp_sum) +
+  tm_polygons(
+    "Total heat pump sum",
+    id = "gen",
+    palette = "-viridis",
+    style = "fisher",
+    title = "Heat pump amount",
+    alpha = .5
+  ) +
+  tm_layout(legend.format = list(
+    fun = function(x)
+      round(x, digits = 0)
+  ))
+
+hp_distribution_germany_interactive
+
+
+# Save the interactive map
+tmap_save(
+  hp_distribution_germany_interactive,
+  "plots/output/heatpumpdistribution/hp_distribution_germany_interactive.html",
+)
+
