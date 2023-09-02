@@ -94,7 +94,7 @@ temp_2022 <- temp_2022 %>%
 # Plot the temperature data for the different years
 temp_2010_plot <-
   ggplot(data=temp_2010, aes(DATEISO, Temperature, color=Kind)) +
-  geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
+  geom_line(lwd=1.0) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
   guides(color = guide_legend(title = "Kind of temperature"))
 
@@ -102,7 +102,7 @@ temp_2010_plot
 
 temp_2017_plot <-
   ggplot(data=temp_2017, aes(DATEISO, Temperature, color=Kind)) +
-  geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
+  geom_line(lwd=1.0) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
   guides(color = guide_legend(title = "Kind of temperature"))
 
@@ -110,7 +110,7 @@ temp_2017_plot
 
 temp_2022_plot <-
   ggplot(data=temp_2022, aes(DATEISO, Temperature, color=Kind)) +
-  geom_line(lwd=1.3) + ylab("Temperature (°C)") + xlab("Date") +
+  geom_line(lwd=01.0) + ylab("Temperature (°C)") + xlab("Date") +
   scale_color_brewer(palette = "Set2") +
   guides(color = guide_legend(title = "Kind of temperature"))
 
