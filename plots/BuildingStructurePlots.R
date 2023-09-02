@@ -57,13 +57,33 @@ bar_chart_building_types_by_year_of_construction
 nuts3_federal_states <- nuts3regioninfo %>%
   select(c("NUTS1Name", "NUTS3Code"))
 
-summarized_building_stock_2030_with_federal_states <- summarized_building_stock_2030 %>%
-  left_join(nuts3_federal_states, by = "NUTS3Code")
+summarized_building_stock_2030_with_federal_states <-
+  summarized_building_stock_2030 %>%
+  left_join(nuts3_federal_states, by = "NUTS3Code") %>%
+  select(-c("HeatingType",
+            "NUTS3Code",
+            "YearOfConstruction"))
+
+summarized_building_stock_2030_with_federal_states <-
+  summarized_building_stock_2030_with_federal_states %>%
+  group_by(NUTS1Name, BuildingTypeSize) %>%
+  summarise(BuildingCount = sum(BuildingCount), .groups = "drop")
+
+
+sum_of_buildings_per_state <- summarized_building_stock_2030_with_federal_states %>%
+  select(-c("BuildingTypeSize")) %>%
+  group_by(NUTS1Name) %>%
+  summarise(BuildingsPerStateSum = sum(BuildingCount), .groups = "drop")
+
+
+summarized_building_stock_2030_with_federal_states <- summarized_building_stock_2030_with_federal_states %>%
+  left_join(sum_of_buildings_per_state, by = c("NUTS1Name"))
+
 
 bar_chart_building_types_by_federal_state <-
   ggplot(data = summarized_building_stock_2030_with_federal_states) +
   geom_bar(mapping = aes(
-    x = NUTS1Name,
+    x = reorder(NUTS1Name, -BuildingsPerStateSum),
     y = (BuildingCount / 1000000),
     fill = factor(
       BuildingTypeSize,

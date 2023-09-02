@@ -30,7 +30,7 @@ nuts3_heat_pump_distribution <-
     "GSHP Probe" = sum(HPAmountProbe),
     "GSHP Collector" = sum(HPAmountCollector)
   ) %>%
-  mutate(HPSum = ASHP + `GSHP Collector` + `GSHP Probe`)
+  mutate(HPSum = ASHP + `GSHP Probe` + `GSHP Collector` )
 
 nuts3_heat_pump_distribution_min_five <-
   nuts3_heat_pump_distribution %>%
