@@ -186,159 +186,79 @@ sum(federal_states_electricity_demand_sh_only_hot$`Electricity demand`)
 # Plot the bar charts for the electricity consumption per federal state
 
 # Space heating and hot water
-bar_chart_federal_states_electricity_demand_sh_and_hw_reference <-
-  ggplot(data = federal_states_electricity_demand_sh_and_hw_reference) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 14) +
-  coord_flip() +
-  theme(legend.position = "bottom")
+federal_states_electricity_demand_sh_and_hw_reference <-
+  federal_states_electricity_demand_sh_and_hw_reference %>%
+  mutate("Year" = 2017)
 
-bar_chart_federal_states_electricity_demand_sh_and_hw_reference
+federal_states_electricity_demand_sh_and_hw_cold <-
+  federal_states_electricity_demand_sh_and_hw_cold %>%
+  mutate("Year" = 2010)
 
+federal_states_electricity_demand_sh_and_hw_hot <-
+  federal_states_electricity_demand_sh_and_hw_hot %>%
+  mutate("Year" = 2022)
 
-bar_chart_federal_states_electricity_demand_sh_and_hw_cold <-
-  ggplot(data = federal_states_electricity_demand_sh_and_hw_cold) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 14) +
-  coord_flip() +
-  theme(legend.position = "bottom")
+federal_states_electricity_demand_sh_and_hw <-
+  federal_states_electricity_demand_sh_and_hw_reference %>%
+  rbind(federal_states_electricity_demand_sh_and_hw_cold) %>%
+  rbind(federal_states_electricity_demand_sh_and_hw_hot)
 
-bar_chart_federal_states_electricity_demand_sh_and_hw_cold
+federal_states_electricity_demand_sh_and_hw_plot <-
+  ggplot(data = federal_states_electricity_demand_sh_and_hw,
+         aes(
+           x = `Electricity demand` / 1000000000,
+           y = reorder(NUTS1Name,-`Electricity demand`)
+         )) +
+  geom_bar(stat = "identity") +
+  facet_wrap( ~ Year, ncol = 1) +
+  labs(x = "Electricity demand in TWh",
+       y = "Federal state")
 
-
-bar_chart_federal_states_electricity_demand_sh_and_hw_hot <-
-  ggplot(data = federal_states_electricity_demand_sh_and_hw_hot) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 14) +
-  coord_flip() +
-  theme(legend.position = "bottom")
-
-bar_chart_federal_states_electricity_demand_sh_and_hw_hot
-
+federal_states_electricity_demand_sh_and_hw_plot
 
 # Space heating only
-bar_chart_federal_states_electricity_demand_sh_only_reference <-
-  ggplot(data = federal_states_electricity_demand_sh_only_reference) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 12) +
-  coord_flip() +
-  theme(legend.position = "bottom")
+federal_states_electricity_demand_sh_only_reference <-
+  federal_states_electricity_demand_sh_only_reference %>%
+  mutate("Year" = 2017)
 
-bar_chart_federal_states_electricity_demand_sh_only_reference
+federal_states_electricity_demand_sh_only_cold <-
+  federal_states_electricity_demand_sh_only_cold %>%
+  mutate("Year" = 2010)
 
+federal_states_electricity_demand_sh_only_hot <-
+  federal_states_electricity_demand_sh_only_hot %>%
+  mutate("Year" = 2022)
 
-bar_chart_federal_states_electricity_demand_sh_only_cold <-
-  ggplot(data = federal_states_electricity_demand_sh_only_cold) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 12) +
-  coord_flip() +
-  theme(legend.position = "bottom")
+federal_states_electricity_demand_sh_only <-
+  federal_states_electricity_demand_sh_only_reference %>%
+  rbind(federal_states_electricity_demand_sh_only_cold) %>%
+  rbind(federal_states_electricity_demand_sh_only_hot)
 
-bar_chart_federal_states_electricity_demand_sh_only_cold
+federal_states_electricity_demand_sh_only_plot <-
+  ggplot(data = federal_states_electricity_demand_sh_only,
+         aes(
+           x = `Electricity demand` / 1000000000,
+           y = reorder(NUTS1Name,-`Electricity demand`)
+         )) +
+  geom_bar(stat = "identity") +
+  facet_wrap( ~ Year, ncol = 1) +
+  labs(x = "Electricity demand in TWh",
+       y = "Federal state")
 
-
-bar_chart_federal_states_electricity_demand_sh_only_hot <-
-  ggplot(data = federal_states_electricity_demand_sh_only_hot) +
-  geom_bar(
-    mapping = aes(
-      x = reorder(NUTS1Name, -`Electricity demand`),
-      y = `Electricity demand` / 1000000000
-    ),
-    stat = "identity"
-  ) +
-  labs(x = "Federal state",
-       y = "Electricity demand in TWh") +
-  ylim(0, 12) +
-  coord_flip() +
-  theme(legend.position = "bottom")
-
-bar_chart_federal_states_electricity_demand_sh_only_hot
+federal_states_electricity_demand_sh_only_plot
 
 
 # Save the plots
-
-# Space heating and hot water
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_and_hw_reference.png",
-  bar_chart_federal_states_electricity_demand_sh_and_hw_reference,
+  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_electricity_demand_sh_and_hw_plot.png",
+  federal_states_electricity_demand_sh_and_hw_plot,
   width = 25,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_and_hw_cold.png",
-  bar_chart_federal_states_electricity_demand_sh_and_hw_cold,
+  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_electricity_demand_sh_only_plot.png",
+  federal_states_electricity_demand_sh_only_plot,
   width = 25,
   units = "cm"
 )
-
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_and_hw_hot.png",
-  bar_chart_federal_states_electricity_demand_sh_and_hw_hot,
-  width = 25,
-  units = "cm"
-)
-
-
-# Space heating only
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_only_reference.png",
-  bar_chart_federal_states_electricity_demand_sh_only_reference,
-  width = 25,
-  units = "cm"
-)
-
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_only_cold.png",
-  bar_chart_federal_states_electricity_demand_sh_only_cold,
-  width = 25,
-  units = "cm"
-)
-
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/bar_chart_federal_states_electricity_demand_sh_only_hot.png",
-  bar_chart_federal_states_electricity_demand_sh_only_hot,
-  width = 25,
-  units = "cm"
-)
-
