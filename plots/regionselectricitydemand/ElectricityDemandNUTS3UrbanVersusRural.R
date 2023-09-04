@@ -54,8 +54,6 @@ nuts3regioninfo_2_occurrences <-
 nuts3regioninfo_2_occurrences <-
   distinct(nuts3regioninfo_2_occurrences)
 
- # nuts3regioninfo_2_occurrences <- data.frame(nuts3regioninfo_2_occurrences) %>% slice_sample(n = 8)
-
 nuts3regioninfo_urban_rural <- nuts3regioninfo %>%
   inner_join(nuts3regioninfo_2_occurrences, by = c("NUTS3Name")) %>%
   mutate_if(is.character, as.factor)
@@ -142,26 +140,57 @@ regions_electricity_demand_space_heat_only_hot <-
 
 # Space heat and hot water
 nuts3regioninfo_urban_rural_sh_and_hw_reference <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_reference, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_reference, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
+
 
 nuts3regioninfo_urban_rural_sh_and_hw_cold <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_cold, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_cold, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
+
 
 nuts3regioninfo_urban_rural_sh_and_hw_hot <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_hot, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_hot, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
+
 
 # Space heat only
 nuts3regioninfo_urban_rural_sh_only_reference <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_space_heat_only_reference, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_space_heat_only_reference, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
+
 
 nuts3regioninfo_urban_rural_sh_only_cold <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_space_heat_only_cold, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_space_heat_only_cold, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
+
 
 nuts3regioninfo_urban_rural_sh_only_hot <- nuts3regioninfo_urban_rural %>%
-  left_join(regions_electricity_demand_space_heat_only_hot, by = c("NUTS3Code" = "nuts3_code"))
+  left_join(regions_electricity_demand_space_heat_only_hot, by = c("NUTS3Code" = "nuts3_code")) %>%
+  mutate(
+    "BuildingCount" = BuildingCount / 1000,
+    "ElectricityDemand" = ElectricityDemand / 1000000
+  )
 
 
-# Plot the graphs
+# Plot the graphs for the reference year
+
+# Space heat and hot water
 ggplot(
   nuts3regioninfo_urban_rural_sh_and_hw_reference,
   aes(
@@ -184,7 +213,12 @@ ggplot(
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_reference, NUTS3Type == "Urban district" & BuildingCount > 40000), c("NUTS3Name")), NUTS3Name)
     ),
     aes(BuildingCount, ElectricityDemand, label=NUTS3Name,  hjust = 0.75)
-  )
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+
 
 
 
