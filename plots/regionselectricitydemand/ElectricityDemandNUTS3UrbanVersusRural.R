@@ -54,7 +54,7 @@ nuts3regioninfo_2_occurrences <-
 nuts3regioninfo_2_occurrences <-
   distinct(nuts3regioninfo_2_occurrences)
 
-nuts3regioninfo_2_occurrences <- data.frame(nuts3regioninfo_2_occurrences) %>% slice_sample(n = 8)
+ # nuts3regioninfo_2_occurrences <- data.frame(nuts3regioninfo_2_occurrences) %>% slice_sample(n = 8)
 
 nuts3regioninfo_urban_rural <- nuts3regioninfo %>%
   inner_join(nuts3regioninfo_2_occurrences, by = c("NUTS3Name")) %>%
@@ -176,7 +176,15 @@ ggplot(
       size = NUTS3Type
     )
   ) +
-  geom_text_repel(aes(label = NUTS3Name))
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_and_hw_reference,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_reference, NUTS3Type == "Urban district" & BuildingCount > 40000), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name,  hjust = 0.75)
+  )
 
 
-summary(nuts3regioninfo_urban_rural_sh_and_hw_reference)
+
