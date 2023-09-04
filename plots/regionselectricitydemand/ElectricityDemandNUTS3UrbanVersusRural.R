@@ -188,10 +188,10 @@ nuts3regioninfo_urban_rural_sh_only_hot <- nuts3regioninfo_urban_rural %>%
   )
 
 
-# Plot the graphs for the reference year
+# Plot the graphs
 
 # Space heat and hot water
-ggplot(
+urban_rural_sh_and_hw_reference_plot <- ggplot(
   nuts3regioninfo_urban_rural_sh_and_hw_reference,
   aes(
     x = BuildingCount,
@@ -210,15 +210,163 @@ ggplot(
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_and_hw_reference,
-      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_reference, NUTS3Type == "Urban district" & BuildingCount > 40000), c("NUTS3Name")), NUTS3Name)
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_reference, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name,  hjust = 0.75)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
   theme(legend.title=element_blank())
 
+urban_rural_sh_and_hw_reference_plot
 
 
+urban_rural_sh_and_hw_cold_plot <- ggplot(
+  nuts3regioninfo_urban_rural_sh_and_hw_cold,
+  aes(
+    x = BuildingCount,
+    y = ElectricityDemand
+  )
+) +
+  geom_point(
+    aes(
+      shape = NUTS3Type,
+      color = NUTS3Type,
+      size = NUTS3Type
+    )
+  ) +
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_and_hw_cold,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_cold, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+urban_rural_sh_and_hw_cold_plot
 
 
+urban_rural_sh_and_hw_hot_plot <- ggplot(
+  nuts3regioninfo_urban_rural_sh_and_hw_hot,
+  aes(
+    x = BuildingCount,
+    y = ElectricityDemand
+  )
+) +
+  geom_point(
+    aes(
+      shape = NUTS3Type,
+      color = NUTS3Type,
+      size = NUTS3Type
+    )
+  ) +
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_and_hw_hot,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_hot, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+urban_rural_sh_and_hw_hot_plot
+
+
+# Space heat only
+urban_rural_sh_only_reference_plot <- ggplot(
+  nuts3regioninfo_urban_rural_sh_only_reference,
+  aes(
+    x = BuildingCount,
+    y = ElectricityDemand
+  )
+) +
+  geom_point(
+    aes(
+      shape = NUTS3Type,
+      color = NUTS3Type,
+      size = NUTS3Type
+    )
+  ) +
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_only_reference,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_reference, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+urban_rural_sh_only_reference_plot
+
+
+urban_rural_sh_only_cold_plot <- ggplot(
+  nuts3regioninfo_urban_rural_sh_only_cold,
+  aes(
+    x = BuildingCount,
+    y = ElectricityDemand
+  )
+) +
+  geom_point(
+    aes(
+      shape = NUTS3Type,
+      color = NUTS3Type,
+      size = NUTS3Type
+    )
+  ) +
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_only_cold,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_cold, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+urban_rural_sh_only_cold_plot
+
+
+urban_rural_sh_only_hot_plot <- ggplot(
+  nuts3regioninfo_urban_rural_sh_only_hot,
+  aes(
+    x = BuildingCount,
+    y = ElectricityDemand
+  )
+) +
+  geom_point(
+    aes(
+      shape = NUTS3Type,
+      color = NUTS3Type,
+      size = NUTS3Type
+    )
+  ) +
+  scale_size_manual(values = c(3, 3)) +
+  scale_color_brewer(palette = "Set1") +
+  geom_text(
+    data = filter(
+      nuts3regioninfo_urban_rural_sh_only_hot,
+      NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_hot, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
+    ),
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+  ) +
+  labs(x = "Number of buildings in thousands",
+       y = "Electricity demand in GWh") +
+  theme(legend.title=element_blank())
+
+urban_rural_sh_only_hot_plot
