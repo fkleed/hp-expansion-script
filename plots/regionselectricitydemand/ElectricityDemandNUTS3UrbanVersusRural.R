@@ -2,7 +2,6 @@
 library(tidyverse)
 library(readxl)
 library("dplyr")
-library(ggrepel)
 
 # Read the regions electricity demand data
 regions_electricity_demand_reference <-
@@ -206,13 +205,14 @@ urban_rural_sh_and_hw_reference_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_and_hw_reference,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_reference, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
@@ -236,13 +236,14 @@ urban_rural_sh_and_hw_cold_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_and_hw_cold,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_cold, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
@@ -266,13 +267,14 @@ urban_rural_sh_and_hw_hot_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_and_hw_hot,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_and_hw_hot, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
@@ -297,13 +299,14 @@ urban_rural_sh_only_reference_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_only_reference,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_reference, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
@@ -327,13 +330,14 @@ urban_rural_sh_only_cold_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_only_cold,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_cold, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
@@ -357,16 +361,66 @@ urban_rural_sh_only_hot_plot <- ggplot(
     )
   ) +
   scale_size_manual(values = c(3, 3)) +
-  scale_color_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set2") +
   geom_text(
     data = filter(
       nuts3regioninfo_urban_rural_sh_only_hot,
       NUTS3Name %in% pull(select(filter(nuts3regioninfo_urban_rural_sh_only_hot, NUTS3Type == "Urban district" & BuildingCount > 40), c("NUTS3Name")), NUTS3Name)
     ),
-    aes(BuildingCount, ElectricityDemand, label=NUTS3Name)
+    aes(BuildingCount, ElectricityDemand, label=NUTS3Name, color=NUTS3Type),
+    show.legend = FALSE
   ) +
   labs(x = "Number of buildings in thousands",
        y = "Electricity demand in GWh") +
   theme(legend.title=element_blank())
 
 urban_rural_sh_only_hot_plot
+
+
+# Save the plots
+
+# Space heat and hot water
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_and_hw_reference_plot.png",
+  urban_rural_sh_and_hw_reference_plot,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_and_hw_cold_plot.png",
+  urban_rural_sh_and_hw_cold_plot,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_and_hw_hot_plot.png",
+  urban_rural_sh_and_hw_hot_plot,
+  width = 25,
+  units = "cm"
+)
+
+
+# Space heat only
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_only_reference_plot.png",
+  urban_rural_sh_only_reference_plot,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_only_cold_plot.png",
+  urban_rural_sh_only_cold_plot,
+  width = 25,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/regionselectricitydemand/electricitydemandurbanversusrural/urban_rural_sh_only_hot_plot.png",
+  urban_rural_sh_only_hot_plot,
+  width = 25,
+  units = "cm"
+)
+
