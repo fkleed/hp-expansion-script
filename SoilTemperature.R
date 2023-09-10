@@ -482,14 +482,15 @@ soil_temperature_2022 <- soil_temperature_combined %>%
   mutate_if(is.character, as.factor) %>%
   relocate(Date, .before = MeanSoilTemperature)
 
-# Calculate soil temperature values for the hot year 2016
-soil_temperature_2016 <- soil_temperature_combined %>%
+# Calculate soil temperature values for the hot year 2017
+soil_temperature_2017 <- soil_temperature_combined %>%
   select(c("MESS_DATUM", "MeanSoilTemperature")) %>%
-  filter(substr(as.character(soil_temperature_combined$MESS_DATUM), 1, 4) == 2016) %>%
+  filter(substr(as.character(soil_temperature_combined$MESS_DATUM), 1, 4) == 2017) %>%
   mutate(Date = substr(as.character(MESS_DATUM), 5, 10)) %>%
   select(-c(MESS_DATUM)) %>%
   mutate_if(is.character, as.factor) %>%
-  relocate(Date, .before = MeanSoilTemperature)
+  relocate(Date, .before = MeanSoilTemperature) %>%
+  filter(substr(as.character(Date), 1, 4) != "0229")
 
 
 # Write soil temperature values of average year to csv file
@@ -504,5 +505,5 @@ write_csv2(soil_temperature_2010,
 write_csv2(soil_temperature_2022,
            "data/output/weathermodel/soiltempyear2022.csv")
 
-write_csv2(soil_temperature_2016,
-           "data/output/weathermodel/soiltempyear2016.csv")
+write_csv2(soil_temperature_2017,
+           "data/output/weathermodel/soiltempyear2017.csv")

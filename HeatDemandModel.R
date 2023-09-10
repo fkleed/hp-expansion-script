@@ -1438,7 +1438,7 @@ mh_passivhaus_hot <-
 
 # Read nPro data from the reference year
 eh_1919_1948_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1919-1948.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1919-1948.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1455,7 +1455,7 @@ eh_1919_1948_reference <-
   )
 
 eh_1949_1957_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1949-1957.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1949-1957.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1472,7 +1472,7 @@ eh_1949_1957_reference <-
   )
 
 eh_1958_1968_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1958-1968.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1958-1968.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1489,7 +1489,7 @@ eh_1958_1968_reference <-
   )
 
 eh_1969_1978_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1969-1978.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1969-1978.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1506,7 +1506,7 @@ eh_1969_1978_reference <-
   )
 
 eh_1979_1983_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1979-1983.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1979-1983.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1523,7 +1523,7 @@ eh_1979_1983_reference <-
   )
 
 eh_1984_1994_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1984-1994.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1984-1994.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1540,7 +1540,7 @@ eh_1984_1994_reference <-
   )
 
 eh_1995_2001_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-1995-2001.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-1995-2001.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1557,7 +1557,7 @@ eh_1995_2001_reference <-
   )
 
 eh_2002_ende_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-2002-ende.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-2002-ende.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1574,7 +1574,7 @@ eh_2002_ende_reference <-
   )
 
 eh_beginn_1918_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-beginn-1918.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-beginn-1918.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1591,7 +1591,7 @@ eh_beginn_1918_reference <-
   )
 
 eh_kfw_40_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-40.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-KfW-40.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1608,7 +1608,7 @@ eh_kfw_40_reference <-
   )
 
 eh_kfw_55_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-55.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-KfW-55.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1625,7 +1625,7 @@ eh_kfw_55_reference <-
   )
 
 eh_kfw_70_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-70.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-KfW-70.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1642,7 +1642,7 @@ eh_kfw_70_reference <-
   )
 
 eh_kfw_85_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-KfW-85.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-KfW-85.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1659,7 +1659,7 @@ eh_kfw_85_reference <-
   )
 
 eh_passivhaus_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/EH-Passivhaus.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/EH-Passivhaus.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1676,7 +1676,7 @@ eh_passivhaus_reference <-
   )
 
 mh_1919_1948_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1919-1948.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1919-1948.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1693,7 +1693,7 @@ mh_1919_1948_reference <-
   )
 
 mh_1949_1957_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1949-1957.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1949-1957.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1710,7 +1710,7 @@ mh_1949_1957_reference <-
   )
 
 mh_1958_1968_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1958-1968.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1958-1968.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1727,7 +1727,7 @@ mh_1958_1968_reference <-
   )
 
 mh_1969_1978_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1969-1978.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1969-1978.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1744,7 +1744,7 @@ mh_1969_1978_reference <-
   )
 
 mh_1979_1983_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1979-1983.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1979-1983.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1761,7 +1761,7 @@ mh_1979_1983_reference <-
   )
 
 mh_1984_1994_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1984-1994.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1984-1994.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1778,7 +1778,7 @@ mh_1984_1994_reference <-
   )
 
 mh_1995_2001_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-1995-2001.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-1995-2001.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1795,7 +1795,7 @@ mh_1995_2001_reference <-
   )
 
 mh_2002_ende_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-2002-ende.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-2002-ende.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1812,7 +1812,7 @@ mh_2002_ende_reference <-
   )
 
 mh_beginn_1918_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-beginn-1918.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-beginn-1918.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1829,7 +1829,7 @@ mh_beginn_1918_reference <-
   )
 
 mh_kfw_40_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-40.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-KfW-40.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1846,7 +1846,7 @@ mh_kfw_40_reference <-
   )
 
 mh_kfw_55_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-55.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-KfW-55.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1863,7 +1863,7 @@ mh_kfw_55_reference <-
   )
 
 mh_kfw_70_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-70.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-KfW-70.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1880,7 +1880,7 @@ mh_kfw_70_reference <-
   )
 
 mh_kfw_85_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-KfW-85.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-KfW-85.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
@@ -1897,7 +1897,7 @@ mh_kfw_85_reference <-
   )
 
 mh_passivhaus_reference <-
-  read_csv("data/heatdemand/2023-08-23-Quartierreferenceyear(2016)/MH-Passivhaus.csv") %>%
+  read_csv("data/heatdemand/2023-08-29-Quartierreferenceyear(2017)/MH-Passivhaus.csv") %>%
   select(
     -c(
       "Klimatisierung (kW)",
