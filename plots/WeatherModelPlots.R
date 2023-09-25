@@ -110,7 +110,7 @@ temp_2017_plot
 
 temp_2022_plot <-
   ggplot(data=temp_2022, aes(DATEISO, Temperature, color=Kind)) +
-  geom_line(lwd=01.0) + ylab("Temperature (°C)") + xlab("Date") + coord_cartesian(ylim = c(-15, 35)) +
+  geom_line(lwd=1.0) + ylab("Temperature (°C)") + xlab("Date") + coord_cartesian(ylim = c(-15, 35)) +
   scale_color_brewer(palette = "Set2") +
   guides(color = guide_legend(title = "Kind of temperature"))
 
@@ -121,20 +121,20 @@ temp_2022_plot
 ggsave(
   "plots/output/weathermodel/temp_2010_plot.png",
   temp_2010_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/weathermodel/temp_2017_plot.png",
   temp_2017_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/weathermodel/temp_2022_plot.png",
   temp_2022_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )

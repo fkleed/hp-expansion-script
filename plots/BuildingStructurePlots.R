@@ -10,6 +10,15 @@ nuts3regioninfo <-
 summarized_building_stock_2030 <-
   read_csv2("data/output/buildingstructure/summarized_building_stock_2030.csv") %>% mutate_if(is.character, as.factor)
 
+summarized_building_stock_2030 <- summarized_building_stock_2030 %>%
+  mutate(
+    BuildingTypeSize = fct_recode(
+      BuildingTypeSize,
+      "Apartment Buildings: 3 to 6 Apartments" = "Apartment Buildings (3-6)"
+    )
+  )
+
+
 # Bar chart for the building types per year
 bar_chart_building_types_by_year_of_construction <-
   ggplot(data = summarized_building_stock_2030) +
@@ -35,7 +44,7 @@ bar_chart_building_types_by_year_of_construction <-
       level = c(
         "Other",
         "Apartment Buildings: 7 and More Apartments",
-        "Apartment Buildings (3-6)",
+        "Apartment Buildings: 3 to 6 Apartments",
         "Semi-detached Houses",
         "Row Houses",
         "One- and Two-family Houses"
@@ -55,7 +64,31 @@ bar_chart_building_types_by_year_of_construction
 
 # Bar chart for the building types per federal state
 nuts3_federal_states <- nuts3regioninfo %>%
-  select(c("NUTS1Name", "NUTS3Code"))
+  select(c("NUTS1Name", "NUTS3Code")) %>%
+  mutate_if(is.character, as.factor)
+
+nuts3_federal_states <- nuts3_federal_states %>%
+  mutate(
+    NUTS1Name = fct_recode(
+      NUTS1Name,
+      "Schleswig Holstein" = "Schleswig-Holstein",
+      "Baden-Württemberg" = "Baden-Württemberg",
+      "Hamburg" = "Hamburg",
+      "Lower Saxony" = "Niedersachsen",
+      "Bavaria" = "Bayern",
+      "Bremen" = "Bremen",
+      "Northrhine-Westphalia" = "Nordrhein-Westfalen",
+      "Hesse" = "Hessen",
+      "Berlin" = "Berlin",
+      "Brandenburg" = "Brandenburg",
+      "Rhineland Palatinate" = "Rheinland-Pfalz",
+      "Mecklenburg Western Pomerania" = "Mecklenburg-Vorpommern",
+      "Saarland" = "Saarland",
+      "Saxony" = "Sachsen",
+      "Saxony-Anhalt" = "Sachsen-Anhalt",
+      "Thuringia" = "Thüringen",
+    )
+  )
 
 summarized_building_stock_2030_with_federal_states <-
   summarized_building_stock_2030 %>%
@@ -90,7 +123,7 @@ bar_chart_building_types_by_federal_state <-
       level = c(
         "Other",
         "Apartment Buildings: 7 and More Apartments",
-        "Apartment Buildings (3-6)",
+        "Apartment Buildings: 3 to 6 Apartments",
         "Semi-detached Houses",
         "Row Houses",
         "One- and Two-family Houses"
@@ -112,13 +145,13 @@ bar_chart_building_types_by_federal_state
 ggsave(
   "plots/output/buildingstructure/bar_chart_building_types_by_year_of_construction.png",
   bar_chart_building_types_by_year_of_construction,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/buildingstructure/bar_chart_building_types_by_federal_state.png",
   bar_chart_building_types_by_federal_state,
-  width = 25,
+  width = 30,
   units = "cm"
 )
