@@ -821,13 +821,13 @@ mh_loadprofile_space_heat_only_cop_plot
 ggsave(
   "plots/output/loadprofile/eh_loadprofile_sh_only_cop_plot.png",
   eh_loadprofile_space_heat_only_cop_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/loadprofile/mh_loadprofile_sh_only_cop_plot.png",
   mh_loadprofile_space_heat_only_cop_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )

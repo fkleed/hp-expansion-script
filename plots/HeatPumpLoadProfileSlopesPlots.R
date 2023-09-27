@@ -542,13 +542,13 @@ heating_curve_plot_mh
 ggsave(
   "plots/output/loadprofile/heating_curve_plot_eh.png",
   heating_curve_plot_eh,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/loadprofile/heating_curve_plot_mh.png",
   heating_curve_plot_mh,
-  width = 25,
+  width = 30,
   units = "cm"
 )
