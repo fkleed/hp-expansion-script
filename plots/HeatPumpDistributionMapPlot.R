@@ -91,8 +91,8 @@ hp_distribution_germany_plot
 # Save the plot
 tmap_save(
   hp_distribution_germany_plot,
-  "plots/output/heatpumpdistribution/hp_distribution_germany_plot.pdf",
-  width = 25,
+  "plots/output/heatpumpdistribution/hp_distribution_germany_plot.png",
+  width = 30,
   units = "cm"
 )
 

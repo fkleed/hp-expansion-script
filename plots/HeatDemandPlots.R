@@ -270,7 +270,7 @@ heat_demand_plot <- ggplot(combined_heat_demand,
   facet_grid(`Building type` ~ .) +
   labs(x = expression("Annual heat demand in kWh per m" ^
                         2),
-       y = "Year of construction")
+       y = "Years of construction")
 
 
 heat_demand_plot

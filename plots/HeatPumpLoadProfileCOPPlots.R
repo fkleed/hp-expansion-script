@@ -425,7 +425,7 @@ eh_loadprofile_cop_plot <- ggplot(eh_loadprofile,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Coefficient of Performance",
-       y = "Year of construction")
+       y = "Years of construction")
 
 eh_loadprofile_cop_plot
 
@@ -808,7 +808,7 @@ mh_loadprofile_cop_plot <- ggplot(mh_loadprofile,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Coefficient of Performance",
-       y = "Year of construction")
+       y = "Years of construction")
 
 mh_loadprofile_cop_plot
 

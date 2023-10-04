@@ -412,7 +412,7 @@ heating_curve_plot_eh <- ggplot(df_heating_curve_eh,
   ylab("Flow temperature space heating (°C)") +
   scale_x_reverse() +
   scale_color_brewer(palette = "Set3") +
-  guides(color = guide_legend(title = "Year of construction"))
+  guides(color = guide_legend(title = "Years of construction"))
 
 heating_curve_plot_eh
 
@@ -533,7 +533,7 @@ heating_curve_plot_mh <- ggplot(df_heating_curve_mh,
   ylab("Flow temperature space heating (°C)") +
   scale_x_reverse() +
   scale_color_brewer(palette = "Set3") +
-  guides(color = guide_legend(title = "Year of construction"))
+  guides(color = guide_legend(title = "Years of construction"))
 
 heating_curve_plot_mh
 

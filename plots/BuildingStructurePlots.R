@@ -52,7 +52,7 @@ bar_chart_building_types_by_year_of_construction <-
     )
   ),
   stat = "identity") +
-  labs(x = "Year of construction",
+  labs(x = "Years of construction",
        y = "Number of buildings in millions",
        fill = "Building type") +
   scale_fill_brewer(palette = "Set3") +

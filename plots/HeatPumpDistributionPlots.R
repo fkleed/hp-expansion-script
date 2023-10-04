@@ -133,13 +133,13 @@ bar_chart_hp_per_federal_state
 ggsave(
   "plots/output/heatpumpdistribution/bar_chart_hp_amount_min_max_five.png",
   bar_chart_hp_amount_min_max_five,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/heatpumpdistribution/bar_chart_hp_per_federal_state.png",
   bar_chart_hp_per_federal_state,
-  width = 25,
+  width = 30,
   units = "cm"
 )

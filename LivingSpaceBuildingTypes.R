@@ -18,7 +18,13 @@ ls_per_flat_mfh <- 1168000000 / 16495000
 ls_per_flat_gmh <- 288000000 / 4674000
 
 # Apartment Buildings (3-6)
-ls_ab36 <- round(ls_per_flat_mfh * 4.5)
+share_mfh34 <- 0.537
+share_mfh56 <- 0.186
+
+avg_apartments_mfh36 <-
+  (share_mfh34 / (share_mfh34 + share_mfh56)) * 3.5 + (share_mfh56 / (share_mfh34 + share_mfh56)) * 5.5
+
+ls_ab36 <- round(ls_per_flat_mfh * avg_apartments_mfh36)
 
 # Area Apartment Buildings: 7 and More Apartments
 share_mfh712 <- 0.19
