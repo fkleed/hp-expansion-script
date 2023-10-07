@@ -67,7 +67,7 @@ bar_chart_hp_per_year_of_construction <-
     )
   ),
   stat = "identity") +
-  labs(x = "Year of construction",
+  labs(x = "Years of construction",
        y = "Number of heat pumps",
        fill = "Building type") +
   scale_fill_brewer(palette = "Set3") +

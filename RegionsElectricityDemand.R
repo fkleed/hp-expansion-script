@@ -13,6 +13,25 @@ regions_electricity_demand_cold <-
 regions_electricity_demand_hot <-
   read_csv("data/regionselectricitydemand/regions_electricity_demand_hot.csv")
 
+regions_electricity_demand_sh_only_reference <-
+  read_csv("data/regionselectricitydemand/regions_electricity_demand_space_heat_only_reference.csv")
+
+regions_electricity_demand_sh_only_cold <-
+  read_csv("data/regionselectricitydemand/regions_electricity_demand_space_heat_only_cold.csv")
+
+regions_electricity_demand_sh_only_hot <-
+  read_csv("data/regionselectricitydemand/regions_electricity_demand_space_heat_only_hot.csv")
+
+
+# Calculate total annual electricity demand for Germany
+sum(regions_electricity_demand_cold$hourly_electricity_demand)
+sum(regions_electricity_demand_reference$hourly_electricity_demand)
+sum(regions_electricity_demand_hot$hourly_electricity_demand)
+
+sum(regions_electricity_demand_sh_only_cold$hourly_electricity_demand)
+sum(regions_electricity_demand_sh_only_reference$hourly_electricity_demand)
+sum(regions_electricity_demand_sh_only_hot$hourly_electricity_demand)
+
 
 # Check the sum of the heat pump electricity demand for Bamberg Landkreis and Stadt
 hp_electricity_demand_bamberg_city_reference <-
