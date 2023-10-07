@@ -103,7 +103,7 @@ loadprofile_reference_otfh <- loadprofile_reference_otfh_ashp %>%
 
 loadprofile_reference_otfh <- loadprofile_reference_otfh %>%
   mutate(DATEISO = ISOdate(
-    2017,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -113,7 +113,7 @@ loadprofile_reference_otfh_selected <-
   loadprofile_reference_otfh %>% select(c("DATEISO",
                                           "Type",
                                           "1979 - 1986",
-                                          "2001 - 2011")) %>% gather("Year of construction",
+                                          "2001 - 2011")) %>% gather("Years of construction",
                                                                      "Heat pump electricity demand",
                                                                      3:4) %>% mutate_if(is.character, as.factor)
 
@@ -124,7 +124,7 @@ hp_loadprofile_reference_otfh_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -223,7 +223,7 @@ loadprofile_reference_ab36 <- loadprofile_reference_ab36_ashp %>%
 
 loadprofile_reference_ab36 <- loadprofile_reference_ab36 %>%
   mutate(DATEISO = ISOdate(
-    2017,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -233,7 +233,7 @@ loadprofile_reference_ab36_selected <-
   loadprofile_reference_ab36 %>% select(c("DATEISO",
                                           "Type",
                                           "1979 - 1986",
-                                          "2001 - 2011")) %>% gather("Year of construction",
+                                          "2001 - 2011")) %>% gather("Years of construction",
                                                                      "Heat pump electricity demand",
                                                                      3:4) %>% mutate_if(is.character, as.factor)
 
@@ -244,7 +244,7 @@ hp_loadprofile_reference_ab36_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -343,7 +343,7 @@ loadprofile_cold_otfh <- loadprofile_cold_otfh_ashp %>%
 
 loadprofile_cold_otfh <- loadprofile_cold_otfh %>%
   mutate(DATEISO = ISOdate(
-    2010,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -353,7 +353,7 @@ loadprofile_cold_otfh_selected <-
   loadprofile_cold_otfh %>% select(c("DATEISO",
                                      "Type",
                                      "1979 - 1986",
-                                     "2001 - 2011")) %>% gather("Year of construction",
+                                     "2001 - 2011")) %>% gather("Years of construction",
                                                                 "Heat pump electricity demand",
                                                                 3:4) %>% mutate_if(is.character, as.factor)
 
@@ -364,7 +364,7 @@ hp_loadprofile_cold_otfh_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -463,7 +463,7 @@ loadprofile_cold_ab36 <- loadprofile_cold_ab36_ashp %>%
 
 loadprofile_cold_ab36 <- loadprofile_cold_ab36 %>%
   mutate(DATEISO = ISOdate(
-    2010,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -473,7 +473,7 @@ loadprofile_cold_ab36_selected <-
   loadprofile_cold_ab36 %>% select(c("DATEISO",
                                      "Type",
                                      "1979 - 1986",
-                                     "2001 - 2011")) %>% gather("Year of construction",
+                                     "2001 - 2011")) %>% gather("Years of construction",
                                                                 "Heat pump electricity demand",
                                                                 3:4) %>% mutate_if(is.character, as.factor)
 
@@ -484,7 +484,7 @@ hp_loadprofile_cold_ab36_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -583,7 +583,7 @@ loadprofile_hot_otfh <- loadprofile_hot_otfh_ashp %>%
 
 loadprofile_hot_otfh <- loadprofile_hot_otfh %>%
   mutate(DATEISO = ISOdate(
-    2022,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -593,7 +593,7 @@ loadprofile_hot_otfh_selected <-
   loadprofile_hot_otfh %>% select(c("DATEISO",
                                     "Type",
                                     "1979 - 1986",
-                                    "2001 - 2011")) %>% gather("Year of construction",
+                                    "2001 - 2011")) %>% gather("Years of construction",
                                                                "Heat pump electricity demand",
                                                                3:4) %>% mutate_if(is.character, as.factor)
 
@@ -604,7 +604,7 @@ hp_loadprofile_hot_otfh_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 8)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -703,7 +703,7 @@ loadprofile_hot_ab36 <- loadprofile_hot_ab36_ashp %>%
 
 loadprofile_hot_ab36 <- loadprofile_hot_ab36 %>%
   mutate(DATEISO = ISOdate(
-    2022,
+    2030,
     ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
     ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
     ifelse(substr(Time, 7, 8) == "00", 0, sub("^0+", "", substr(Time, 7, 8)))
@@ -713,7 +713,7 @@ loadprofile_hot_ab36_selected <-
   loadprofile_hot_ab36 %>% select(c("DATEISO",
                                     "Type",
                                     "1979 - 1986",
-                                    "2001 - 2011")) %>% gather("Year of construction",
+                                    "2001 - 2011")) %>% gather("Years of construction",
                                                                "Heat pump electricity demand",
                                                                3:4) %>% mutate_if(is.character, as.factor)
 
@@ -724,7 +724,7 @@ hp_loadprofile_hot_ab36_selected_plot <-
          aes(DATEISO,
              `Heat pump electricity demand`,)) +
   geom_line(lwd = 0.5) +
-  facet_grid(Type ~ `Year of construction`) +
+  facet_grid(Type ~ `Years of construction`) +
   coord_cartesian(ylim = c(0, 16)) +
   labs(x = "Date",
        y = "Electricity demand in kWh")
@@ -809,7 +809,7 @@ loadprofile_otfh_sums_plot <- ggplot(loadprofile_otfh_sums,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Electricity demand in kWh",
-       y = "Year of construction")
+       y = "Years of construction")
 
 loadprofile_otfh_sums_plot
 
@@ -890,7 +890,7 @@ loadprofile_ab36_sums_plot <- ggplot(loadprofile_ab36_sums,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Electricity demand in kWh",
-       y = "Year of construction")
+       y = "Years of construction")
 
 loadprofile_ab36_sums_plot
 
@@ -899,14 +899,14 @@ loadprofile_ab36_sums_plot
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_reference_otfh_selected_space_heat_only_plot.png",
   hp_loadprofile_reference_otfh_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_reference_ab36_selected_space_heat_only_plot.png",
   hp_loadprofile_reference_ab36_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
@@ -914,14 +914,14 @@ ggsave(
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_cold_otfh_selected_space_heat_only_plot.png",
   hp_loadprofile_cold_otfh_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_cold_ab36_selected_space_heat_only_plot.png",
   hp_loadprofile_cold_ab36_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
@@ -929,14 +929,14 @@ ggsave(
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_hot_otfh_selected_space_heat_only_plot.png",
   hp_loadprofile_hot_otfh_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/hp_loadprofile_hot_ab36_selected_space_heat_only_plot.png",
   hp_loadprofile_hot_ab36_selected_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
@@ -944,13 +944,13 @@ ggsave(
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/loadprofile_otfh_sums_space_heat_only_plot.png",
   loadprofile_otfh_sums_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/electricityconsumptionbuildingtypes/shonly/loadprofile_ab36_sums_space_heat_only_plot.png",
   loadprofile_ab36_sums_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )

@@ -24,6 +24,15 @@ hp_distribution_years_of_construction <-
   summarise("HPSum" = sum(HPSum),
             .groups = "drop")
 
+hp_distribution_years_of_construction <-
+  hp_distribution_years_of_construction %>%
+  mutate(
+    BuildingTypeSize = fct_recode(
+      BuildingTypeSize,
+      "Apartment Buildings: 3 to 6 Apartments" = "Apartment Buildings (3-6)"
+    )
+  )
+
 
 # Plot bar chart for the distribution of heat pumps on the building types with different years of construction
 bar_chart_hp_per_year_of_construction <-
@@ -50,7 +59,7 @@ bar_chart_hp_per_year_of_construction <-
       level = c(
         "Other",
         "Apartment Buildings: 7 and More Apartments",
-        "Apartment Buildings (3-6)",
+        "Apartment Buildings: 3 to 6 Apartments",
         "Semi-detached Houses",
         "Row Houses",
         "One- and Two-family Houses"
@@ -58,7 +67,7 @@ bar_chart_hp_per_year_of_construction <-
     )
   ),
   stat = "identity") +
-  labs(x = "Year of construction",
+  labs(x = "Years of construction",
        y = "Number of heat pumps",
        fill = "Building type") +
   scale_fill_brewer(palette = "Set3") +
@@ -75,6 +84,6 @@ bar_chart_hp_per_year_of_construction
 ggsave(
   "plots/output/heatpumpdistribution/bar_chart_hp_per_year_of_construction.png",
   bar_chart_hp_per_year_of_construction,
-  width = 25,
+  width = 30,
   units = "cm"
 )

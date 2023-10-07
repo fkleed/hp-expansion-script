@@ -435,7 +435,7 @@ eh_loadprofile_space_heat_only_cop_plot <- ggplot(eh_loadprofile,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Coefficient of Performance",
-       y = "Year of construction")
+       y = "Years of construction")
 
 eh_loadprofile_space_heat_only_cop_plot
 
@@ -812,7 +812,7 @@ mh_loadprofile_space_heat_only_cop_plot <- ggplot(mh_loadprofile,
   geom_bar(stat = "identity") +
   facet_grid(Year ~ Type) +
   labs(x = "Coefficient of Performance",
-       y = "Year of construction")
+       y = "Years of construction")
 
 mh_loadprofile_space_heat_only_cop_plot
 
@@ -821,13 +821,13 @@ mh_loadprofile_space_heat_only_cop_plot
 ggsave(
   "plots/output/loadprofile/eh_loadprofile_sh_only_cop_plot.png",
   eh_loadprofile_space_heat_only_cop_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
   "plots/output/loadprofile/mh_loadprofile_sh_only_cop_plot.png",
   mh_loadprofile_space_heat_only_cop_plot,
-  width = 25,
+  width = 30,
   units = "cm"
 )

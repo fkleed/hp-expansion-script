@@ -184,93 +184,141 @@ mh_combined_heat_demand_hot <-
                "Heat demand in kWh",
                2:11) %>% mutate("Year" = 2022)
 
+
+# Get transformed data for annual heat demand plot
 eh_combined_heat_demand <- eh_combined_heat_demand_reference %>%
-  rbind(eh_combined_heat_demand_cold) %>%
-  rbind(eh_combined_heat_demand_hot) %>%
-  mutate_if(is.character, as.factor) %>%
-  mutate(Year = as.factor(Year))
+  mutate(
+    "Building type" = "Standalone house",
+    `Year of construction` = fct_recode(`Year of construction`,
+                                        "Before 1919" = "Beginn - 1918")
+  )
 
 mh_combined_heat_demand <- mh_combined_heat_demand_reference %>%
-  rbind(mh_combined_heat_demand_cold) %>%
+  mutate(
+    "Building type" = "Apartment building",
+    `Year of construction` = fct_recode(`Year of construction`,
+                                        "Before 1919" = "Beginn - 1918")
+  )
+
+combined_heat_demand <- eh_combined_heat_demand %>%
+  rbind(mh_combined_heat_demand)
+
+
+# Get heat demand for standalone houses and apartment buildings houses with year of construction 1991 - 1995
+eh_combined_heat_demand_1991_1995 <-
+  eh_combined_heat_demand_cold %>%
+  rbind(eh_combined_heat_demand_reference) %>%
+  rbind(eh_combined_heat_demand_hot) %>%
+  filter(`Year of construction` == "1991 - 1995") %>%
+  mutate(DATEISO = ISOdate(
+    2030,
+    ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
+    ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
+  ),
+  Year = as.factor(Year)) %>%
+  select(-c("Time"))
+
+eh_combined_heat_demand_1991_1995 <-
+  eh_combined_heat_demand_1991_1995 %>%
+  group_by(`Year of construction`,
+           Year,
+           DATEISO) %>% summarise(`Heat demand in kWh` = sum(`Heat demand in kWh`),
+                                  .groups = 'drop')
+
+
+mh_combined_heat_demand_1991_1995 <-
+  mh_combined_heat_demand_cold %>%
+  rbind(mh_combined_heat_demand_reference) %>%
   rbind(mh_combined_heat_demand_hot) %>%
-  mutate_if(is.character, as.factor) %>%
-  mutate(Year = as.factor(Year))
+  filter(`Year of construction` == "1991 - 1995") %>%
+  mutate(DATEISO = ISOdate(
+    2030,
+    ifelse(substr(Time, 4, 5) == "00", 0, sub("^0+", "", substr(Time, 4, 5))),
+    ifelse(substr(Time, 1, 2) == "00", 0, sub("^0+", "", substr(Time, 1, 2))),
+  ),
+  Year = as.factor(Year)) %>%
+  select(-c("Time"))
 
-eh_combined_heat_demand <- eh_combined_heat_demand %>%
-  mutate(`Year of construction` = fct_recode(`Year of construction`,
-                                             "Before 1919" = "Beginn - 1918"))
+mh_combined_heat_demand_1991_1995 <-
+  mh_combined_heat_demand_1991_1995 %>%
+  group_by(`Year of construction`,
+           Year,
+           DATEISO) %>% summarise(`Heat demand in kWh` = sum(`Heat demand in kWh`),
+                                  .groups = 'drop')
 
-mh_combined_heat_demand <- mh_combined_heat_demand %>%
-  mutate(`Year of construction` = fct_recode(`Year of construction`,
-                                             "Before 1919" = "Beginn - 1918"))
 
+# Plot the annual heat demand for standalone houses and apartment buildings
+heat_demand_plot <- ggplot(combined_heat_demand,
+                           aes(x = `Heat demand in kWh`,
+                               y = factor(
+                                 `Year of construction`,
+                                 level = c(
+                                   "Before 1919",
+                                   "1919 - 1948",
+                                   "1949 - 1978",
+                                   "1979 - 1986",
+                                   "1987 - 1990",
+                                   "1991 - 1995",
+                                   "1996 - 2000",
+                                   "2001 - 2011",
+                                   "2012 - 2022",
+                                   "2023 - 2030"
+                                 )
 
-# Plot the heat demand for single and multi-family houses
-eh_heat_demand_plot <- ggplot(eh_combined_heat_demand,
-                              aes(x = `Heat demand in kWh`,
-                                  y = factor(
-                                    `Year of construction`,
-                                    level = c(
-                                      "Before 1919",
-                                      "1919 - 1948",
-                                      "1949 - 1978",
-                                      "1979 - 1986",
-                                      "1987 - 1990",
-                                      "1991 - 1995",
-                                      "1996 - 2000",
-                                      "2001 - 2011",
-                                      "2012 - 2022",
-                                      "2023 - 2030"
-                                    )
-
-                                  ))) +
+                               ))) +
   geom_bar(stat = "identity") +
-  facet_grid(Year ~ .) +
+  facet_grid(`Building type` ~ .) +
   labs(x = expression("Annual heat demand in kWh per m" ^
                         2),
-       y = "Year of construction")
-
-eh_heat_demand_plot
-
-mh_heat_demand_plot <- ggplot(mh_combined_heat_demand,
-                              aes(x = `Heat demand in kWh`,
-                                  y = factor(
-                                    `Year of construction`,
-                                    level = c(
-                                      "Before 1919",
-                                      "1919 - 1948",
-                                      "1949 - 1978",
-                                      "1979 - 1986",
-                                      "1987 - 1990",
-                                      "1991 - 1995",
-                                      "1996 - 2000",
-                                      "2001 - 2011",
-                                      "2012 - 2022",
-                                      "2023 - 2030"
-                                    )
-
-                                  ))) +
-  geom_bar(stat = "identity") +
-  facet_grid(Year ~ .) +
-  labs(x = expression("Annual heat demand in kWh per m" ^
-                        2),
-       y = "Year of construction")
+       y = "Years of construction")
 
 
-mh_heat_demand_plot
+heat_demand_plot
+
+
+# Plot heat demand for standalone houses and apartment buildings houses with year of construction 1991 - 1995
+heat_demand_eh_1991_1995_plot <-
+  ggplot(data = eh_combined_heat_demand_1991_1995, aes(DATEISO, `Heat demand in kWh`, color =
+                                                         Year)) +
+  geom_line(lwd = 1.0) + ylab(expression("Daily heat demand in kWh per m" ^
+                                           2)) + xlab("Date") +
+  scale_color_brewer(palette = "Set2") +
+  guides(color = guide_legend(title = "Annual temperature series")) +
+  coord_cartesian(ylim = c(0, 1.5))
+
+heat_demand_eh_1991_1995_plot
+
+
+heat_demand_mh_1991_1995_plot <-
+  ggplot(data = mh_combined_heat_demand_1991_1995, aes(DATEISO, `Heat demand in kWh`, color =
+                                                         Year)) +
+  geom_line(lwd = 1.0) + ylab(expression("Daily heat demand in kWh per m" ^
+                                           2)) + xlab("Date") +
+  scale_color_brewer(palette = "Set2") +
+  guides(color = guide_legend(title = "Annual temperature series")) +
+  coord_cartesian(ylim = c(0, 1.5))
+
+heat_demand_mh_1991_1995_plot
 
 
 # Save the plots
 ggsave(
-  "plots/output/heatdemand/eh_heat_demand_plot.png",
-  eh_heat_demand_plot,
-  width = 25,
+  "plots/output/heatdemand/heat_demand_plot.png",
+  heat_demand_plot,
+  width = 30,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/heatdemand/mh_heat_demand_plot.png",
-  mh_heat_demand_plot,
-  width = 25,
+  "plots/output/heatdemand/heat_demand_eh_1991_1995_plot.png",
+  heat_demand_eh_1991_1995_plot,
+  width = 30,
+  units = "cm"
+)
+
+ggsave(
+  "plots/output/heatdemand/heat_demand_mh_1991_1995_plot.png",
+  heat_demand_mh_1991_1995_plot,
+  width = 30,
   units = "cm"
 )
