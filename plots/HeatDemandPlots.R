@@ -187,6 +187,8 @@ mh_combined_heat_demand_hot <-
 
 # Get transformed data for annual heat demand plot
 eh_combined_heat_demand <- eh_combined_heat_demand_reference %>%
+  rbind(eh_combined_heat_demand_cold) %>%
+  rbind(eh_combined_heat_demand_hot) %>%
   mutate(
     "Building type" = "Standalone house",
     `Year of construction` = fct_recode(`Year of construction`,
@@ -194,6 +196,8 @@ eh_combined_heat_demand <- eh_combined_heat_demand_reference %>%
   )
 
 mh_combined_heat_demand <- mh_combined_heat_demand_reference %>%
+  rbind(mh_combined_heat_demand_cold) %>%
+  rbind(mh_combined_heat_demand_hot) %>%
   mutate(
     "Building type" = "Apartment building",
     `Year of construction` = fct_recode(`Year of construction`,
@@ -267,7 +271,7 @@ heat_demand_plot <- ggplot(combined_heat_demand,
 
                                ))) +
   geom_bar(stat = "identity") +
-  facet_grid(`Building type` ~ .) +
+  facet_grid(Year ~ `Building type`) +
   labs(x = expression("Annual heat demand in kWh per m" ^
                         2),
        y = "Years of construction")
