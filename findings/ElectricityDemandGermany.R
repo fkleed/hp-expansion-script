@@ -168,39 +168,39 @@ electricity_demand_hot_germany_sh_only <-
 # Total electricity demand over year
 
 # Space heat and hot water
-sum(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000000
 sum(electricity_demand_cold_germany_sh_and_hw$`Electricity demand`) / 1000000000
+sum(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000000
 sum(electricity_demand_hot_germany_sh_and_hw$`Electricity demand`) / 1000000000
 
 # Space heat only
-sum(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000000
 sum(electricity_demand_cold_germany_sh_only$`Electricity demand`) / 1000000000
+sum(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000000
 sum(electricity_demand_hot_germany_sh_only$`Electricity demand`) / 1000000000
 
 
 # Max hourly electricity demand
 
 # Space heat and hot water
-max(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000
 max(electricity_demand_cold_germany_sh_and_hw$`Electricity demand`) / 1000000
+max(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000
 max(electricity_demand_hot_germany_sh_and_hw$`Electricity demand`) / 1000000
 
 # Space heat only
-max(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000
 max(electricity_demand_cold_germany_sh_only$`Electricity demand`) / 1000000
+max(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000
 max(electricity_demand_hot_germany_sh_only$`Electricity demand`) / 1000000
 
 
 # Mean hourly electricity demand
 
 # Space heat and hot water
-mean(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000
 mean(electricity_demand_cold_germany_sh_and_hw$`Electricity demand`) / 1000000
+mean(electricity_demand_reference_germany_sh_and_hw$`Electricity demand`) / 1000000
 mean(electricity_demand_hot_germany_sh_and_hw$`Electricity demand`) / 1000000
 
 # Space heat only
-mean(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000
 mean(electricity_demand_cold_germany_sh_only$`Electricity demand`) / 1000000
+mean(electricity_demand_reference_germany_sh_only$`Electricity demand`) / 1000000
 mean(electricity_demand_hot_germany_sh_only$`Electricity demand`) / 1000000
 
 

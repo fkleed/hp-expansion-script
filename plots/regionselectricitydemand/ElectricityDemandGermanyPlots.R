@@ -106,14 +106,14 @@ electricity_demand_germany_sh_only_plot
 
 # Save the plots
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandgermanyovertime/electricity_demand_germany_sh_and_hw_plot.pdf",
+  "plots/output/regionselectricitydemand/electricitydemandgermanyovertime/electricity_demand_germany_sh_and_hw_plot.png",
   electricity_demand_germany_sh_and_hw_plot,
   width = 30,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandgermanyovertime/electricity_demand_germany_sh_only_plot.pdf",
+  "plots/output/regionselectricitydemand/electricitydemandgermanyovertime/electricity_demand_germany_sh_only_plot.png",
   electricity_demand_germany_sh_only_plot,
   width = 30,
   units = "cm"
