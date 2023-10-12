@@ -65,19 +65,19 @@ air_temp_2017 <- air_temp_2017 %>%
 # Linear regression space heat and hot water
 electricity_demand_reference_germany_sh_and_hw <-
   electricity_demand_reference_germany_sh_and_hw %>%
-  left_join(air_temp_2017, by=c("DATEISO"))
+  left_join(air_temp_2017, by=c("date_iso"= "DATEISO"))
 
 electricity_demand_reference_germany_sh_and_hw_filtered <-
   electricity_demand_reference_germany_sh_and_hw %>%
   filter(TMix < 293.15)
 
 
-plot(electricity_demand_reference_germany_sh_and_hw$TemperatureKelvin,electricity_demand_reference_germany_sh_and_hw$`Electricity demand`)
-plot(electricity_demand_reference_germany_sh_and_hw_filtered$TemperatureKelvin,electricity_demand_reference_germany_sh_and_hw_filtered$`Electricity demand`)
+plot(electricity_demand_reference_germany_sh_and_hw$TemperatureKelvin,electricity_demand_reference_germany_sh_and_hw$hourly_electricity_demand)
+plot(electricity_demand_reference_germany_sh_and_hw_filtered$TemperatureKelvin,electricity_demand_reference_germany_sh_and_hw_filtered$hourly_electricity_demand)
 
 
-model_sh_and_hw <- lm(`Electricity demand`~TemperatureKelvin, data = electricity_demand_reference_germany_sh_and_hw)
-model_sh_and_hw_filtered <- lm(`Electricity demand`~TemperatureKelvin, data = electricity_demand_reference_germany_sh_and_hw_filtered)
+model_sh_and_hw <- lm(hourly_electricity_demand~TemperatureKelvin, data = electricity_demand_reference_germany_sh_and_hw)
+model_sh_and_hw_filtered <- lm(hourly_electricity_demand~TemperatureKelvin, data = electricity_demand_reference_germany_sh_and_hw_filtered)
 
 summary(model_sh_and_hw)
 summary(model_sh_and_hw_filtered)
@@ -86,19 +86,19 @@ summary(model_sh_and_hw_filtered)
 # Linear regression space heat only
 electricity_demand_reference_germany_sh_only <-
   electricity_demand_reference_germany_sh_only %>%
-  left_join(air_temp_2017, by=c("DATEISO"))
+  left_join(air_temp_2017, by=c("date_iso"= "DATEISO"))
 
 
 electricity_demand_reference_germany_sh_only_filterd <-
   electricity_demand_reference_germany_sh_only %>%
   filter(TMix < 293.15)
 
-plot(electricity_demand_reference_germany_sh_only$TemperatureKelvin,electricity_demand_reference_germany_sh_only$`Electricity demand`)
-plot(electricity_demand_reference_germany_sh_only_filterd$TemperatureKelvin,electricity_demand_reference_germany_sh_only_filterd$`Electricity demand`)
+plot(electricity_demand_reference_germany_sh_only$TemperatureKelvin,electricity_demand_reference_germany_sh_only$hourly_electricity_demand)
+plot(electricity_demand_reference_germany_sh_only_filterd$TemperatureKelvin,electricity_demand_reference_germany_sh_only_filterd$hourly_electricity_demand)
 
 
-model_sh_only <- lm(`Electricity demand`~TemperatureKelvin, data = electricity_demand_reference_germany_sh_only)
-model_sh_only_filtered <- lm(`Electricity demand`~TemperatureKelvin, data = electricity_demand_reference_germany_sh_only_filterd)
+model_sh_only <- lm(hourly_electricity_demand~TemperatureKelvin, data = electricity_demand_reference_germany_sh_only)
+model_sh_only_filtered <- lm(hourly_electricity_demand~TemperatureKelvin, data = electricity_demand_reference_germany_sh_only_filterd)
 
 summary(model_sh_only)
 summary(model_sh_only_filtered)

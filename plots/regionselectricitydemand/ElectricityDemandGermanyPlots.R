@@ -58,11 +58,12 @@ electricity_demand_germany_sh_and_hw <-
   rbind(electricity_demand_cold_germany_sh_and_hw) %>%
   rbind(electricity_demand_hot_germany_sh_and_hw)
 
-electricity_demand_germany_sh_and_hw_plot <-   ggplot(data = electricity_demand_germany_sh_and_hw,
-                                                      aes(DATEISO,
-                                                          `Electricity demand` / 1000000)) +
+electricity_demand_germany_sh_and_hw_plot <-
+  ggplot(data = electricity_demand_germany_sh_and_hw,
+         aes(date_iso,
+             hourly_electricity_demand / 1000000)) +
   geom_line(lwd = 0.5) +
-  facet_wrap(~ `Temperature series`, ncol = 1) +
+  facet_wrap( ~ `Temperature series`, ncol = 1) +
   coord_cartesian(ylim = c(0, 55)) +
   labs(x = "Date",
        y = "Electricity demand in GWh")
@@ -91,11 +92,12 @@ electricity_demand_germany_sh_only <-
   rbind(electricity_demand_hot_germany_sh_only)
 
 
-electricity_demand_germany_sh_only_plot <-   ggplot(data = electricity_demand_germany_sh_only,
-                                                      aes(DATEISO,
-                                                          `Electricity demand` / 1000000)) +
+electricity_demand_germany_sh_only_plot <-
+  ggplot(data = electricity_demand_germany_sh_only,
+         aes(date_iso,
+             hourly_electricity_demand / 1000000)) +
   geom_line(lwd = 0.5) +
-  facet_wrap(~ `Temperature series`, ncol = 1) +
+  facet_wrap( ~ `Temperature series`, ncol = 1) +
   coord_cartesian(ylim = c(0, 55)) +
   labs(x = "Date",
        y = "Electricity demand in GWh")
