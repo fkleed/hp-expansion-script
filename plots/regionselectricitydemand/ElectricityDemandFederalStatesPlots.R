@@ -86,45 +86,14 @@ electricity_demand_federal_states_sh_and_hw <-
   left_join(
     nuts3regioninfo,
     by = c("nuts1_code" = "NUTS1Code")
-  )
+  ) %>%
+  mutate("Case" = "Space heating and hot water together")
 
-
-# Annual hp electricity demand
-federal_states_annual_electricity_demand_sh_and_hw_plot <-
-  ggplot(data = electricity_demand_federal_states_sh_and_hw,
-         aes(
-           x = hourly_electricity_demand / 1000000000,
-           y = reorder(NUTS1Name,-hourly_electricity_demand)
-         )) +
-  geom_bar(stat = "identity") +
-  facet_wrap( ~ Year, ncol = 1) +
-  labs(x = "Electricity demand in TWh",
-       y = "Federal state") +
-  coord_cartesian(xlim = c(0, 16))
-
-federal_states_annual_electricity_demand_sh_and_hw_plot
-
-
-# Maximum hourly hp electricity demand
 maximum_hourly_electricity_demand_federal_states_sh_and_hw <-
   electricity_demand_federal_states_sh_and_hw %>%
   select(-c("date_iso")) %>%
-  group_by(nuts1_code, Year, NUTS1Name) %>%
+  group_by(nuts1_code, Year, NUTS1Name, Case) %>%
   summarise(hourly_electricity_demand = max(hourly_electricity_demand), .groups = "drop")
-
-maximum_hourly_electricity_demand_federal_states_sh_and_hw_plot <-
-  ggplot(data = maximum_hourly_electricity_demand_federal_states_sh_and_hw,
-         aes(
-           x = hourly_electricity_demand / 1000000,
-           y = reorder(NUTS1Name,-hourly_electricity_demand)
-         )) +
-  geom_bar(stat = "identity") +
-  facet_wrap( ~ Year, ncol = 1) +
-  labs(x = "Electricity demand in GWh",
-       y = "Federal state") +
-  coord_cartesian(xlim = c(0, 12))
-
-maximum_hourly_electricity_demand_federal_states_sh_and_hw_plot
 
 
 # Space heating only
@@ -150,74 +119,66 @@ electricity_demand_federal_states_sh_only <-
   left_join(
     nuts3regioninfo,
     by = c("nuts1_code" = "NUTS1Code")
-  )
+  ) %>%
+  mutate("Case" = "Space heating only")
+
+maximum_hourly_electricity_demand_federal_states_sh_only <-
+  electricity_demand_federal_states_sh_only %>%
+  select(-c("date_iso")) %>%
+  group_by(nuts1_code, Year, NUTS1Name, Case) %>%
+  summarise(hourly_electricity_demand = max(hourly_electricity_demand), .groups = "drop")
 
 
-# Annual hp electricity demand
-federal_states_annual_electricity_demand_sh_only_plot <-
-  ggplot(data = electricity_demand_federal_states_sh_only,
+# Annual heat pump electricity demand
+electricity_demand_federal_states <- electricity_demand_federal_states_sh_and_hw %>%
+  rbind(electricity_demand_federal_states_sh_only)
+
+federal_states_annual_electricity_demand_plot <-
+  ggplot(data = electricity_demand_federal_states,
          aes(
            x = hourly_electricity_demand / 1000000000,
            y = reorder(NUTS1Name,-hourly_electricity_demand)
          )) +
   geom_bar(stat = "identity") +
-  facet_wrap( ~ Year, ncol = 1) +
+  facet_grid(Year ~ Case) +
   labs(x = "Electricity demand in TWh",
        y = "Federal state") +
   coord_cartesian(xlim = c(0, 16))
 
-federal_states_annual_electricity_demand_sh_only_plot
+federal_states_annual_electricity_demand_plot
 
 
-# Maximum hourly hp electricity demand
-maximum_hourly_electricity_demand_federal_states_sh_only <-
-  electricity_demand_federal_states_sh_only %>%
-  select(-c("date_iso")) %>%
-  group_by(nuts1_code, Year, NUTS1Name) %>%
-  summarise(hourly_electricity_demand = max(hourly_electricity_demand), .groups = "drop")
+# Maximum hourly electricity demand
+maximum_hourly_electricity_demand_federal_states <-
+  maximum_hourly_electricity_demand_federal_states_sh_and_hw %>%
+  rbind(maximum_hourly_electricity_demand_federal_states_sh_only)
 
-maximum_hourly_electricity_demand_federal_states_sh_only_plot <-
-  ggplot(data = maximum_hourly_electricity_demand_federal_states_sh_only,
+maximum_hourly_electricity_demand_federal_states_plot <-
+  ggplot(data = maximum_hourly_electricity_demand_federal_states,
          aes(
            x = hourly_electricity_demand / 1000000,
            y = reorder(NUTS1Name,-hourly_electricity_demand)
          )) +
   geom_bar(stat = "identity") +
-  facet_wrap( ~ Year, ncol = 1) +
+  facet_grid(Year ~ Case) +
   labs(x = "Electricity demand in GWh",
        y = "Federal state") +
   coord_cartesian(xlim = c(0, 12))
 
-maximum_hourly_electricity_demand_federal_states_sh_only_plot
+maximum_hourly_electricity_demand_federal_states_plot
 
 
 # Save the plots
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_annual_electricity_demand_sh_and_hw_plot.png",
-  federal_states_annual_electricity_demand_sh_and_hw_plot,
+  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_annual_electricity_demand_plot.png",
+  federal_states_annual_electricity_demand_plot,
   width = 30,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/maximum_hourly_electricity_demand_federal_states_sh_and_hw_plot.png",
-  maximum_hourly_electricity_demand_federal_states_sh_and_hw_plot,
+  "plots/output/regionselectricitydemand/electricitydemandfederalstates/maximum_hourly_electricity_demand_federal_states_plot.png",
+  maximum_hourly_electricity_demand_federal_states_plot,
   width = 30,
   units = "cm"
 )
-
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_annual_electricity_demand_sh_only_plot.png",
-  federal_states_annual_electricity_demand_sh_only_plot,
-  width = 30,
-  units = "cm"
-)
-
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/maximum_hourly_electricity_demand_federal_states_sh_only_plot.png",
-  maximum_hourly_electricity_demand_federal_states_sh_only_plot,
-  width = 30,
-  units = "cm"
-)
-
-
