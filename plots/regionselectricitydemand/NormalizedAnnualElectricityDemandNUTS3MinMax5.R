@@ -184,7 +184,7 @@ highest_lowest_regions_annual_electricity_demand_per_hp_sh_and_hw_plot <-
   coord_cartesian(xlim = c(0, 22500)) +
   facet_wrap(~Year, ncol = 1) +
   labs(x = "Electricity demand in kWh",
-       y = "NUTS 3 Name")
+       y = "NUTS-3 Name")
 
 
 highest_lowest_regions_annual_electricity_demand_per_hp_sh_and_hw_plot
@@ -303,7 +303,7 @@ highest_lowest_regions_annual_electricity_demand_per_hp_sh_only_plot <-
   coord_cartesian(xlim = c(0, 22500)) +
   facet_wrap(~Year, ncol = 1) +
   labs(x = "Electricity demand in kWh",
-       y = "NUTS 3 Name")
+       y = "NUTS-3 Name")
 
 
 highest_lowest_regions_annual_electricity_demand_per_hp_sh_only_plot
