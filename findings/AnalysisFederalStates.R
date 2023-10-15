@@ -76,8 +76,6 @@ sum(electricity_demand_reference_federal_states_sh_only$hourly_electricity_deman
 sum(electricity_demand_hot_federal_states_sh_only$hourly_electricity_demand)
 
 
-# Plot the bar charts for the annual and maximum hourly electricity consumption per federal state
-
 # Space heating and hot water
 electricity_demand_cold_federal_states_sh_and_hw <-
   electricity_demand_cold_federal_states_sh_and_hw %>%
