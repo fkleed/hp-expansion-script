@@ -187,9 +187,6 @@ rmsd <-
 
 rmsd
 
-test <- filter(annual_electricity_demand_federal_states, Year == "2017" & Case == "Space heating and hot water together")
-test2 <- filter(maximum_hourly_electricity_demand_federal_states, Year == "2017" & Case == "Space heating and hot water together")
-
 # Performing anova for maximum hourly electricity demand
 maximum_hourly_electricity_demand_anova_data <-
   maximum_hourly_electricity_demand_federal_states %>%
