@@ -42,7 +42,7 @@ building_stock_2030_with_hp_distribution_aggregated <-
 
 # Calculate the annual electricity demand per hp
 
-# Space hat and hot water
+# Space heat and hot water
 regions_annual_electricity_demand_per_hp_reference_sh_and_hw <-
   regions_electricity_demand_reference_iso %>%
   select(-c("date_iso")) %>%
@@ -102,9 +102,10 @@ regions_annual_electricity_demand_per_hp_reference_sh_only <-
 
 summary(regions_annual_electricity_demand_per_hp_reference_sh_only)
 
+
 # Calculate the regression
 
-# Space hat and hot water
+# Space heat and hot water
 model_annual_electricity_demand_per_hp_sh_and_hw <-
   lm(
     annual_electricity_demand_per_hp ~ ShareApartmentBuildings + ShareOldBuildings,
@@ -138,7 +139,7 @@ plot(model_annual_electricity_demand_per_hp_sh_and_hw, 4)
 # Robust standard errors
 coeftest(
   model_annual_electricity_demand_per_hp_sh_and_hw,
-  vcov = vcovHC(model_annual_electricity_demand_per_hp_sh_and_hw, type = "HC3")
+  vcov = vcovHC(model_annual_electricity_demand_per_hp_sh_and_hw, type = "HC4")
 )
 
 # Standardization
@@ -185,7 +186,7 @@ plot(model_annual_electricity_demand_per_hp_sh_only, 4)
 # Robust standard errors
 coeftest(
   model_annual_electricity_demand_per_hp_sh_only,
-  vcov = vcovHC(model_annual_electricity_demand_per_hp_sh_only, type = "HC3")
+  vcov = vcovHC(model_annual_electricity_demand_per_hp_sh_only, type = "HC4")
 )
 
 # Standardization
@@ -203,7 +204,7 @@ summary(zmodel_annual_electricity_demand_per_hp_sh_only)
 
 # Calculate the maximum hourly electricity demand per hp
 
-# Space hat and hot water
+# Space heat and hot water
 regions_max_hourly_electricity_demand_per_hp_reference_sh_and_hw <-
   regions_electricity_demand_reference_iso %>%
   select(-c("date_iso")) %>%
@@ -263,4 +264,98 @@ regions_max_hourly_electricity_demand_per_hp_reference_sh_only <-
 
 summary(regions_max_hourly_electricity_demand_per_hp_reference_sh_only)
 
-summary(regions_annual_electricity_demand_per_hp_reference_sh_only)
+
+# Calculate the regression
+
+# Space heat and hot water
+model_max_hourly_electricity_demand_per_hp_sh_and_hw <-
+  lm(
+    max_hourly_electricity_demand_per_hp ~ ShareApartmentBuildings + ShareOldBuildings,
+    data = regions_max_hourly_electricity_demand_per_hp_reference_sh_and_hw
+  )
+
+summary(model_max_hourly_electricity_demand_per_hp_sh_and_hw)
+
+
+# Check prerequisites
+
+# 1 Normal distribution residuals
+plot(model_max_hourly_electricity_demand_per_hp_sh_and_hw, 2)
+
+# 2 a Homoscedasticity
+plot(model_max_hourly_electricity_demand_per_hp_sh_and_hw, 1)
+
+bptest(model_max_hourly_electricity_demand_per_hp_sh_and_hw)
+
+# 2 b Autocorrelation
+# Also fixed by Homoscedasticity violation
+
+# 3 No Multicollinearity good when under 10, great when under 2
+vif(model_max_hourly_electricity_demand_per_hp_sh_and_hw)
+
+# No influential cases
+plot(model_max_hourly_electricity_demand_per_hp_sh_and_hw, 4)
+
+
+# No Homoscedasticity
+# Robust standard errors
+coeftest(
+  model_max_hourly_electricity_demand_per_hp_sh_and_hw,
+  vcov = vcovHC(model_max_hourly_electricity_demand_per_hp_sh_and_hw, type = "HC4")
+)
+
+# Standardization
+zmodel_max_hourly_electricity_demand_per_hp_sh_and_hw <- lm(
+  scale(max_hourly_electricity_demand_per_hp) ~ scale(ShareApartmentBuildings) + scale(ShareOldBuildings),
+  data = regions_max_hourly_electricity_demand_per_hp_reference_sh_and_hw
+
+)
+
+summary(zmodel_max_hourly_electricity_demand_per_hp_sh_and_hw)
+
+
+# Space heat only
+model_max_hourly_electricity_demand_per_hp_sh_only <-
+  lm(
+    max_hourly_electricity_demand_per_hp ~ ShareApartmentBuildings + ShareOldBuildings,
+    data = regions_max_hourly_electricity_demand_per_hp_reference_sh_only
+  )
+
+summary(model_max_hourly_electricity_demand_per_hp_sh_only)
+
+
+# Check prerequisites
+
+# 1 Normal distribution residuals
+plot(model_max_hourly_electricity_demand_per_hp_sh_only, 2)
+
+# 2 a Homoscedasticity
+plot(model_max_hourly_electricity_demand_per_hp_sh_only, 1)
+
+bptest(model_max_hourly_electricity_demand_per_hp_sh_only)
+
+# 2 b Autocorrelation
+# Also fixed by Homoscedasticity violation
+
+# 3 No Multicollinearity good when under 10, great when under 2
+vif(model_max_hourly_electricity_demand_per_hp_sh_only)
+
+# No influential cases
+plot(model_max_hourly_electricity_demand_per_hp_sh_only, 4)
+
+
+# No Homoscedasticity
+# Robust standard errors
+coeftest(
+  model_max_hourly_electricity_demand_per_hp_sh_only,
+  vcov = vcovHC(model_max_hourly_electricity_demand_per_hp_sh_only, type = "HC4")
+)
+
+# Standardization
+zmodel_max_hourly_electricity_demand_per_hp_sh_only <- lm(
+  scale(max_hourly_electricity_demand_per_hp) ~ scale(ShareApartmentBuildings) + scale(ShareOldBuildings),
+  data = regions_max_hourly_electricity_demand_per_hp_reference_sh_only
+
+)
+
+summary(zmodel_max_hourly_electricity_demand_per_hp_sh_only)
