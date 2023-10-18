@@ -131,7 +131,7 @@ bptest(model_annual_electricity_demand_per_hp_sh_and_hw)
 # 3 No Multicollinearity good when under 10, great when under 2
 vif(model_annual_electricity_demand_per_hp_sh_and_hw)
 
-# No influential cases
+# 4 No influential cases
 plot(model_annual_electricity_demand_per_hp_sh_and_hw, 4)
 
 
@@ -178,7 +178,7 @@ bptest(model_annual_electricity_demand_per_hp_sh_only)
 # 3 No Multicollinearity good when under 10, great when under 2
 vif(model_annual_electricity_demand_per_hp_sh_only)
 
-# No influential cases
+# 4 No influential cases
 plot(model_annual_electricity_demand_per_hp_sh_only, 4)
 
 
@@ -293,7 +293,7 @@ bptest(model_max_hourly_electricity_demand_per_hp_sh_and_hw)
 # 3 No Multicollinearity good when under 10, great when under 2
 vif(model_max_hourly_electricity_demand_per_hp_sh_and_hw)
 
-# No influential cases
+# 4 No influential cases
 plot(model_max_hourly_electricity_demand_per_hp_sh_and_hw, 4)
 
 
@@ -340,7 +340,7 @@ bptest(model_max_hourly_electricity_demand_per_hp_sh_only)
 # 3 No Multicollinearity good when under 10, great when under 2
 vif(model_max_hourly_electricity_demand_per_hp_sh_only)
 
-# No influential cases
+# 4 No influential cases
 plot(model_max_hourly_electricity_demand_per_hp_sh_only, 4)
 
 
