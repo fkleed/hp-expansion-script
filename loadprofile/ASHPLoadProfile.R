@@ -1785,16 +1785,16 @@ efficiency_heatpump <- 0.4
 
 eh_combined_heat_demand_reference <- eh_combined_heat_demand_reference %>%
   mutate(
-    COPHPReal_beginn_1918_reference = COPHPTheo_beginn_1918_reference * efficiency_heatpump,
-    COPHPReal_1919_1948_reference = COPHPTheo_1919_1948_reference * efficiency_heatpump,
-    COPHPReal_1949_1978_reference = COPHPTheo_1949_1978_reference * efficiency_heatpump,
-    COPHPReal_1979_1986_reference = COPHPTheo_1979_1986_reference * efficiency_heatpump,
-    COPHPReal_1987_1990_reference = COPHPTheo_1987_1990_reference * efficiency_heatpump,
-    COPHPReal_1991_1995_reference = COPHPTheo_1991_1995_reference * efficiency_heatpump,
-    COPHPReal_1996_2000_reference = COPHPTheo_1996_2000_reference * efficiency_heatpump,
-    COPHPReal_2001_2011_reference = COPHPTheo_2001_2011_reference * efficiency_heatpump,
-    COPHPReal_2012_2022_reference = COPHPTheo_2012_2022_reference * efficiency_heatpump,
-    COPHPReal_2023_2030_reference = COPHPTheo_2023_2030_reference * efficiency_heatpump
+    COPHPReal_beginn_1918_reference = ifelse(COPHPTheo_beginn_1918_reference * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_reference * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_reference * efficiency_heatpump),
+    COPHPReal_1919_1948_reference = ifelse(COPHPTheo_1919_1948_reference * efficiency_heatpump < 0 | COPHPTheo_1919_1948_reference * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_reference * efficiency_heatpump),
+    COPHPReal_1949_1978_reference = ifelse(COPHPTheo_1949_1978_reference * efficiency_heatpump < 0 | COPHPTheo_1949_1978_reference * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_reference * efficiency_heatpump),
+    COPHPReal_1979_1986_reference = ifelse(COPHPTheo_1979_1986_reference * efficiency_heatpump < 0 | COPHPTheo_1979_1986_reference * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_reference * efficiency_heatpump),
+    COPHPReal_1987_1990_reference = ifelse(COPHPTheo_1987_1990_reference * efficiency_heatpump < 0 | COPHPTheo_1987_1990_reference * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_reference * efficiency_heatpump),
+    COPHPReal_1991_1995_reference = ifelse(COPHPTheo_1991_1995_reference * efficiency_heatpump < 0 | COPHPTheo_1991_1995_reference * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_reference * efficiency_heatpump),
+    COPHPReal_1996_2000_reference = ifelse(COPHPTheo_1996_2000_reference * efficiency_heatpump < 0 | COPHPTheo_1996_2000_reference * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_reference * efficiency_heatpump),
+    COPHPReal_2001_2011_reference = ifelse(COPHPTheo_2001_2011_reference * efficiency_heatpump < 0 | COPHPTheo_2001_2011_reference * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_reference * efficiency_heatpump),
+    COPHPReal_2012_2022_reference = ifelse(COPHPTheo_2012_2022_reference * efficiency_heatpump < 0 | COPHPTheo_2012_2022_reference * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_reference * efficiency_heatpump),
+    COPHPReal_2023_2030_reference = ifelse(COPHPTheo_2023_2030_reference * efficiency_heatpump < 0 | COPHPTheo_2023_2030_reference * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_reference * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -1813,16 +1813,16 @@ eh_combined_heat_demand_reference <- eh_combined_heat_demand_reference %>%
 
 eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
   mutate(
-    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * efficiency_heatpump,
-    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * efficiency_heatpump,
-    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * efficiency_heatpump,
-    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * efficiency_heatpump,
-    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * efficiency_heatpump,
-    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * efficiency_heatpump,
-    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * efficiency_heatpump,
-    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * efficiency_heatpump,
-    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * efficiency_heatpump,
-    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * efficiency_heatpump
+    COPHPReal_beginn_1918_cold = ifelse(COPHPTheo_beginn_1918_cold * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_cold * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_cold * efficiency_heatpump),
+    COPHPReal_1919_1948_cold = ifelse(COPHPTheo_1919_1948_cold * efficiency_heatpump < 0 | COPHPTheo_1919_1948_cold * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_cold * efficiency_heatpump),
+    COPHPReal_1949_1978_cold = ifelse(COPHPTheo_1949_1978_cold * efficiency_heatpump < 0 | COPHPTheo_1949_1978_cold * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_cold * efficiency_heatpump),
+    COPHPReal_1979_1986_cold = ifelse(COPHPTheo_1979_1986_cold * efficiency_heatpump < 0 | COPHPTheo_1979_1986_cold * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_cold * efficiency_heatpump),
+    COPHPReal_1987_1990_cold = ifelse(COPHPTheo_1987_1990_cold * efficiency_heatpump < 0 | COPHPTheo_1987_1990_cold * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_cold * efficiency_heatpump),
+    COPHPReal_1991_1995_cold = ifelse(COPHPTheo_1991_1995_cold * efficiency_heatpump < 0 | COPHPTheo_1991_1995_cold * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_cold * efficiency_heatpump),
+    COPHPReal_1996_2000_cold = ifelse(COPHPTheo_1996_2000_cold * efficiency_heatpump < 0 | COPHPTheo_1996_2000_cold * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_cold * efficiency_heatpump),
+    COPHPReal_2001_2011_cold = ifelse(COPHPTheo_2001_2011_cold * efficiency_heatpump < 0 | COPHPTheo_2001_2011_cold * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_cold * efficiency_heatpump),
+    COPHPReal_2012_2022_cold = ifelse(COPHPTheo_2012_2022_cold * efficiency_heatpump < 0 | COPHPTheo_2012_2022_cold * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_cold * efficiency_heatpump),
+    COPHPReal_2023_2030_cold = ifelse(COPHPTheo_2023_2030_cold * efficiency_heatpump < 0 | COPHPTheo_2023_2030_cold * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_cold * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -1841,16 +1841,16 @@ eh_combined_heat_demand_cold <- eh_combined_heat_demand_cold %>%
 
 eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
   mutate(
-    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * efficiency_heatpump,
-    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * efficiency_heatpump,
-    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * efficiency_heatpump,
-    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * efficiency_heatpump,
-    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * efficiency_heatpump,
-    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * efficiency_heatpump,
-    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * efficiency_heatpump,
-    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * efficiency_heatpump,
-    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * efficiency_heatpump,
-    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * efficiency_heatpump
+    COPHPReal_beginn_1918_hot = ifelse(COPHPTheo_beginn_1918_hot * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_hot * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_hot * efficiency_heatpump),
+    COPHPReal_1919_1948_hot = ifelse(COPHPTheo_1919_1948_hot * efficiency_heatpump < 0 | COPHPTheo_1919_1948_hot * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_hot * efficiency_heatpump),
+    COPHPReal_1949_1978_hot = ifelse(COPHPTheo_1949_1978_hot * efficiency_heatpump < 0 | COPHPTheo_1949_1978_hot * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_hot * efficiency_heatpump),
+    COPHPReal_1979_1986_hot = ifelse(COPHPTheo_1979_1986_hot * efficiency_heatpump < 0 | COPHPTheo_1979_1986_hot * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_hot * efficiency_heatpump),
+    COPHPReal_1987_1990_hot = ifelse(COPHPTheo_1987_1990_hot * efficiency_heatpump < 0 | COPHPTheo_1987_1990_hot * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_hot * efficiency_heatpump),
+    COPHPReal_1991_1995_hot = ifelse(COPHPTheo_1991_1995_hot * efficiency_heatpump < 0 | COPHPTheo_1991_1995_hot * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_hot * efficiency_heatpump),
+    COPHPReal_1996_2000_hot = ifelse(COPHPTheo_1996_2000_hot * efficiency_heatpump < 0 | COPHPTheo_1996_2000_hot * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_hot * efficiency_heatpump),
+    COPHPReal_2001_2011_hot = ifelse(COPHPTheo_2001_2011_hot * efficiency_heatpump < 0 | COPHPTheo_2001_2011_hot * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_hot * efficiency_heatpump),
+    COPHPReal_2012_2022_hot = ifelse(COPHPTheo_2012_2022_hot * efficiency_heatpump < 0 | COPHPTheo_2012_2022_hot * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_hot * efficiency_heatpump),
+    COPHPReal_2023_2030_hot = ifelse(COPHPTheo_2023_2030_hot * efficiency_heatpump < 0 | COPHPTheo_2023_2030_hot * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_hot * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -1870,16 +1870,16 @@ eh_combined_heat_demand_hot <- eh_combined_heat_demand_hot %>%
 
 mh_combined_heat_demand_reference <- mh_combined_heat_demand_reference %>%
   mutate(
-    COPHPReal_beginn_1918_reference = COPHPTheo_beginn_1918_reference * efficiency_heatpump,
-    COPHPReal_1919_1948_reference = COPHPTheo_1919_1948_reference * efficiency_heatpump,
-    COPHPReal_1949_1978_reference = COPHPTheo_1949_1978_reference * efficiency_heatpump,
-    COPHPReal_1979_1986_reference = COPHPTheo_1979_1986_reference * efficiency_heatpump,
-    COPHPReal_1987_1990_reference = COPHPTheo_1987_1990_reference * efficiency_heatpump,
-    COPHPReal_1991_1995_reference = COPHPTheo_1991_1995_reference * efficiency_heatpump,
-    COPHPReal_1996_2000_reference = COPHPTheo_1996_2000_reference * efficiency_heatpump,
-    COPHPReal_2001_2011_reference = COPHPTheo_2001_2011_reference * efficiency_heatpump,
-    COPHPReal_2012_2022_reference = COPHPTheo_2012_2022_reference * efficiency_heatpump,
-    COPHPReal_2023_2030_reference = COPHPTheo_2023_2030_reference * efficiency_heatpump
+    COPHPReal_beginn_1918_reference = ifelse(COPHPTheo_beginn_1918_reference * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_reference * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_reference * efficiency_heatpump),
+    COPHPReal_1919_1948_reference = ifelse(COPHPTheo_1919_1948_reference * efficiency_heatpump < 0 | COPHPTheo_1919_1948_reference * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_reference * efficiency_heatpump),
+    COPHPReal_1949_1978_reference = ifelse(COPHPTheo_1949_1978_reference * efficiency_heatpump < 0 | COPHPTheo_1949_1978_reference * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_reference * efficiency_heatpump),
+    COPHPReal_1979_1986_reference = ifelse(COPHPTheo_1979_1986_reference * efficiency_heatpump < 0 | COPHPTheo_1979_1986_reference * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_reference * efficiency_heatpump),
+    COPHPReal_1987_1990_reference = ifelse(COPHPTheo_1987_1990_reference * efficiency_heatpump < 0 | COPHPTheo_1987_1990_reference * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_reference * efficiency_heatpump),
+    COPHPReal_1991_1995_reference = ifelse(COPHPTheo_1991_1995_reference * efficiency_heatpump < 0 | COPHPTheo_1991_1995_reference * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_reference * efficiency_heatpump),
+    COPHPReal_1996_2000_reference = ifelse(COPHPTheo_1996_2000_reference * efficiency_heatpump < 0 | COPHPTheo_1996_2000_reference * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_reference * efficiency_heatpump),
+    COPHPReal_2001_2011_reference = ifelse(COPHPTheo_2001_2011_reference * efficiency_heatpump < 0 | COPHPTheo_2001_2011_reference * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_reference * efficiency_heatpump),
+    COPHPReal_2012_2022_reference = ifelse(COPHPTheo_2012_2022_reference * efficiency_heatpump < 0 | COPHPTheo_2012_2022_reference * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_reference * efficiency_heatpump),
+    COPHPReal_2023_2030_reference = ifelse(COPHPTheo_2023_2030_reference * efficiency_heatpump < 0 | COPHPTheo_2023_2030_reference * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_reference * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -1898,16 +1898,16 @@ mh_combined_heat_demand_reference <- mh_combined_heat_demand_reference %>%
 
 mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
   mutate(
-    COPHPReal_beginn_1918_cold = COPHPTheo_beginn_1918_cold * efficiency_heatpump,
-    COPHPReal_1919_1948_cold = COPHPTheo_1919_1948_cold * efficiency_heatpump,
-    COPHPReal_1949_1978_cold = COPHPTheo_1949_1978_cold * efficiency_heatpump,
-    COPHPReal_1979_1986_cold = COPHPTheo_1979_1986_cold * efficiency_heatpump,
-    COPHPReal_1987_1990_cold = COPHPTheo_1987_1990_cold * efficiency_heatpump,
-    COPHPReal_1991_1995_cold = COPHPTheo_1991_1995_cold * efficiency_heatpump,
-    COPHPReal_1996_2000_cold = COPHPTheo_1996_2000_cold * efficiency_heatpump,
-    COPHPReal_2001_2011_cold = COPHPTheo_2001_2011_cold * efficiency_heatpump,
-    COPHPReal_2012_2022_cold = COPHPTheo_2012_2022_cold * efficiency_heatpump,
-    COPHPReal_2023_2030_cold = COPHPTheo_2023_2030_cold * efficiency_heatpump
+    COPHPReal_beginn_1918_cold = ifelse(COPHPTheo_beginn_1918_cold * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_cold * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_cold * efficiency_heatpump),
+    COPHPReal_1919_1948_cold = ifelse(COPHPTheo_1919_1948_cold * efficiency_heatpump < 0 | COPHPTheo_1919_1948_cold * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_cold * efficiency_heatpump),
+    COPHPReal_1949_1978_cold = ifelse(COPHPTheo_1949_1978_cold * efficiency_heatpump < 0 | COPHPTheo_1949_1978_cold * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_cold * efficiency_heatpump),
+    COPHPReal_1979_1986_cold = ifelse(COPHPTheo_1979_1986_cold * efficiency_heatpump < 0 | COPHPTheo_1979_1986_cold * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_cold * efficiency_heatpump),
+    COPHPReal_1987_1990_cold = ifelse(COPHPTheo_1987_1990_cold * efficiency_heatpump < 0 | COPHPTheo_1987_1990_cold * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_cold * efficiency_heatpump),
+    COPHPReal_1991_1995_cold = ifelse(COPHPTheo_1991_1995_cold * efficiency_heatpump < 0 | COPHPTheo_1991_1995_cold * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_cold * efficiency_heatpump),
+    COPHPReal_1996_2000_cold = ifelse(COPHPTheo_1996_2000_cold * efficiency_heatpump < 0 | COPHPTheo_1996_2000_cold * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_cold * efficiency_heatpump),
+    COPHPReal_2001_2011_cold = ifelse(COPHPTheo_2001_2011_cold * efficiency_heatpump < 0 | COPHPTheo_2001_2011_cold * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_cold * efficiency_heatpump),
+    COPHPReal_2012_2022_cold = ifelse(COPHPTheo_2012_2022_cold * efficiency_heatpump < 0 | COPHPTheo_2012_2022_cold * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_cold * efficiency_heatpump),
+    COPHPReal_2023_2030_cold = ifelse(COPHPTheo_2023_2030_cold * efficiency_heatpump < 0 | COPHPTheo_2023_2030_cold * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_cold * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -1926,16 +1926,16 @@ mh_combined_heat_demand_cold <- mh_combined_heat_demand_cold %>%
 
 mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
   mutate(
-    COPHPReal_beginn_1918_hot = COPHPTheo_beginn_1918_hot * efficiency_heatpump,
-    COPHPReal_1919_1948_hot = COPHPTheo_1919_1948_hot * efficiency_heatpump,
-    COPHPReal_1949_1978_hot = COPHPTheo_1949_1978_hot * efficiency_heatpump,
-    COPHPReal_1979_1986_hot = COPHPTheo_1979_1986_hot * efficiency_heatpump,
-    COPHPReal_1987_1990_hot = COPHPTheo_1987_1990_hot * efficiency_heatpump,
-    COPHPReal_1991_1995_hot = COPHPTheo_1991_1995_hot * efficiency_heatpump,
-    COPHPReal_1996_2000_hot = COPHPTheo_1996_2000_hot * efficiency_heatpump,
-    COPHPReal_2001_2011_hot = COPHPTheo_2001_2011_hot * efficiency_heatpump,
-    COPHPReal_2012_2022_hot = COPHPTheo_2012_2022_hot * efficiency_heatpump,
-    COPHPReal_2023_2030_hot = COPHPTheo_2023_2030_hot * efficiency_heatpump
+    COPHPReal_beginn_1918_hot = ifelse(COPHPTheo_beginn_1918_hot * efficiency_heatpump < 0 | COPHPTheo_beginn_1918_hot * efficiency_heatpump > 15, 15, COPHPTheo_beginn_1918_hot * efficiency_heatpump),
+    COPHPReal_1919_1948_hot = ifelse(COPHPTheo_1919_1948_hot * efficiency_heatpump < 0 | COPHPTheo_1919_1948_hot * efficiency_heatpump > 15, 15, COPHPTheo_1919_1948_hot * efficiency_heatpump),
+    COPHPReal_1949_1978_hot = ifelse(COPHPTheo_1949_1978_hot * efficiency_heatpump < 0 | COPHPTheo_1949_1978_hot * efficiency_heatpump > 15, 15, COPHPTheo_1949_1978_hot * efficiency_heatpump),
+    COPHPReal_1979_1986_hot = ifelse(COPHPTheo_1979_1986_hot * efficiency_heatpump < 0 | COPHPTheo_1979_1986_hot * efficiency_heatpump > 15, 15, COPHPTheo_1979_1986_hot * efficiency_heatpump),
+    COPHPReal_1987_1990_hot = ifelse(COPHPTheo_1987_1990_hot * efficiency_heatpump < 0 | COPHPTheo_1987_1990_hot * efficiency_heatpump > 15, 15, COPHPTheo_1987_1990_hot * efficiency_heatpump),
+    COPHPReal_1991_1995_hot = ifelse(COPHPTheo_1991_1995_hot * efficiency_heatpump < 0 | COPHPTheo_1991_1995_hot * efficiency_heatpump > 15, 15, COPHPTheo_1991_1995_hot * efficiency_heatpump),
+    COPHPReal_1996_2000_hot = ifelse(COPHPTheo_1996_2000_hot * efficiency_heatpump < 0 | COPHPTheo_1996_2000_hot * efficiency_heatpump > 15, 15, COPHPTheo_1996_2000_hot * efficiency_heatpump),
+    COPHPReal_2001_2011_hot = ifelse(COPHPTheo_2001_2011_hot * efficiency_heatpump < 0 | COPHPTheo_2001_2011_hot * efficiency_heatpump > 15, 15, COPHPTheo_2001_2011_hot * efficiency_heatpump),
+    COPHPReal_2012_2022_hot = ifelse(COPHPTheo_2012_2022_hot * efficiency_heatpump < 0 | COPHPTheo_2012_2022_hot * efficiency_heatpump > 15, 15, COPHPTheo_2012_2022_hot * efficiency_heatpump),
+    COPHPReal_2023_2030_hot = ifelse(COPHPTheo_2023_2030_hot * efficiency_heatpump < 0 | COPHPTheo_2023_2030_hot * efficiency_heatpump > 15, 15, COPHPTheo_2023_2030_hot * efficiency_heatpump)
   ) %>%
   select(
     -c(
@@ -2229,6 +2229,7 @@ mh_combined_heat_demand_hot <- mh_combined_heat_demand_hot %>%
                                                            COPHPReal_2023_2030_hot
     )
   )
+
 
 
 # Reference year eh
