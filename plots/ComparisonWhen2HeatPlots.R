@@ -35,7 +35,7 @@ summary(cop_comparison_ashp_reference_transformed)
 # Plot the comparison graph
 cop_comparison_plot <-
   ggplot(data=cop_comparison_ashp_reference_transformed, aes(date_iso, COP, color=Type)) +
-  geom_line(lwd=1.0) + ylab("COP") + xlab("Date") + coord_cartesian(ylim = c(-5, 20)) +
+  geom_line(lwd=1.0) + ylab("COP") + xlab("Date") + coord_cartesian(ylim = c(0, 10)) +
   scale_color_brewer(palette = "Set2") +
   guides(color = guide_legend(title = "Type of COP"))
 

@@ -371,16 +371,22 @@ cop_comparison_ashp_reference <-
 summary(cop_comparison_ashp_reference)
 
 
+cop_comparison_ashp_reference_filtered <-
+  cop_comparison_ashp_reference %>%
+  filter(TemperatureKelvin < 278.15)
+
+
 plot(
-  cop_comparison_ashp_reference$AVGCOPWhen2Heat,
-  cop_comparison_ashp_reference$WeightedCOP
+  cop_comparison_ashp_reference_filtered$WeightedCOP,
+  cop_comparison_ashp_reference_filtered$AVGCOPWhen2Heat
 )
 
 
 # Perform the linear regression
 model <-
-  lm(AVGCOPWhen2Heat ~ WeightedCOP, data = cop_comparison_ashp_reference)
-abline(model)
+  lm(AVGCOPWhen2Heat ~ WeightedCOP, data = cop_comparison_ashp_reference_filtered)
+
+abline(model, col="red")
 
 summary(model)
 
