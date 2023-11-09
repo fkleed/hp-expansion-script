@@ -98,21 +98,21 @@ regions_electricity_demand_reference <-
   regions_electricity_demand_reference_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 regions_electricity_demand_cold <-
   regions_electricity_demand_cold_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 regions_electricity_demand_hot <-
   regions_electricity_demand_hot_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 
@@ -121,21 +121,21 @@ regions_electricity_demand_space_heat_only_reference <-
   regions_electricity_demand_space_heat_only_reference_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 regions_electricity_demand_space_heat_only_cold <-
   regions_electricity_demand_space_heat_only_cold_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 regions_electricity_demand_space_heat_only_hot <-
   regions_electricity_demand_space_heat_only_hot_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("ElectricityDemand" = sum(hourly_electricity_demand),
+  summarise("ElectricityDemand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 
@@ -144,19 +144,19 @@ districts_germany_geo_info_with_electricity_demand_sh_and_hw_reference <-
   districts_germany_geo_info %>%
   left_join(regions_electricity_demand_reference,
             by = c("NUTS3Code" = "nuts3_code")) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 districts_germany_geo_info_with_electricity_demand_sh_and_hw_cold <-
   districts_germany_geo_info %>%
   left_join(regions_electricity_demand_cold,
             by = c("NUTS3Code" = "nuts3_code")) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 districts_germany_geo_info_with_electricity_demand_sh_and_hw_hot <-
   districts_germany_geo_info %>%
   left_join(regions_electricity_demand_hot,
             by = c("NUTS3Code" = "nuts3_code")) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 
 districts_germany_geo_info_with_electricity_demand_sh_only_reference <-
@@ -165,19 +165,19 @@ districts_germany_geo_info_with_electricity_demand_sh_only_reference <-
     regions_electricity_demand_space_heat_only_reference,
     by = c("NUTS3Code" = "nuts3_code")
   ) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 districts_germany_geo_info_with_electricity_demand_sh_only_cold <-
   districts_germany_geo_info %>%
   left_join(regions_electricity_demand_space_heat_only_cold,
             by = c("NUTS3Code" = "nuts3_code")) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 districts_germany_geo_info_with_electricity_demand_sh_only_hot <-
   districts_germany_geo_info %>%
   left_join(regions_electricity_demand_space_heat_only_hot,
             by = c("NUTS3Code" = "nuts3_code")) %>%
-  mutate("Electricity demand in GWh" = ElectricityDemand / 1000000)
+  mutate("Electricity demand in MWh" = ElectricityDemand / 1000)
 
 
 # Plot the maps
@@ -187,11 +187,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_and_hw_reference_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_reference) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -210,11 +210,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_and_hw_cold_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_cold) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -233,11 +233,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_and_hw_hot_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_hot) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -257,11 +257,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_only_reference_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_reference) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -280,11 +280,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_only_cold_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_cold) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -303,11 +303,11 @@ tmap_mode("plot")
 hp_electricity_demand_sh_only_hot_plot <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_hot) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "NUTS3Code",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     border.col = "white",
     lwd = .1
   ) +
@@ -327,21 +327,21 @@ hp_electricity_demand_sh_only_hot_plot
 # Space heat and hot water
 tmap_save(
   hp_electricity_demand_sh_and_hw_reference_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_and_hw_reference_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_and_hw_reference_plot.png",
   width = 30,
   units = "cm"
 )
 
 tmap_save(
   hp_electricity_demand_sh_and_hw_cold_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_and_hw_cold_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_and_hw_cold_plot.png",
   width = 30,
   units = "cm"
 )
 
 tmap_save(
   hp_electricity_demand_sh_and_hw_hot_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_and_hw_hot_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_and_hw_hot_plot.png",
   width = 30,
   units = "cm"
 )
@@ -349,21 +349,21 @@ tmap_save(
 # Space heat only
 tmap_save(
   hp_electricity_demand_sh_only_reference_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_only_reference_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_only_reference_plot.png",
   width = 30,
   units = "cm"
 )
 
 tmap_save(
   hp_electricity_demand_sh_only_cold_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_only_cold_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_only_cold_plot.png",
   width = 30,
   units = "cm"
 )
 
 tmap_save(
   hp_electricity_demand_sh_only_hot_plot,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/hp_electricity_demand_sh_only_hot_plot.png",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/hp_max_hourly_electricity_demand_sh_only_hot_plot.png",
   width = 30,
   units = "cm"
 )
@@ -376,11 +376,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_and_hw_reference_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_reference) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -395,11 +395,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_and_hw_cold_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_cold) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -414,11 +414,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_and_hw_hot_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_and_hw_hot) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -434,11 +434,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_only_reference_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_reference) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -453,11 +453,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_only_cold_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_cold) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -472,11 +472,11 @@ tmap_mode("view")
 hp_electricity_demand_sh_only_hot_interactive <-
   tm_shape(districts_germany_geo_info_with_electricity_demand_sh_only_hot) +
   tm_polygons(
-    "Electricity demand in GWh",
+    "Electricity demand in MWh",
     id = "gen",
     palette = "-viridis",
     style = "fisher",
-    title = "Electricity demand in GWh",
+    title = "Electricity demand in MWh",
     alpha = .5
   ) +
   tm_layout(legend.format = list(
@@ -492,34 +492,34 @@ hp_electricity_demand_sh_only_hot_interactive
 # Space heat and hot water
 tmap_save(
   hp_electricity_demand_sh_and_hw_reference_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_and_hw_reference_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_and_hw_reference_interactive.html",
 )
 
 tmap_save(
   hp_electricity_demand_sh_and_hw_cold_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_and_hw_cold_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_and_hw_cold_interactive.html",
 )
 
 tmap_save(
   hp_electricity_demand_sh_and_hw_hot_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_and_hw_hot_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_and_hw_hot_interactive.html",
 )
 
 
 # Space heat only
 tmap_save(
   hp_electricity_demand_sh_only_reference_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_only_reference_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_only_reference_interactive.html",
 )
 
 tmap_save(
   hp_electricity_demand_sh_only_cold_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_only_cold_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_only_cold_interactive.html",
 )
 
 tmap_save(
   hp_electricity_demand_sh_only_hot_interactive,
-  "plots/output/regionselectricitydemand/electricitydemandmaps/interactive/hp_electricity_demand_sh_only_hot_interactive.html",
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandmaps/interactive/hp_max_hourly_electricity_demand_sh_only_hot_interactive.html",
 )
 
 

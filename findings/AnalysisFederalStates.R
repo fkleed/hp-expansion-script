@@ -2,6 +2,7 @@
 library(tidyverse)
 library("dplyr")
 library(readxl)
+library(psych)
 
 # Read the data
 nuts3regioninfo <-
@@ -32,36 +33,48 @@ nuts3regioninfo <-
   distinct()
 
 electricity_demand_reference_federal_states_sh_and_hw <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_reference_federal_states_sh_and_hw.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_reference_federal_states_sh_and_hw.csv"
+  )
 
 electricity_demand_cold_federal_states_sh_and_hw <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_cold_federal_states_sh_and_hw.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_cold_federal_states_sh_and_hw.csv"
+  )
 
 electricity_demand_hot_federal_states_sh_and_hw <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_hot_federal_states_sh_and_hw.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_hot_federal_states_sh_and_hw.csv"
+  )
 
 
 electricity_demand_reference_federal_states_sh_only <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_reference_federal_states_sh_only.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_reference_federal_states_sh_only.csv"
+  )
 
 electricity_demand_cold_federal_states_sh_only <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_cold_federal_states_sh_only.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_cold_federal_states_sh_only.csv"
+  )
 
 electricity_demand_hot_federal_states_sh_only <-
-  read_csv("data/output/findings/electricity-demand-federal-states/electricity_demand_hot_federal_states_sh_only.csv")
+  read_csv(
+    "data/output/findings/electricity-demand-federal-states/electricity_demand_hot_federal_states_sh_only.csv"
+  )
 
 
 # Check the annual electricity  demand
 sum(electricity_demand_cold_federal_states_sh_and_hw$hourly_electricity_demand)
-sum(electricity_demand_reference_federal_states_sh_and_hw$hourly_electricity_demand)
+sum(
+  electricity_demand_reference_federal_states_sh_and_hw$hourly_electricity_demand
+)
 sum(electricity_demand_hot_federal_states_sh_and_hw$hourly_electricity_demand)
 
 sum(electricity_demand_cold_federal_states_sh_only$hourly_electricity_demand)
 sum(electricity_demand_reference_federal_states_sh_only$hourly_electricity_demand)
 sum(electricity_demand_hot_federal_states_sh_only$hourly_electricity_demand)
 
-
-# Plot the bar charts for the annual and maximum hourly electricity consumption per federal state
 
 # Space heating and hot water
 electricity_demand_cold_federal_states_sh_and_hw <-
@@ -83,17 +96,18 @@ electricity_demand_federal_states_sh_and_hw <-
 
 electricity_demand_federal_states_sh_and_hw <-
   electricity_demand_federal_states_sh_and_hw %>%
-  left_join(
-    nuts3regioninfo,
-    by = c("nuts1_code" = "NUTS1Code")
-  ) %>%
+  left_join(nuts3regioninfo,
+            by = c("nuts1_code" = "NUTS1Code")) %>%
   mutate("Case" = "Space heating and hot water together")
 
 maximum_hourly_electricity_demand_federal_states_sh_and_hw <-
   electricity_demand_federal_states_sh_and_hw %>%
   select(-c("date_iso")) %>%
   group_by(nuts1_code, Year, NUTS1Name, Case) %>%
-  summarise(hourly_electricity_demand = max(hourly_electricity_demand), .groups = "drop")
+  summarise(
+    hourly_electricity_demand = max(hourly_electricity_demand),
+    .groups = "drop"
+  )
 
 
 # Space heating only
@@ -116,69 +130,87 @@ electricity_demand_federal_states_sh_only <-
 
 electricity_demand_federal_states_sh_only <-
   electricity_demand_federal_states_sh_only %>%
-  left_join(
-    nuts3regioninfo,
-    by = c("nuts1_code" = "NUTS1Code")
-  ) %>%
+  left_join(nuts3regioninfo,
+            by = c("nuts1_code" = "NUTS1Code")) %>%
   mutate("Case" = "Space heating only")
 
 maximum_hourly_electricity_demand_federal_states_sh_only <-
   electricity_demand_federal_states_sh_only %>%
   select(-c("date_iso")) %>%
   group_by(nuts1_code, Year, NUTS1Name, Case) %>%
-  summarise(hourly_electricity_demand = max(hourly_electricity_demand), .groups = "drop")
+  summarise(
+    hourly_electricity_demand = max(hourly_electricity_demand),
+    .groups = "drop"
+  )
 
 
-# Annual heat pump electricity demand
-electricity_demand_federal_states <- electricity_demand_federal_states_sh_and_hw %>%
+electricity_demand_federal_states <-
+  electricity_demand_federal_states_sh_and_hw %>%
   rbind(electricity_demand_federal_states_sh_only)
 
-federal_states_annual_electricity_demand_plot <-
-  ggplot(data = electricity_demand_federal_states,
-         aes(
-           x = hourly_electricity_demand / 1000000000,
-           y = reorder(NUTS1Name,-hourly_electricity_demand)
-         )) +
-  geom_bar(stat = "identity") +
-  facet_grid(Year ~ Case) +
-  labs(x = "Electricity demand in TWh",
-       y = "Federal state") +
-  coord_cartesian(xlim = c(0, 16))
-
-federal_states_annual_electricity_demand_plot
-
-
-# Maximum hourly electricity demand
 maximum_hourly_electricity_demand_federal_states <-
   maximum_hourly_electricity_demand_federal_states_sh_and_hw %>%
   rbind(maximum_hourly_electricity_demand_federal_states_sh_only)
 
-maximum_hourly_electricity_demand_federal_states_plot <-
-  ggplot(data = maximum_hourly_electricity_demand_federal_states,
-         aes(
-           x = hourly_electricity_demand / 1000000,
-           y = reorder(NUTS1Name,-hourly_electricity_demand)
-         )) +
-  geom_bar(stat = "identity") +
-  facet_grid(Year ~ Case) +
-  labs(x = "Electricity demand in GWh",
-       y = "Federal state") +
-  coord_cartesian(xlim = c(0, 12))
 
-maximum_hourly_electricity_demand_federal_states_plot
+# Performing RMSD analysis for annual electricity demand difference between sh and hw and ah only for the difference between the cold and hot temperature series
+annual_electricity_demand_federal_states <-
+  electricity_demand_federal_states %>%
+  select(-c("date_iso")) %>%
+  group_by(nuts1_code, Year, NUTS1Name, Case) %>%
+  summarise(
+    hourly_electricity_demand  = sum(hourly_electricity_demand),
+    .groups = "drop"
+  ) %>%
+  filter(Year != "2017") %>%
+  spread(key = Year, value = hourly_electricity_demand)
+
+annual_electricity_demand_federal_states <-
+  annual_electricity_demand_federal_states %>%
+  mutate("Difference-2010-2022" = `2010` - `2022`) %>%
+  select(-c("2010", "2022"))
+
+annual_electricity_demand_federal_states <-
+  annual_electricity_demand_federal_states %>%
+  spread(key = Case, value = `Difference-2010-2022`)
+
+annual_electricity_demand_federal_states <-
+  annual_electricity_demand_federal_states %>%
+  mutate("QuadraticDifference" = (`Space heating and hot water together` - `Space heating only`) ^
+           2)
 
 
-# Save the plots
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/federal_states_annual_electricity_demand_plot.png",
-  federal_states_annual_electricity_demand_plot,
-  width = 30,
-  units = "cm"
-)
+rmsd <-
+  sqrt(sum(
+    annual_electricity_demand_federal_states$QuadraticDifference
+  ) / 16)
 
-ggsave(
-  "plots/output/regionselectricitydemand/electricitydemandfederalstates/maximum_hourly_electricity_demand_federal_states_plot.png",
-  maximum_hourly_electricity_demand_federal_states_plot,
-  width = 30,
-  units = "cm"
-)
+rmsd
+
+# Performing anova for maximum hourly electricity demand
+maximum_hourly_electricity_demand_anova_data <-
+  maximum_hourly_electricity_demand_federal_states %>%
+  mutate(
+    AnovaCase = paste(Year, Case, " ")
+  ) %>%
+  select(
+    -c(
+      "nuts1_code",
+      "Year",
+      "NUTS1Name",
+      "Case"
+    )
+  ) %>%
+  mutate_if(is.character, as.factor)
+
+summary(maximum_hourly_electricity_demand_anova_data)
+
+anova_training <- aov(maximum_hourly_electricity_demand_anova_data$hourly_electricity_demand ~ maximum_hourly_electricity_demand_anova_data$AnovaCase)
+summary(anova_training)
+
+pairwise.t.test(maximum_hourly_electricity_demand_anova_data$hourly_electricity_demand, maximum_hourly_electricity_demand_anova_data$AnovaCase, p.adjust.method = "bonferroni")
+
+# Normal distribution of residuals
+describeBy(maximum_hourly_electricity_demand_anova_data$hourly_electricity_demand, maximum_hourly_electricity_demand_anova_data$AnovaCase)
+hist(rstandard((anova_training)))
+plot(anova_training, 2)

@@ -11,6 +11,42 @@ nuts3regioninfo <-
 building_stock_2030_with_hp_distribution <-
   read_csv("data/output/heatpumpexpansion/building_stock_2030_with_hp_distribution.csv") %>% mutate_if(is.character, as.factor)
 
+# Transform nuts3regioninfo
+nuts3regioninfo <- nuts3regioninfo %>%
+  mutate(
+    NUTS1Name = fct_recode(
+      NUTS1Name,
+      "Schleswig Holstein" = "Schleswig-Holstein",
+      "Baden-Württemberg" = "Baden-Württemberg",
+      "Hamburg" = "Hamburg",
+      "Lower Saxony" = "Niedersachsen",
+      "Bavaria" = "Bayern",
+      "Bremen" = "Bremen",
+      "Northrhine-Westphalia" = "Nordrhein-Westfalen",
+      "Hesse" = "Hessen",
+      "Berlin" = "Berlin",
+      "Brandenburg" = "Brandenburg",
+      "Rhineland Palatinate" = "Rheinland-Pfalz",
+      "Mecklenburg Western Pomerania" = "Mecklenburg-Vorpommern",
+      "Saarland" = "Saarland",
+      "Saxony" = "Sachsen",
+      "Saxony-Anhalt" = "Sachsen-Anhalt",
+      "Thuringia" = "Thüringen",
+    )
+  )
+
+nuts3regioninfo <- nuts3regioninfo %>%
+  mutate(
+    NUTS3Type = fct_recode(
+      NUTS3Type,
+      "District" = "Kreis",
+      "Urban district" = "Kreisfreie Stadt",
+      "Urban district" = "Stadtkreis",
+      "Rural district" = "Landkreis",
+      "Regional association" = "Regionalverband"
+    )
+  )
+
 
 # Calculate the regions with the max and min heat pump amount
 nuts3_heat_pump_distribution <-
@@ -30,7 +66,7 @@ nuts3_heat_pump_distribution <-
     "GSHP Probe" = sum(HPAmountProbe),
     "GSHP Collector" = sum(HPAmountCollector)
   ) %>%
-  mutate(HPSum = ASHP + `GSHP Probe` + `GSHP Collector` )
+  mutate(HPSum = ASHP + `GSHP Probe` + `GSHP Collector`)
 
 nuts3_heat_pump_distribution_min_five <-
   nuts3_heat_pump_distribution %>%
@@ -64,7 +100,7 @@ nuts3_heat_pump_distribution_min_max_five <-
 bar_chart_hp_amount_min_max_five <-
   ggplot(data = nuts3_heat_pump_distribution_min_max_five) +
   geom_bar(mapping = aes(
-    x = reorder(NUTS3Name,-Amount),
+    x = reorder(NUTS3Name, -Amount),
     y = Amount,
     fill = factor(Type,
                   level = c("GSHP Collector",
@@ -83,17 +119,14 @@ bar_chart_hp_amount_min_max_five
 
 
 # Calculate the heat pump amount on a federal state basis
-heat_pump_distribution_federal_states <- nuts3_heat_pump_distribution %>%
+heat_pump_distribution_federal_states <-
+  nuts3_heat_pump_distribution %>%
   left_join(nuts3regioninfo, by = c("NUTS3Code")) %>%
-  select(
-    c(
-      "ASHP",
-      "GSHP Probe",
-      "GSHP Collector",
-      "HPSum",
-      "NUTS1Name"
-    )
-  ) %>%
+  select(c("ASHP",
+           "GSHP Probe",
+           "GSHP Collector",
+           "HPSum",
+           "NUTS1Name")) %>%
   group_by(NUTS1Name) %>%
   summarise(
     "ASHP" = sum(ASHP),
@@ -102,7 +135,8 @@ heat_pump_distribution_federal_states <- nuts3_heat_pump_distribution %>%
     "HPSum" = sum(HPSum)
   )
 
-heat_pump_distribution_federal_states <- heat_pump_distribution_federal_states %>%
+heat_pump_distribution_federal_states <-
+  heat_pump_distribution_federal_states %>%
   gather("Type", "Amount", 2:4)
 
 
@@ -111,7 +145,7 @@ heat_pump_distribution_federal_states <- heat_pump_distribution_federal_states %
 bar_chart_hp_per_federal_state <-
   ggplot(data = heat_pump_distribution_federal_states) +
   geom_bar(mapping = aes(
-    x = reorder(NUTS1Name,-Amount),
+    x = reorder(NUTS1Name, -Amount),
     y = Amount,
     fill = factor(Type,
                   level = c("GSHP Collector",
