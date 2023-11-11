@@ -5,8 +5,6 @@ library("dplyr")
 
 
 # Read data
-summary(loadprofile_ashp_space_heat_only_hot)
-
 eh_loadprofile_ashp_space_heat_only_hot <-
   read_csv2("data/output/loadprofile/eh_loadprofile_gshp_probe_space_heat_only_hot.csv") %>%
   select(
@@ -37,9 +35,6 @@ eh_loadprofile_ashp_space_heat_only_hot <-
     "EH_COPHPReal_2012_2022_hot" = "COPHPReal_2012_2022_hot",
     "EH_COPHPReal_2023_2030_hot" = "COPHPReal_2023_2030_hot"
   ) %>% mutate_if(is.character, as.factor)
-
-
-summary(eh_loadprofile_ashp_space_heat_only_hot)
 
 
 mh_loadprofile_ashp_space_heat_only_hot <-
