@@ -16,7 +16,7 @@ nuts3regioninfo <-
       "Regional association" = "Regionalverband"
     ),
     NUTS3Name = paste(gsub(",.*", "", NUTS3Name), NUTS3Type, sep = ", ")
-    ) %>%
+  ) %>%
   select(c("NUTS3Code", "NUTS3Name"))
 
 
@@ -51,14 +51,14 @@ regions_electricity_demand_space_heat_only_hot_iso <-
     "data/output/findings/electricity-demand-nuts3/regions_electricity_demand_space_heat_only_hot_iso.csv"
   )
 
-# Calculate the 10 NUTS 3 regions with the highest annual heat pump electricity demand for space heating and hot water
+# Calculate the 5 NUTS 3 regions with the lowest and the 5 NUTS 3 regions with the highest max hourly heat pump electricity demand for space heating and hot water
 
 # Reference year
 regions_electricity_demand_reference <-
   regions_electricity_demand_reference_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_and_hw_reference <-
@@ -80,7 +80,7 @@ regions_electricity_demand_cold <-
   regions_electricity_demand_cold_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_and_hw_cold <-
@@ -102,7 +102,7 @@ regions_electricity_demand_hot <-
   regions_electricity_demand_hot_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_and_hw_hot <-
@@ -120,14 +120,14 @@ highest_lowest_regions_electricity_demand_sh_and_hw_hot <-
   rbind(lowest_regions_electricity_demand_sh_and_hw_hot)
 
 
-# Calculate the 10 NUTS 3 regions with the highest annual heat pump electricity demand for space heating only
+# Calculate the 5 NUTS 3 regions with the lowest and the 5 NUTS 3 regions with the highest max hourly heat pump electricity demand for space heating only
 
 # Reference year
 regions_electricity_demand_space_heat_only_reference <-
   regions_electricity_demand_space_heat_only_reference_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_only_reference <-
@@ -149,7 +149,7 @@ regions_electricity_demand_space_heat_only_cold <-
   regions_electricity_demand_space_heat_only_cold_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_only_cold <-
@@ -171,7 +171,7 @@ regions_electricity_demand_space_heat_only_hot <-
   regions_electricity_demand_space_heat_only_hot_iso %>%
   select(-c("date_iso")) %>%
   group_by(nuts3_code) %>%
-  summarise("Electricity demand" = sum(hourly_electricity_demand),
+  summarise("Electricity demand" = max(hourly_electricity_demand),
             .groups = "drop")
 
 highest_regions_electricity_demand_sh_only_hot <-
@@ -209,22 +209,22 @@ highest_lowest_regions_electricity_demand_sh_and_hw <-
   rbind(highest_lowest_regions_electricity_demand_sh_and_hw_cold) %>%
   rbind(highest_lowest_regions_electricity_demand_sh_and_hw_hot)
 
-highest_lowest_regions_annual_electricity_demand_sh_and_hw_plot <-
+highest_lowest_regions_max_hourly_electricity_demand_sh_and_hw_plot <-
   ggplot(
     data = highest_lowest_regions_electricity_demand_sh_and_hw,
     aes(
-      x = `Electricity demand` / 1000000,
+      x = `Electricity demand` / 1000,
       y = reorder(NUTS3Name,-`Electricity demand`)
     )
   ) +
   geom_bar(stat = "identity") +
-  coord_cartesian(xlim = c(0, 1250)) +
+  coord_cartesian(xlim = c(0, 1000)) +
   facet_wrap(~Year, ncol = 1) +
-  labs(x = "Electricity demand in GWh",
+  labs(x = "Electricity demand in MWh",
        y = "NUTS-3 Name")
 
 
-highest_lowest_regions_annual_electricity_demand_sh_and_hw_plot
+highest_lowest_regions_max_hourly_electricity_demand_sh_and_hw_plot
 
 
 # Space heating only
@@ -245,35 +245,35 @@ highest_lowest_regions_electricity_demand_sh_only <-
   rbind(highest_lowest_regions_electricity_demand_sh_only_cold) %>%
   rbind(highest_lowest_regions_electricity_demand_sh_only_hot)
 
-highest_lowest_regions_annual_electricity_demand_sh_only_plot <-
+highest_lowest_regions_max_hourly_electricity_demand_sh_only_plot <-
   ggplot(
     data = highest_lowest_regions_electricity_demand_sh_only,
     aes(
-      x = `Electricity demand` / 1000000,
+      x = `Electricity demand` / 1000,
       y = reorder(NUTS3Name,-`Electricity demand`)
     )
   ) +
   geom_bar(stat = "identity") +
-  coord_cartesian(xlim = c(0, 1250)) +
+  coord_cartesian(xlim = c(0, 1000)) +
   facet_wrap(~Year, ncol = 1) +
-  labs(x = "Electricity demand in GWh",
+  labs(x = "Electricity demand in MWh",
        y = "NUTS-3 Name")
 
 
-highest_lowest_regions_annual_electricity_demand_sh_only_plot
+highest_lowest_regions_max_hourly_electricity_demand_sh_only_plot
 
 
 # Save the plots
 ggsave(
-  "plots/output/regionselectricitydemand/annualelectricitydemandnuts3highestlowest10/highest_lowest_regions_annual_electricity_demand_sh_and_hw_plot.png",
-  highest_lowest_regions_annual_electricity_demand_sh_and_hw_plot,
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandnuts3highestlowest10/highest_lowest_regions_max_hourly_electricity_demand_sh_and_hw_plot.png",
+  highest_lowest_regions_max_hourly_electricity_demand_sh_and_hw_plot,
   width = 30,
   units = "cm"
 )
 
 ggsave(
-  "plots/output/regionselectricitydemand/annualelectricitydemandnuts3highestlowest10/highest_lowest_regions_annual_electricity_demand_sh_only_plot.png",
-  highest_lowest_regions_annual_electricity_demand_sh_only_plot,
+  "plots/output/regionselectricitydemand/maxhourlyelectricitydemandnuts3highestlowest10/highest_lowest_regions_max_hourly_electricity_demand_sh_only_plot.png",
+  highest_lowest_regions_max_hourly_electricity_demand_sh_only_plot,
   width = 30,
   units = "cm"
 )

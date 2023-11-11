@@ -156,7 +156,7 @@ weather_data_hot <- weather_data_hot %>%
 # The degree of the slope per building is determined by the maximum space heating demand per m2
 # https://www.viessmann.de/de/wissen/anleitungen-und-tipps/heizkurve-einstellen.html
 # The level is zero and the target room temperature 293.15K
-# Calculation of flow temperatur based on:
+# Calculation of flow temperature based on:
 # https://www.viessmann-community.com/t5/Gas/Mathematische-Formel-fuer-Vorlauftemperatur-aus-den-vier/td-p/68843#:~:text=Zu%20dem%20Ansatz%20V%20%3D%20T,den%20Angaben%20der%20Anlage%20%C3%BCbereinstimmen.&text=Gel%C3%B6st!
 eh_combined_heat_demand_reference <- eh_combined_heat_demand_reference %>%
   mutate(

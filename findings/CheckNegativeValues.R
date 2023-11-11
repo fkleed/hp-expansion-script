@@ -83,63 +83,63 @@ loadprofile_ashp_space_heat_only_hot <-
 test <- loadprofile_ashp_space_heat_only_hot %>%
   filter(
     EH_COPHPReal_beginn_1918_hot <= 0 |
-      EH_COPHPReal_beginn_1918_hot > 15 |
+      EH_COPHPReal_beginn_1918_hot > 8 |
       is.na(EH_COPHPReal_beginn_1918_hot) |
       EH_COPHPReal_1919_1948_hot <= 0 |
-      EH_COPHPReal_1919_1948_hot > 15 |
+      EH_COPHPReal_1919_1948_hot > 8 |
       is.na(EH_COPHPReal_1919_1948_hot) |
       EH_COPHPReal_1949_1978_hot <= 0 |
-      EH_COPHPReal_1949_1978_hot > 15 |
+      EH_COPHPReal_1949_1978_hot > 8 |
       is.na(EH_COPHPReal_1949_1978_hot) |
       EH_COPHPReal_1979_1986_hot <= 0 |
-      EH_COPHPReal_1979_1986_hot > 15 |
+      EH_COPHPReal_1979_1986_hot > 8 |
       is.na(EH_COPHPReal_1979_1986_hot) |
       EH_COPHPReal_1987_1990_hot <= 0 |
-      EH_COPHPReal_1987_1990_hot > 15 |
+      EH_COPHPReal_1987_1990_hot > 8 |
       is.na(EH_COPHPReal_1987_1990_hot) |
       EH_COPHPReal_1991_1995_hot <= 0 |
-      EH_COPHPReal_1991_1995_hot > 15 |
+      EH_COPHPReal_1991_1995_hot > 8 |
       is.na(EH_COPHPReal_1991_1995_hot) |
       EH_COPHPReal_1996_2000_hot <= 0 |
-      EH_COPHPReal_1996_2000_hot > 15 |
+      EH_COPHPReal_1996_2000_hot > 8 |
       is.na(EH_COPHPReal_1996_2000_hot) |
       EH_COPHPReal_2001_2011_hot <= 0 |
-      EH_COPHPReal_2001_2011_hot > 15 |
+      EH_COPHPReal_2001_2011_hot > 8 |
       is.na(EH_COPHPReal_2001_2011_hot) |
       EH_COPHPReal_2012_2022_hot <= 0 |
-      EH_COPHPReal_2012_2022_hot > 15 |
+      EH_COPHPReal_2012_2022_hot > 8 |
       is.na(EH_COPHPReal_2012_2022_hot) |
       EH_COPHPReal_2023_2030_hot <= 0 |
-      EH_COPHPReal_2023_2030_hot > 15 |
+      EH_COPHPReal_2023_2030_hot > 8 |
       is.na(EH_COPHPReal_2023_2030_hot) |
       MH_COPHPReal_beginn_1918_hot <= 0 |
-      MH_COPHPReal_beginn_1918_hot > 15 |
+      MH_COPHPReal_beginn_1918_hot > 8 |
       is.na(MH_COPHPReal_beginn_1918_hot) |
       MH_COPHPReal_1919_1948_hot <= 0 |
-      MH_COPHPReal_1919_1948_hot > 15 |
+      MH_COPHPReal_1919_1948_hot > 8 |
       is.na(MH_COPHPReal_1919_1948_hot) |
       MH_COPHPReal_1949_1978_hot <= 0 |
-      MH_COPHPReal_1949_1978_hot > 15 |
+      MH_COPHPReal_1949_1978_hot > 8 |
       is.na(MH_COPHPReal_1949_1978_hot) |
       MH_COPHPReal_1979_1986_hot <= 0 |
-      MH_COPHPReal_1979_1986_hot > 15 |
+      MH_COPHPReal_1979_1986_hot > 8 |
       is.na(MH_COPHPReal_1979_1986_hot) |
       MH_COPHPReal_1987_1990_hot <= 0 |
-      MH_COPHPReal_1987_1990_hot > 15 |
+      MH_COPHPReal_1987_1990_hot > 8 |
       is.na(MH_COPHPReal_1987_1990_hot) |
       MH_COPHPReal_1991_1995_hot <= 0 |
-      MH_COPHPReal_1991_1995_hot > 15 |
+      MH_COPHPReal_1991_1995_hot > 8 |
       is.na(MH_COPHPReal_1991_1995_hot) |
       MH_COPHPReal_1996_2000_hot <= 0 |
-      MH_COPHPReal_1996_2000_hot > 15 |
+      MH_COPHPReal_1996_2000_hot > 8 |
       is.na(MH_COPHPReal_1996_2000_hot) |
       MH_COPHPReal_2001_2011_hot <= 0 |
-      MH_COPHPReal_2001_2011_hot > 15 |
+      MH_COPHPReal_2001_2011_hot > 8 |
       is.na(MH_COPHPReal_2001_2011_hot) |
       MH_COPHPReal_2012_2022_hot <= 0 |
-      MH_COPHPReal_2012_2022_hot > 15 |
+      MH_COPHPReal_2012_2022_hot > 8 |
       is.na(MH_COPHPReal_2012_2022_hot) |
       MH_COPHPReal_2023_2030_hot <= 0 |
-      MH_COPHPReal_2023_2030_hot > 15 |
+      MH_COPHPReal_2023_2030_hot > 8 |
       is.na(MH_COPHPReal_2023_2030_hot)
   )
